@@ -165,7 +165,7 @@ So we solved 1 problem (we now have links), but what happens to our NavBar? ....
 
 #### Step 4: IndexRoute
 
-So lets analyze this. We have 3 routesj
+So lets analyze this. We have 3 routes
 
 ```
 /
