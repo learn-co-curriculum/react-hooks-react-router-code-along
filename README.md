@@ -14,7 +14,7 @@ React Routers documentation states:
 > React Router is a complete routing library for React.
 React Router keeps your UI in sync with the URL. It has a simple API with powerful features like lazy code loading, dynamic route matching, and location transition handling built right in. Make the URL your first thought, not an after-thought.
 
-This is what React Router does best, it abstracts away the complex logic and make your routing declarative (like React). This opens up your ability to create more intuitive application with React.
+This is what React Router does best, it abstracts away the complex logic and makes your routing declarative (like React). This opens up your ability to create more intuitive applications with React.
 
 For this README we will be building our first Component routes as a Code Along
 
@@ -51,9 +51,9 @@ render((
 
 The above code is Rendering the main `Router` component, as well as the `Route` component. You will notice that the `Route` is taking in two props: `path` and `component`. The `path` is going to be the URL that you want this to route to be defined as and the `component` will be the component that this route loads.
 
-Let open up the browser and go to http://localhost:3000.
+Lets open up the browser and go to http://localhost:3000.
 
-You should see an `<h1>` tag with `First Route`, but you might be wondering why you see a ugly string after the `/#/`. Well if you remember we imported the module __hashHistory__ from React Router, and injected it into a prop for history. This is a module that handles the the routing history. It stores the hash portion of the url so that it can emulate the same behavior that you get from a browser natively when you use URLs. This allows us to access to a stored state of history so that if you refresh the page it takes you to the same route and not to the `'/'` every time.
+You should see an `<h1>` tag with `First Route`, but you might be wondering why you see a ugly string after the `/#/`. Well if you remember we imported the module __hashHistory__ from React Router, and injected it into a prop for history. This is a module that handles the the routing history. It stores the hash portion of the url so that it can emulate the same behavior that you get from a browser natively when you use URLs. This allows us access to a stored state of history so that if you refresh the page it takes you to the same route and not to the `'/'` every time.
 
 #### Step 2: Adding More Routes
 
@@ -116,7 +116,7 @@ Pretty cool right?
 
 #### Step 3: Linking our URLs
 
-We have know successfully created 3 routes
+We have now successfully created 3 routes
 
 ```
 /
@@ -126,7 +126,7 @@ We have know successfully created 3 routes
 
 But how do we create links?
 
-Well know it is time to introduce a new React Router module to our team, __Link__. __Link__ is a component that takes in a propType of `to`. This propType of `to` is where we name a route that matches what we have in our Route component. For example if we have `<Route path="/favoriteMovies" />` then we would have a corresponding __Link__ component `<Link to="/favoriteMovies">Movies</Link>`. Lets go ahead and create a basic NavBar Component for our application.
+Well now it is time to introduce a new React Router module to our team, __Link__. __Link__ is a component that takes in a propType of `to`. This propType of `to` is where we name a route that matches what we have in our Route component. For example, if we have `<Route path="/favoriteMovies" />` then we would have a corresponding __Link__ component `<Link to="/favoriteMovies">Movies</Link>`. Lets go ahead and create a basic NavBar Component for our application.
 
 ```javascript
 // src/index.js
@@ -161,11 +161,11 @@ const NavBar = () => {
 
 So if we load up http://localhost:3000 we should now see our links. Click on a link and see what happens.
 
-So we solved 1 problem (we know have links), but what happens to our NavBar? ......
+So we solved 1 problem (we now have links), but what happens to our NavBar? ......
 
 #### Step 4: IndexRoute
 
-So lets analyze this. We have 3 routes
+So lets analyze this. We have 3 routesj
 
 ```
 /
