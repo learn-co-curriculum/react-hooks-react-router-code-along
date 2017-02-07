@@ -141,7 +141,7 @@ Now, if you boot up the application, you see that when visiting localhost:8080/h
 
 ## Summary
 
-React router allows our react-redux applications to display specific components depending on the browser's url.  To implement react-router, we no longer directly pass a component like App to the ReactDOM.render function, and instead pass the Router component.  The Router sets the configuration for what will be displayed.  It wraps a specific route component.  
+React router allows our react-redux applications to display specific components depending on the browser's url.  To implement react-router, we no longer directly pass a component like App to the ReactDOM.render function, and instead pass the Router component.  The Router sets the configuration for what will be displayed.  It wraps a specific Route component.  The Route component specifies the path prop and the component prop, which says what component to render upon visiting a specific path.  
 
 ## Resources
 * [Ember Core Concepts](https://guides.emberjs.com/v1.10.0/concepts/core-concepts/)
