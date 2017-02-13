@@ -92,8 +92,8 @@ const App = () => {
     )
 }
 
+// change browserHistory to hashHistory
 ReactDOM.render((
-  // 2. change browserHistory to hashHistory
     <Router history={hashHistory}>
         <Route path="/home" component={App} />
     </Router>
@@ -125,13 +125,14 @@ const Users = () => {
     )
 }
 
+// 2. change back to browserHistory
+    // add root path so that it renders App
+    // add users path so that it renders Users
 ReactDOM.render((
-  // 2. change back to browserHistory
+
     <Router history={browserHistory}>
-        // add root path renders App
         <Route path="/" component={App} />
         <Route path="/home" component={App} />
-        // add users path renders Users
         <Route path="/users" component={Users} />
     </Router>
 ), document.getElementById('container'))
@@ -139,9 +140,46 @@ ReactDOM.render((
 
 Now, if you boot up the application, you see that when visiting localhost:8080/home the App component displays.  When visiting localhost:8080 the App component displays again.  When visting localhost:8080/users the Users component displays.  If a user visits any other url, nothing displays.
 
+### Adding in Links
+
+Now we know that the normal way we interact with an application is not by manually typing in different urls, but by clicking on different buttons, and having them change the url in the browser.  Whenever, we think about our React application interacting with the url, we should think that the react-router library has us covered.  Indeed it does.  We import a Link component from the react-router library, and specify which url the component should point us to when clicked.  
+
+So now we would update our application to the following:
+
+```javascript
+import React from 'react'
+import ReactDOM from 'react-dom'
+import { Router, Route, browserHistory, Link } from 'react-router'
+
+const App = () => {
+    return (
+        <div>
+          <Link to="/users">Users</Link>
+          <h1>Our App Component</h1>
+        </div>
+    )
+}
+
+const Users = () => {
+    return (
+        <div><h1>Users</h1></div>
+    )
+}
+
+ReactDOM.render((
+    <Router history={browserHistory}>
+        <Route path="/" component={App} />
+        <Route path="/home" component={App} />
+        <Route path="/users" component={Users} />
+    </Router>
+), document.getElementById('container'))
+```
+
+After doing so, you can see that starting off at the root url renders our App component, which displays a link to take us to our users component.  Because we set the `to` prop to point us towards the `/users` url, we see that upon clicking on the Link that says users we are taken to that url, and our Users component renders.
+
 ## Summary
 
-React router allows our react-redux applications to display specific components depending on the browser's url.  To implement react-router, we no longer directly pass a component like App to the ReactDOM.render function, and instead pass the Router component.  The Router sets the configuration for what will be displayed.  It wraps a specific Route component.  The Route component specifies the path prop and the component prop, which says what component to render upon visiting a specific path.  
+React router allows our react-redux applications to display specific components depending on the browser's url.  To implement react-router, we no longer directly pass a component like App to the ReactDOM.render function, and instead pass the Router component.  The Router sets the configuration for what will be displayed.  It wraps a specific Route component.  The Route component specifies the path prop and the component prop, which says what component to render upon visiting a specific path.  We also saw that the Link component allows the user to request a specific path upon clicking on a Link component.  
 
 ## Resources
 * [Ember Core Concepts](https://guides.emberjs.com/v1.10.0/concepts/core-concepts/)
