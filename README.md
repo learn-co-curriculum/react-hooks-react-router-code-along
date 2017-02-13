@@ -65,7 +65,7 @@ ReactDOM.render((
 ), document.getElementById('container'))
 
 ```
-Step 1: There are three methods that we are importing from react-router.  We use them in turn.  
+Step 1: In Step 1 above, there are three methods that we are importing from react-router.  We use them in turn.  
 
 Step 2: Let's put browserHistory aside for now, and instead focus on Router and Route.  The router component is our outermost component in our application.  It is where we declare how we will be using react-router.  For example, notice that nested inside the Router component we use the route component.  Now the route component is in charge of saying, when the url matches the the specified path, render the specified component.  So in the index.js file, it states when the route is the root url followed by /home, display the App component.
 
