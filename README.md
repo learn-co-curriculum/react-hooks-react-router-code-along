@@ -87,9 +87,287 @@ Step 2: The __Router__ (aka BrowserRouter) component is the base for our apps ro
 
 Let's try it. Run npm start to boot up the application and then go to localhost:3000 again. What you'll notice is that when you type in the url; it will render the `<div>Home</div>`.
 
-<!--TODO-->
-<!--more routes for more components-->
-<!--NavLinks-->
+#### Adding Additional Routes
+
+In the last two steps we learned how to set up the basic __Router__ component inject our very first __Route__ component. Let's continue down the rabit hole and add routes for an __about__ page and a __login__ page. 
+
+In our `/src/index.js file we have the following code: 
+
+```javascript 
+// ./src/index.js
+
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+
+const App = () => {
+  return (
+    <div>
+      <Router>
+        <Route exact path="/" render={() => <h1>Home</h1>} />
+      </Router>
+    </div>
+  );
+};
+
+ReactDOM.render(
+  <App />, 
+  document.getElementById('root')
+);
+```
+
+Let's add our `/about` and `/login` routes
+
+```javascript 
+// ./src/index.js
+
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+
+const App = () => {
+  return (
+    <div>
+      <Router>
+        <Route exact path="/" render={() => <h1>Home</h1>} />
+        {/* add in this code */}
+        <Route exact path="/about" render={() => <h1>About</h1>} />
+        <Route exact path="/login" render={() => 
+          <div>
+            <form>
+              <div>
+                <input type="text" name="username" placeholder="Username" />
+                <label htmlFor="username">Username</label>
+              </div>
+              <div>
+                <input type="password" name="password" placeholder="Password" />
+                <label htmlFor="password">Password</label>
+              </div>
+              <input type="submit" value="Login" />
+            </form>
+          </div>
+        } />
+      </Router>
+    </div>
+  );
+};
+
+ReactDOM.render(
+  <App />, 
+  document.getElementById('root')
+);
+```
+
+Reload your browser and look at our beautiful routes, but..... oh wait..... Where is the rendered content!?!?
+
+If you open up your browser dev tools console You should be seeing the error: `Uncaught Error: A <Router> may have only one child element`. What does this mean. Well a __Router__ component can only have one child, but we just add in 3 children to the __Router__ component. To remedy this problem we need to place all of the __Route__ component into a `<div>` tag. Lets take the parent `<div>` tag and nest it inside of the __Router__ component instead like this: 
+
+```javascript 
+return (
+  <Router>
+    {/* move the <div> tag to be nested inside of the <Router> component */}
+    <div>
+      <Route exact path="/" render={() => <h1>Home</h1>} />
+      
+      <Route exact path="/about" render={() => <h1>About</h1>} />
+      <Route exact path="/login" render={() => 
+        <div>
+          <h1>Login</h1>
+          <form>
+            <div>
+              <input type="text" name="username" placeholder="Username" />
+              <label htmlFor="username">Username</label>
+            </div>
+            <div>
+              <input type="password" name="password" placeholder="Password" />
+              <label htmlFor="password">Password</label>
+            </div>
+            <input type="submit" value="Login" />
+          </form>
+        </div>
+      } />
+    </div>
+  </Router>
+);
+```
+
+Let's go back to the browser and manualy type in the url locations for `/, /about & /login`. Do you see the rendered h1 tags for the `/` and `/about` urls? What about the form when you go to `/login`. 
+
+So lets take a look at what we have done so far. We added in `react-router-dom` to our `index.js` and we imported the __BrowserRouter as Router__ & the __Route__ components. After importing these into the file we returned the __Router__ component as the top level tag in our __JSX__ return statement with a proceding __div__ tag that contained our 3 routes. Each route is doing 3 things right now:
+  - setting a path `path="/about"
+  - passing a arrow function inside of a `render` prop to render some __JSX__
+  - setting an attribute of exact, which explicitly states that you will only see the rendered JSX if you go to `/about` not `/about/something_else`. 
+
+We have made great progress, but this doesn't seem like it is managable long term. What if we have 20 routes, do we render the __JSX__ inline for each __Route__? We should fix that. 
+
+#### Components as Props 
+
+In the step we just used the `render` prop to invoke some __JSX__ code to be rendered. We want to make our code reusable and less britle. Let's move this code into small components and inject them into the `render` prop. 
+
+```javascript 
+// ./src/index.js 
+
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+
+const Home = () => <h1>Home</h1>;
+
+const About = () => <h1>About</h1>;
+
+const Login = () => 
+  <div>
+    <h1>Login</h1>
+    <form>
+      <div>
+        <input type="text" name="username" placeholder="Username" />
+        <label htmlFor="username">Username</label>
+      </div>
+      <div>
+        <input type="password" name="password" placeholder="Password" />
+        <label htmlFor="password">Password</label>
+      </div>
+      <input type="submit" value="Login" />
+    </form>
+  </div>;
+
+const App = () => {
+  return (
+    <Router>
+      <div>
+        <Route exact path="/" render={Home} />
+        <Route exact path="/about" render={About} />
+        <Route exact path="/login" render={Login} />
+      </div>
+    </Router>
+  );
+};
+
+ReactDOM.render(
+  <App />, 
+  document.getElementById('root')
+);
+```
+
+After your finished, refresh the browser and verify that it is still working. So before we congratulate ourselves yet go take a look at the __Route__ component documentation and see if there is a prop that is better suited for this. 
+
+https://reacttraining.com/react-router/web/api/Route
+
+Yep, that is right! The __Route__ component API has a prop called `component`. This is more declaritive and it also uses the `React.createElement` instead of inline __JSX__ injection. We should change our code to use this now. 
+
+```javascript 
+<Router>
+  <div>
+    <Route exact path="/" component={Home} />
+    <Route exact path="/about" component={About} />
+    <Route exact path="/login" component={Login} />
+  </div>
+</Router>
+```
+
+You can verify that everything is working as it should, in the browser. 
+
+So now we have a __Router__ component with __Routes__ that invoke components. What are we missing?
+
+#### NavLinks 
+
+What good are routes, if users don't know how to find them or what they are? 
+
+The React Router API comes with two options of adding in Links: __<Link>__ and __<NavLink>__. The both have the same base level functionality that will update the browser url and render the __Route__ component, but __<NavLink>__ comes with some additional features that are great for navbars like: 
+  - __activeClassName__ for when a link is active and you want additional styling using html classes.
+  - __activeStyle__ if you want to do inline styling.
+  - __isActive__ if you want to add aditional logic to your application to state which link is currently active. This prop can invoke a function call. `isActive={() => doSomething}`
+
+There are some additional attributes too, but those are the 3 to get comfortable with. 
+
+So now that we know what component to use lets add them into our application. 
+
+```javascript 
+import React from 'react';
+import ReactDOM from 'react-dom';
+/* Add NavLink to importer */
+import { BrowserRouter as Router, Route, NavLink } from 'react-router-dom';
+
+/* Add basic styling for NavLinks */
+const link = {
+  width: '100px',
+  padding: '12px',
+  margin: '0 6px 6px',
+  background: 'blue',
+  textDecoration: 'none',
+  color: 'white',
+}
+
+/* add the navbar component */
+const Navbar = () => 
+  <div>
+    <NavLink 
+      to="/"
+      /* set exact so it knows only to only set activeStyle when route is deeply equal to link */
+      exact
+      /* add styling to Navlink */
+      style={link}
+      /* add prop for activeStyle */
+      activeStyle={{
+        background: 'darkblue'
+      }}
+    >Home</NavLink>
+    <NavLink 
+      to="/about"
+      exact
+      style={link}
+      activeStyle={{
+        background: 'darkblue'
+      }}
+    >About</NavLink>
+    <NavLink 
+      to="/login"
+      exact
+      style={link}
+      activeStyle={{
+        background: 'darkblue'
+      }}
+    >Login</NavLink>
+  </div>;
+
+const Home = () => <h1>Home</h1>;
+
+const About = () => <h1>About</h1>;
+
+const Login = () => 
+  <form>
+    <h1>Login</h1>
+    <div>
+      <input type="text" name="username" placeholder="Username" />
+      <label htmlFor="username">Username</label>
+    </div>
+    <div>
+      <input type="password" name="password" placeholder="Password" />
+      <label htmlFor="password">Password</label>
+    </div>
+    <input type="submit" value="Login" />
+  </form>;
+
+const App = () => {
+  return (
+    <Router>
+      <div>
+        <Navbar />
+        <Route exact path="/" render={Home} />
+        <Route exact path="/about" render={About} />
+        <Route exact path="/login" render={Login} />
+      </div>
+    </Router>
+  );
+};
+
+ReactDOM.render(
+  <App />, 
+  document.getElementById('root')
+);
+```
+
+Load up the browser again and you should see beautiful blue navlinks that load up the desired component. To get more comfortable, I would recommend implementing `/signup` and `/messages` routes that load in compnents, also make sure to add in some __NavLinks__.
 
 
 ## Resources
