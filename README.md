@@ -8,14 +8,13 @@
 
 ### A complicated world needs an address
 
-So far, we have been building our applications without any navigation. What we mean, is that so far everything on our page has lived on the same url. Now we can make it look like we are changing the page, by showing or hiding some components, but none of these changes are dependent on a change in the url.
+So far, we have been building our applications without any navigation, so far everything in the app has lived at the same url. Now we can make it look like we are changing the page, by showing or hiding some components, but none of these changes are dependent on a change in the url.
 
 Now this may seem like a small quibble, but web addresses are the backbone of the Internet. Think about it, the web is just a series of links to other pages. And now instead of sharing a link to a list of users, we currently only provide a link to our homepage, and then would require some showing or hiding to a list of users.
 
 __React Router__ is a routing library for __React__ that allows us to link to specific urls then show or hide various components depending on which url is displayed. As React Router's documentation states:
 
 > Components are the heart of React's powerful, declarative programming model. React Router is a collection of navigational components that compose declaratively with your application. Whether you want to have bookmarkable URLs for your web app or a composable way to navigate in React Native, React Router works wherever React is rendering--so take your pick!
-
 
 For this README we will be building our first Component routes as a Code Along
 
@@ -74,7 +73,7 @@ const App = () => {
 
 // Step 2. Changed to have router coordinate what is displayed
 ReactDOM.render((
-  <Router history={browserHistory}>
+  <Router>
     <Route path="/home" component={App} />
   </Router>), 
   document.getElementById('container')
@@ -83,13 +82,13 @@ ReactDOM.render((
 
 Step 1: In Step 1 above, there are two components that we are importing from __React Router__. We use them in turn.  
 
-Step 2: The __Router__ (aka BrowserRouter) component is the base for our apps routing. It is where we declare how we will be using __React Router__. For example, notice that nested inside the __Router__ component we use the __Route__ component. Now the __Route__ component is in charge of saying, when the url matches this specified path, render this specified component. We are using the `render` prop in the `Route` component, but we could have used `component={Home}` instead. With `render` we are just invoking a function call to render `<div>Home</div>`.
+Step 2: The __Router__ (aka BrowserRouter) component is the base for our apps routing. It is where we declare how __React Router__ will be used. For example, notice that nested inside the __Router__ component we use the __Route__ component. The __Route__ component is in charge of saying, when the url matches this specified path, render this specified component. We are using the `render` prop in the `Route` component, but we could have used `component={Home}` instead. With `render` we are just invoking a function call to render `<div>Home</div>`.
 
-Let's try it. Run npm start to boot up the application and then go to localhost:3000 again. What you'll notice is that when you type in the url; it will render the `<div>Home</div>`.
+Let's try it. Run npm start to boot up the application and then point your url to localhost:3000. What you'll notice is that when you type in the url; it will render a `<div>Home</div>`.
 
 #### Adding Additional Routes
 
-In the last two steps we learned how to set up the basic __Router__ component inject our very first __Route__ component. Let's continue down the rabit hole and add routes for an __about__ page and a __login__ page. 
+In the last two steps we learned how to set up the basic __Router__ component and inject our very first __Route__ component. Let's continue down the rabit hole and add routes for an __about__ page and a __login__ page. 
 
 In our `/src/index.js file we have the following code: 
 
@@ -158,9 +157,9 @@ ReactDOM.render(
 );
 ```
 
-Reload your browser and look at our beautiful routes, but..... oh wait..... Where is the rendered content!?!?
+Reload your browser and look at our beautiful routes, but..... oh wait....?!?! Where is the rendered content?
 
-If you open up your browser dev tools console You should be seeing the error: `Uncaught Error: A <Router> may have only one child element`. What does this mean. Well a __Router__ component can only have one child, but we just add in 3 children to the __Router__ component. To remedy this problem we need to place all of the __Route__ component into a `<div>` tag. Lets take the parent `<div>` tag and nest it inside of the __Router__ component instead like this: 
+If you open up your browser dev tools console You should be seeing the error: `Uncaught Error: A <Router> may have only one child element`. What does this mean? Well a __Router__ component can only have one child, but we just gave it 3 children. To remedy this problem we need to place all of the __Route__ components into a `<div>` tag. Lets take the parent `<div>` tag and nest it inside of the __Router__ component instead like this: 
 
 ```javascript 
 return (
@@ -191,9 +190,9 @@ return (
 );
 ```
 
-Let's go back to the browser and manualy type in the url locations for `/, /about & /login`. Do you see the rendered h1 tags for the `/` and `/about` urls? What about the form when you go to `/login`. 
+Let's go back to the browser and manualy type in the url locations for `/, /about & /login`. Do you see the rendered h1 tags for the `/` and `/about` urls? What about the form when you go to `/login`? 
 
-So lets take a look at what we have done so far. We added in `react-router-dom` to our `index.js` and we imported the __BrowserRouter as Router__ & the __Route__ components. After importing these into the file we returned the __Router__ component as the top level tag in our __JSX__ return statement with a proceding __div__ tag that contained our 3 routes. Each route is doing 3 things right now:
+Just to recap what we have done so far: We imported the `react-router-dom` node module into our `index.js` with the __BrowserRouter as Router__ & the __Route__ components. After importing these into the file we returned the __Router__ component as the top level tag in our __JSX__ return statement with a proceding __div__ tag that contained our 3 children route components. Each route is doing 3 things right now:
   - setting a path `path="/about"
   - passing a arrow function inside of a `render` prop to render some __JSX__
   - setting an attribute of exact, which explicitly states that you will only see the rendered JSX if you go to `/about` not `/about/something_else`. 
@@ -202,7 +201,7 @@ We have made great progress, but this doesn't seem like it is managable long ter
 
 #### Components as Props 
 
-In the step we just used the `render` prop to invoke some __JSX__ code to be rendered. We want to make our code reusable and less britle. Let's move this code into small components and inject them into the `render` prop. 
+In the above step we just used the `render` prop to invoke some __JSX__ code to be rendered. This is great for small simple apps, but we want our code to be reusable and less britle. Let's move this code into small components and inject them into the `render` prop. 
 
 ```javascript 
 // ./src/index.js 
@@ -368,7 +367,6 @@ ReactDOM.render(
 ```
 
 Load up the browser again and you should see beautiful blue navlinks that load up the desired component. To get more comfortable, I would recommend implementing `/signup` and `/messages` routes that load in compnents, also make sure to add in some __NavLinks__.
-
 
 ## Resources
 * [React Router Tutorial](https://reacttraining.com/react-router/web/example/basic)
