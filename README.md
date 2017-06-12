@@ -8,7 +8,7 @@
 
 ### A complicated world needs an address
 
-So far, we have been building our applications without any navigation, so far everything in the app has lived at the same url. Now we can make it look like we are changing the page, by showing or hiding some components, but none of these changes are dependent on a change in the url.
+So far, we have been building our applications without any navigation, so everything in the app has lived at the same url. Now we can make it look like we are changing the page, by showing or hiding some components, but none of these changes are dependent on a change in the url.
 
 Now this may seem like a small quibble, but web addresses are the backbone of the Internet. Think about it, the web is just a series of links to other pages. And now instead of sharing a link to a list of users, we currently only provide a link to our homepage, and then would require some showing or hiding to a list of users.
 
@@ -65,8 +65,7 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 const App = () => {
   return (
     <div>
-      <Router>
-      </Router>
+      <h1>Home</h1>
     </div>
   );
 };
@@ -74,15 +73,15 @@ const App = () => {
 // Step 2. Changed to have router coordinate what is displayed
 ReactDOM.render((
   <Router>
-    <Route path="/home" component={App} />
+    <Route path="/" component={App} />
   </Router>), 
-  document.getElementById('container')
+  document.getElementById('root')
 );
 ```
 
 Step 1: In Step 1 above, there are two components that we are importing from __React Router__. We use them in turn.  
 
-Step 2: The __Router__ (aka BrowserRouter) component is the base for our apps routing. It is where we declare how __React Router__ will be used. For example, notice that nested inside the __Router__ component we use the __Route__ component. The __Route__ component is in charge of saying, when the url matches this specified path, render this specified component. We are using the `render` prop in the `Route` component, but we could have used `component={Home}` instead. With `render` we are just invoking a function call to render `<div>Home</div>`.
+Step 2: The __Router__ (aka BrowserRouter) component is the base for our apps routing. It is where we declare how __React Router__ will be used. For example, notice that nested inside the __Router__ component we use the __Route__ component. The __Route__ component is in charge of saying, when the url matches this specified path, render this specified component. We are using the `render` prop in the `Route` component, but we could have used `component={Home}` instead. With `render` we are just invoking a function call to render `<div><h1>Home</h1></div>`.
 
 Let's try it. Run npm start to boot up the application and then point your url to localhost:3000. What you'll notice is that when you type in the url; it will render a `<div>Home</div>`.
 
@@ -90,11 +89,10 @@ Let's try it. Run npm start to boot up the application and then point your url t
 
 In the last two steps we learned how to set up the basic __Router__ component and inject our very first __Route__ component. Let's continue down the rabit hole and add routes for an __about__ page and a __login__ page. 
 
-In our `/src/index.js file we have the following code: 
+In our `/src/index.js file we should now have the following code: 
 
 ```javascript 
 // ./src/index.js
-
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
