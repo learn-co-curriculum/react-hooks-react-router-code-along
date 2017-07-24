@@ -270,7 +270,7 @@ So now we have a __Router__ component with __Routes__ that invoke components. Wh
 
 What good are routes, if users don't know how to find them or what they are? 
 
-The React Router API comes with two options of adding in Links: __<Link>__ and __<NavLink>__. The both have the same base level functionality that will update the browser url and render the __Route__ component, but __<NavLink>__ comes with some additional features that are great for navbars like: 
+The React Router API comes with two options of adding in Links: __\<Link>__ and __\<NavLink>__. The both have the same base level functionality that will update the browser url and render the __Route__ component, but __\<NavLink>__ comes with some additional features that are great for navbars like: 
   - __activeClassName__ for when a link is active and you want additional styling using html classes.
   - __activeStyle__ if you want to do inline styling.
   - __isActive__ if you want to add aditional logic to your application to state which link is currently active. This prop can invoke a function call. `isActive={() => doSomething}`
