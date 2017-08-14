@@ -1,14 +1,10 @@
 {
-  "name": "stuff",
+  "name": "react-components-as-routes",
   "version": "0.1.0",
   "private": true,
   "devDependencies": {
-    "jsdom": "^9.9.1",
-    "mocha": "^3.2.0",
-    "react-addons-test-utils": "^15.4.2",
     "react-scripts": "0.9.0",
-    "sinon": "^1.17.6",
-    "webpack": "^1.14.0",
+    "webpack": "^2.2.0",
     "webpack-dev-server": "^1.16.2"
   },
   "dependencies": {
@@ -18,24 +14,17 @@
     "babel-preset-es2015": "^6.22.0",
     "babel-preset-react": "^6.22.0",
     "babel-preset-stage-0": "^6.22.0",
-    "chai": "^3.5.0",
     "cuid": "^1.3.8",
-    "enzyme": "^2.7.0",
-    "expect": "^1.20.2",
     "jquery": "^3.1.1",
     "react": "^15.4.2",
-    "react-addons-test-utils": "^15.4.2",
     "react-dom": "^15.4.2",
     "react-router-dom": "^4.0.0",
-    "sinon": "^1.17.7",
     "superagent": "^3.3.2"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "mocha test/root.js test/*.js",
     "dev:hot": "webpack-dev-server --hot --inline --progress --colors --watch --display-error-details --display-cached --content-base ./",
-    "test:watch": "npm run test -- --watch",
     "eject": "react-scripts eject"
   }
 }
