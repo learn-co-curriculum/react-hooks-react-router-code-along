@@ -81,13 +81,13 @@ ReactDOM.render((
 
 Step 1: In Step 1 above, there are two components that we are importing from __React Router__. We use them in turn.  
 
-Step 2: The __Router__ (aka BrowserRouter) component is the base for our apps routing. It is where we declare how __React Router__ will be used. For example, notice that nested inside the __Router__ component we use the __Route__ component. The __Route__ component is in charge of saying, when the url matches this specified path, render this specified component. We are using the `render` prop in the `Route` component, but we could have used `component={Home}` instead. With `render` we are just invoking a function call to render `<div><h1>Home</h1></div>`.
+Step 2: The __Router__ (aka BrowserRouter) component is the base for our app's routing. It is where we declare how __React Router__ will be used. For example, notice that nested inside the __Router__ component we use the __Route__ component. The __Route__ component is in charge of saying, when the url matches this specified path, render this specified component. We are using the `render` prop in the `Route` component, but we could have used `component={Home}` instead. With `render` we are just invoking a function call to render `<div><h1>Home</h1></div>`.
 
 Let's try it. Run npm start to boot up the application and then point your url to localhost:3000. What you'll notice is that when you type in the url; it will render a `<div>Home</div>`.
 
 #### Adding Additional Routes
 
-In the last two steps we learned how to set up the basic __Router__ component and inject our very first __Route__ component. Let's continue down the rabit hole and add routes for an __about__ page and a __login__ page. 
+In the last two steps we learned how to set up the basic __Router__ component and inject our very first __Route__ component. Let's continue down the rabbit hole and add routes for an __about__ page and a __login__ page. 
 
 In our `/src/index.js file we should now have the following code: 
 
@@ -188,7 +188,7 @@ return (
 );
 ```
 
-Let's go back to the browser and manualy type in the url locations for `/, /about & /login`. Do you see the rendered h1 tags for the `/` and `/about` urls? What about the form when you go to `/login`? 
+Let's go back to the browser and manually type in the url locations for `/, /about & /login`. Do you see the rendered h1 tags for the `/` and `/about` urls? What about the form when you go to `/login`? 
 
 Just to recap what we have done so far: We imported the `react-router-dom` node module into our `index.js` with the __BrowserRouter as Router__ & the __Route__ components. After importing these into the file we returned the __Router__ component as the top level tag in our __JSX__ return statement with a proceding __div__ tag that contained our 3 children route components. Each route is doing 3 things right now:
   - setting a path `path="/about"
@@ -246,11 +246,11 @@ ReactDOM.render(
 );
 ```
 
-After your finished, refresh the browser and verify that it is still working. So before we congratulate ourselves yet go take a look at the __Route__ component documentation and see if there is a prop that is better suited for this. 
+After you're finished, refresh the browser and verify that it is still working. So before we congratulate ourselves yet go take a look at the __Route__ component documentation and see if there is a prop that is better suited for this. 
 
 https://reacttraining.com/react-router/web/api/Route
 
-Yep, that is right! The __Route__ component API has a prop called `component`. This is more declaritive and it also uses the `React.createElement` instead of inline __JSX__ injection. We should change our code to use this now. 
+Yep, that is right! The __Route__ component API has a prop called `component`. This is more declarative and it also uses the `React.createElement` instead of inline __JSX__ injection. We should change our code to use this now. 
 
 ```javascript 
 <Router>
@@ -270,14 +270,14 @@ So now we have a __Router__ component with __Routes__ that invoke components. Wh
 
 What good are routes, if users don't know how to find them or what they are? 
 
-The React Router API comes with two options of adding in Links: __\<Link>__ and __\<NavLink>__. The both have the same base level functionality that will update the browser url and render the __Route__ component, but __\<NavLink>__ comes with some additional features that are great for navbars like: 
+The React Router API comes with two options of adding in Links: __\<Link>__ and __\<NavLink>__. They both have the same base level functionality that will update the browser url and render the __Route__ component, but __\<NavLink>__ comes with some additional features that are great for navbars like: 
   - __activeClassName__ for when a link is active and you want additional styling using html classes.
   - __activeStyle__ if you want to do inline styling.
   - __isActive__ if you want to add aditional logic to your application to state which link is currently active. This prop can invoke a function call. `isActive={() => doSomething}`
 
 There are some additional attributes too, but those are the 3 to get comfortable with. 
 
-So now that we know what component to use lets add them into our application. 
+So now that we know what component to use let's add them into our application. 
 
 ```javascript 
 import React from 'react';
@@ -368,3 +368,5 @@ Load up the browser again and you should see beautiful blue navlinks that load u
 
 ## Resources
 * [React Router Tutorial](https://reacttraining.com/react-router/web/example/basic)
+
+<p class='util--hide'>View <a href='https://learn.co/lessons/react-components-as-routes'>React Components As Routes</a> on Learn.co and start learning to code for free.</p>
