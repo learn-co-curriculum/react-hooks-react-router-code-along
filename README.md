@@ -192,7 +192,7 @@ Let's go back to the browser and manually type in the url locations for `/, /abo
 
 Just to recap what we have done so far: We imported the `react-router-dom` node module into our `index.js` with the __BrowserRouter as Router__ & the __Route__ components. After importing these into the file we returned the __Router__ component as the top level tag in our __JSX__ return statement with a proceding __div__ tag that contained our 3 children route components. Each route is doing 3 things right now:
   - setting a path `path="/about"
-  - passing a arrow function inside of a `render` prop to render some __JSX__
+  - passing an arrow function inside of a `render` prop to render some __JSX__
   - setting an attribute of exact, which explicitly states that you will only see the rendered JSX if you go to `/about` not `/about/something_else`. 
 
 We have made great progress, but this doesn't seem like it is managable long term. What if we have 20 routes, do we render the __JSX__ inline for each __Route__? We should fix that. 
@@ -300,7 +300,7 @@ const Navbar = () =>
   <div>
     <NavLink 
       to="/"
-      /* set exact so it knows only to only set activeStyle when route is deeply equal to link */
+      /* set exact so it knows to only set activeStyle when route is deeply equal to link */
       exact
       /* add styling to Navlink */
       style={link}
