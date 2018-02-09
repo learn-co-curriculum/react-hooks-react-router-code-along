@@ -364,7 +364,7 @@ ReactDOM.render(
 );
 ```
 
-Load up the browser again and you should see beautiful blue navlinks that load up the desired component. To get more comfortable, I would recommend implementing `/signup` and `/messages` routes that load in compnents, also make sure to add in some __NavLinks__.
+Load up the browser again and you should see beautiful blue navlinks that load up the desired component. To get more comfortable, I would recommend implementing `/signup` and `/messages` routes that load in components, also make sure to add in some __NavLinks__.
 
 ## Resources
 * [React Router Tutorial](https://reacttraining.com/react-router/web/example/basic)
