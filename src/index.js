@@ -2,22 +2,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
-const Home = () => {
-  return (
-    <div>
-      <h1>This is my home component!</h1>
-    </div>
-  );
-};
-
-const About = () => {
-  return (
-    <div>
-      <h1>This is my about component!</h1>
-    </div>
-  );
-};
-
 const Login = () => {
   return (
     <div>
@@ -35,12 +19,30 @@ const Login = () => {
     </div>
   );
 };
+
+
+
+const About = () => {
+  return (
+    <div>
+      <h1>This is my about component!</h1>
+    </div>
+  );
+};
+
+class Home extends React.Component {
+  render() {
+    return <h1>Home!</h1>;
+  }
+}
+
+// Step 2. Changed to have router coordinate what is displayed
 ReactDOM.render((
   <Router>
     <div>
-      <Route exact path="/" render={Home} />
-      <Route exact path="/about" render={About} />
-      <Route exact path="/login" render={Login} />
+      <Route path="/" component={Home} />
+      <Route exact path="/about" component={About} />
+      <Route exact path="/login" component={Login} />
     </div>
   </Router>),
   document.getElementById('root')
