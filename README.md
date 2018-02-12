@@ -36,9 +36,7 @@ import ReactDOM from 'react-dom';
 const Home = () => {
   return (
     <div>
-      <h1>
-        Home!
-      </h1>
+      <h1>Home!</h1>
     </div>
   );
 };
@@ -201,7 +199,11 @@ While this inline style may be useful for very simple renders, it becomes unreas
 ```javascript
 class Home extends React.Component {
   render() {
-    return <h1>Home!</h1>;
+    return (
+      <div>
+        <h1>Home!</h1>
+      </div>
+    )
   }
 }
 ```
