@@ -38,7 +38,7 @@ const Home = () => {
     <div>
       <h1>
         Home!
-      </hi>
+      </h1>
     </div>
   );
 };
