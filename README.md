@@ -8,15 +8,15 @@
 
 ### A complicated world needs an address
 
-So far, we have been building our applications without any navigation, so everything in the app has lived at the same url. Now we can make it look like we are changing the page, by showing or hiding some components, but none of these changes are dependent on a change in the url.
+So far, we have been building our applications without any navigation, so everything in the app has lived at the same url. Currently, we can make it look like we are changing the page, by showing or hiding some components, but none of these changes are dependent on a change in the url.
 
-Now this may seem like a small quibble, but web addresses are the backbone of the Internet. Think about it, the web is just a series of links to other pages. And now instead of sharing a link to a list of users, we currently only provide a link to our homepage, and then would require some showing or hiding to a list of users.
+Now this may seem like a small quibble, but web addresses are the backbone of the Internet. The web is just a series of links to other pages, after all. Let's imagine that we have a React application hosted at www.loveforsoils.com dedicated to sharing knowledge about [soil types][soils]. As a facet of our React application, we want to provide users with the option to see a list of our favorite soils. Currently, instead of sharing a link to a list of our favorite soils, we can only provide a link to our "Love for soils" homepage. Following which, users are required to interact with our application to see a favorite soil list.
 
-__React Router__ is a routing library for __React__ that allows us to link to specific urls then show or hide various components depending on which url is displayed. As React Router's documentation states:
+Because our personal opinion on the best soils is so important, we want to provide users with the opportunity to go straight to this list of the favorite soils view with a url. Enter __React Router__: a routing library for __React__ that allows us to link to specific urls then show or hide various components depending on which url is displayed. As React Router's documentation states:
 
 > Components are the heart of React's powerful, declarative programming model. React Router is a collection of navigational components that compose declaratively with your application. Whether you want to have bookmarkable URLs for your web app or a composable way to navigate in React Native, React Router works wherever React is rendering--so take your pick!
 
-For this README we will be building our first Component routes as a Code Along
+For this README we will be building our first Component routes as a Code Along.
 
 ### Code Along
 
@@ -25,7 +25,7 @@ For this README we will be building our first Component routes as a Code Along
 *Note*
 Make sure you clone down this repo, run `npm install && npm start`, and open http://localhost:3000 in the browser.
 
-If you open up the src/index.js file you will see that currently we are defining a Home component, and then rendering that component in the Dom.  
+If you open up the src/index.js file you will see that currently we are defining a Home component, and then rendering that component in the DOM.  
 
 ```javascript
 // ./src/index.js
@@ -84,7 +84,7 @@ Step 1: In Step 1 above, there are two components that we are importing from __R
 
 Step 2: The __Router__ (our alias for BrowserRouter) component is the base for our application's routing. It is where we declare how __React Router__ will be used. Notice that nested inside the __Router__ component we use the __Route__ component. The __Route__ component has two props in our example: ```path``` and ```render```. The __Route__ component is in charge of saying: "when the url matches this specified ```path```, render this specified ```component```".
 
-Let's try it. Run npm start to boot up the application and then point your url to localhost:3000. What you'll notice is that when you type in the url; it will render a `<div>This is my component!</div>`.
+Let's try it. Run npm start to boot up the application and then point your url to localhost:3000. What you'll notice is that when you type in the url it will render a `<div><h1>Home!</h1></div>`.
 
 #### Adding Additional Routes
 
@@ -152,7 +152,7 @@ Reload your browser and look at our beautiful routes...oops! Error:
 
 <span style='color:red'>A &lt;Router&gt; may have only one child element</span>   
 
-If you open up your browser dev tools console You should be seeing the same error. What does this mean? Well, as you know in React, a component must return one child/html node (which may wrap many others). We just gave __Router__ three children! To remedy this problem we need to place all of the __Route__ components into a `<div>` tag:
+If you open up your browser dev tools console you should be seeing the same error. What does this mean? Well, as you know in React, a component must return one child/html node (which may wrap many others). We just gave __Router__ three children! To remedy this problem we can place all of the __Route__ components into a `<div>` tag:
 
 ```javascript
 ReactDOM.render((
@@ -189,13 +189,13 @@ We have made great progress so far. Because we are programmers who think ahead, 
 
 If we look closely, we see our 'components' being passed to the `render` props are merely functions defined above that return JSX.
 
-So far, we have been using the __Route__ component's `render` prop to describe what should be rendered when a match occurs. As an alternative to defining the arrow functions for 'home', 'about', and 'login', we could have done it inline:
+So far, we have been using the __Route__ component's `render` prop to describe what should be rendered when a match occurs. As an alternative to defining the arrow functions for **Home**, **About**, and **Login**, we could have simply done it inline, i.e.:
 
 ```javascript
 <Route path="/" render={() => <h1>Home!</h1>} />
 ```
 
-In refactoring, let's remove the components we defined in `index.js` and place them in their own files in `src/`. Additionally, let's change them to classic class `React.Component`s, i.e.:
+While this inline style may be useful for very simple renders, it becomes unreasonable when we want to render larger, more complex, components. In anticipation of a growing codebase, let's refactor by removing the components we defined in `index.js` and placing them in their own files in `src/`. Additionally, let's change them to classic class `React.Component`s, i.e.:
 ```javascript
 class Home extends React.Component {
   render() {
@@ -219,7 +219,7 @@ ReactDOM.render((
 );
 ```
 
-Take note: we changed the `render` prop to `component` within our __Route__ components. As it turns our, the __Route__ component API has a prop called `component`.
+Take note: we changed the `render` prop to `component` within our __Route__ components. As it turns out, the __Route__ component API has a prop called `component`.
 
 What's the difference between using the `render` prop and the `component` prop in our __Route__ component? In terms of user experience in our application, there is none!
 
@@ -231,3 +231,5 @@ https://reacttraining.com/react-router/web/api/Route
 * [React Router Tutorial](https://reacttraining.com/react-router/web/example/basic)
 
 <p class='util--hide'>View <a href='https://learn.co/lessons/react-components-as-routes'>React Components As Routes</a> on Learn.co and start learning to code for free.</p>
+
+[soils]: https://en.wikipedia.org/wiki/Soil_type
