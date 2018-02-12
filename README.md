@@ -36,7 +36,9 @@ import ReactDOM from 'react-dom';
 const Home = () => {
   return (
     <div>
-      Home!
+      <h1>
+        Home!
+      </hi>
     </div>
   );
 };
