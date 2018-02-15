@@ -227,13 +227,103 @@ Take note: we changed the `render` prop to `component` within our __Route__ comp
 
 What's the difference between using the `render` prop and the `component` prop in our __Route__ component? In terms of user experience in our application, there is none!
 
-If you are interested in seeing the 'under the hood' differences between the `render` and the `component` prop and when to use each take a moment to familiarize yourself with the __Route__ documentation:
+If you are interested in seeing the 'under the hood' differences between the `render` and the `component` prop and when to use each take a moment to familiarize yourself with the [__Route__ documentation][route_docs].
 
-https://reacttraining.com/react-router/web/api/Route
+Now that we have the tools to enable routing, let's look into how we can enable users to trigger our routes without requiring a manual change of the address bar.
+
+### NavLinks
+
+What good are routes, if users don't know how to find them or what they are?
+
+The React Router API provides two components that enable us to trigger our routing: __&lt;Link&gt;__ and __&lt;NavLink&gt;__. They both have the same base level functionality that will update the browser URL and render the __Route__ component. __&lt;NavLink&gt;__ acts as a superset of __&lt;Link&gt;__, adding styling attributes to a rendered element when it matches the current URL.
+
+Let's work on adding in the __&lt;NavLink&gt;__ component to our application. For ease of display, we will work as if we still have all of our components in one file. If you have broken them out into individual component files, update accordingly:
+
+```javascript
+import React from 'react';
+import ReactDOM from 'react-dom';
+/* Add NavLink to importer */
+import { BrowserRouter as Router, Route, NavLink } from 'react-router-dom';
+
+/* Add basic styling for NavLinks */
+const link = {
+  width: '100px',
+  padding: '12px',
+  margin: '0 6px 6px',
+  background: 'blue',
+  textDecoration: 'none',
+  color: 'white',
+}
+
+/* add the navbar component */
+const Navbar = () =>
+  <div>
+    <NavLink
+      to="/"
+      /* set exact so it knows to only set activeStyle when route is deeply equal to link */
+      exact
+      /* add styling to Navlink */
+      style={link}
+      /* add prop for activeStyle */
+      activeStyle={{
+        background: 'darkblue'
+      }}
+    >Home</NavLink>
+    <NavLink
+      to="/about"
+      exact
+      style={link}
+      activeStyle={{
+        background: 'darkblue'
+      }}
+    >About</NavLink>
+    <NavLink
+      to="/login"
+      exact
+      style={link}
+      activeStyle={{
+        background: 'darkblue'
+      }}
+    >Login</NavLink>
+  </div>;
+
+const Home = () => <h1>Home!</h1>;
+
+const About = () => <h1>This is my about component!</h1>;
+
+const Login = () =>
+  <form>
+    <h1>Login</h1>
+    <div>
+      <input type="text" name="username" placeholder="Username" />
+      <label htmlFor="username">Username</label>
+    </div>
+    <div>
+      <input type="password" name="password" placeholder="Password" />
+      <label htmlFor="password">Password</label>
+    </div>
+    <input type="submit" value="Login" />
+  </form>;
+
+ReactDOM.render((
+  <Router>
+    <div>
+      <Navbar />
+      <Route exact path="/" component={Home} />
+      <Route exact path="/about" component={About} />
+      <Route exact path="/login" component={Login} />
+    </div>
+  </Router>),
+  document.getElementById('root')
+);
+```
+
+Load up the browser again and you should see beautiful blue navlinks that load up the desired component. For more practice, implement `/signup` and `/messages` routes/navlinks that load in components.
 
 ## Resources
 * [React Router Tutorial](https://reacttraining.com/react-router/web/example/basic)
 
 <p class='util--hide'>View <a href='https://learn.co/lessons/react-components-as-routes'>React Components As Routes</a> on Learn.co and start learning to code for free.</p>
 
+[route_docs]: https://reacttraining.com/react-router/web/api/Route
 [soils]: https://en.wikipedia.org/wiki/Soil_type
