@@ -9,13 +9,13 @@
 ## A complicated world needs an address
 
 So far, we have been building our applications without any navigation, so
-everything in the app has lived at the same url. Currently, we can make it look
+everything in the app has lived at the same URL. Currently, we can make it look
 like we are changing the page, by showing or hiding some components, but none of
-these changes are dependent on a change in the url.
+these changes are dependent on a change in the URL.
 
 Now this may seem like a small quibble, but web addresses are the backbone of
 the Internet. The web is just a series of links to other pages, after all. Let's
-imagine that we have a React application hosted at www.loveforsoils.com
+imagine that we have a React application hosted at `www.loveforsoils.com`
 dedicated to sharing knowledge about [soil types][soils]. As a facet of our
 React application, we want to provide users with the option to see a list of our
 favorite soils. Currently, instead of sharing a link to a list of our favorite
@@ -25,9 +25,9 @@ soil list.
 
 Because our personal opinion on the best soils is so important, we want to
 provide users with the opportunity to go straight to this list of the favorite
-soils view with a url. Enter __React Router__: a routing library for __React__
-that allows us to link to specific urls then show or hide various components
-depending on which url is displayed. As React Router's documentation states:
+soils view with a URL. Enter __React Router__: a routing library for __React__
+that allows us to link to specific URLs then show or hide various components
+depending on which URL is displayed. As React Router's documentation states:
 
 > Components are the heart of React's powerful, declarative programming model.
 React Router is a collection of navigational components that compose
@@ -39,10 +39,10 @@ For this README we will be building our first Component routes as a Code Along.
 
 ## Code Along
 
-#### Step 1: Setting up our Main Route
+### Setting up our Main Route
 
 *Note*: Make sure you clone down this repo, run `npm install && npm start`, and open
-http://localhost:3000 in the browser.
+`http://localhost:3000` in the browser.
 
 If you open up the src/index.js file you will see that currently we are defining
 a Home component, and then rendering that component in the DOM.  
@@ -70,7 +70,7 @@ ReactDOM.render(
 With React Router our core routing will live in this component. We will define
 our various routes within this file. Let's install that package now.
 
-```
+```sh
 npm install react-router-dom
 ```
 
@@ -103,20 +103,20 @@ ReactDOM.render((
 ```
 
 Step 1: In Step 1 above, there are two components that we are importing from __React
-Router__. We use them in turn.   
+Router__. We use them in turn.
 
 Step 2: The __Router__ (our alias for BrowserRouter) component is the base for
 our application's routing. It is where we declare how __React Router__ will be
 used. Notice that nested inside the __Router__ component we use the __Route__
 component. The __Route__ component has two props in our example: ```path```
-and ```render```. The __Route__ component is in charge of saying: "when the url
+and ```render```. The __Route__ component is in charge of saying: "when the URL
 matches this specified ```path```, render this specified ```component```".
 
-Let's try it. Run npm start to boot up the application and then point your url
-to localhost:3000. What you'll notice is that when you type in the url it will
+Let's try it. Run npm start to boot up the application and then point your URL
+to localhost:3000. What you'll notice is that when you type in the URL it will
 render a `<div><h1>Home!</h1></div>`.
 
-#### Adding Additional Routes
+### Adding Additional Routes
 
 In the last two steps we learned how to set up the basic __Router__ component
 and inject our very first __Route__ component.
@@ -181,7 +181,7 @@ ReactDOM.render((
 
 Reload your browser and look at our beautiful routes...oops! Error:  
 
-<span style='color:red'>A &lt;Router&gt; may have only one child element</span>   
+<span style='color:red'>A &lt;Router&gt; may have only one child element</span>
 
 If you open up your browser dev tools console you should be seeing the same
 error. What does this mean? Well, as you know in React, a component must return
@@ -204,7 +204,7 @@ ReactDOM.render((
 
 Let's go back to the browser and assert that our application is back to
 functioning. We see that our __Home__ component is displaying. Try manually
-typing in the url locations for `/`, `/about`, and `/login`. Do you see the
+typing in the URL locations for `/`, `/about`, and `/login`. Do you see the
 other components rendering?
 
 You may have noticed the aberrant behavior of the __Home__ component. It is
@@ -216,8 +216,7 @@ that case, this behavior is desirable! Otherwise, there are several ways to fix
 this. One way is to change our __Route__ component for __Home__ to `exact path`
 instead of just `path`. Try it now.
 
-
-#### Recap
+### Recap
 
 * We imported the `react-router-dom` node module into our `index.js` with the
 __BrowserRouter as Router__ and the __Route__ components
@@ -225,7 +224,7 @@ __BrowserRouter as Router__ and the __Route__ components
 * We returned __Router__ as the top level component in our React application
 
 * We defined three possible routes, each of which is doing the following:
-  * defining what urls to match on
+  * defining what URLs to match on
   * defining what component should be rendered, should a match return true
   * setting an attribute of exact, which explicitly states that you will only see
 the rendered component if you go to `/about` not `/about/something_else` or
@@ -400,7 +399,7 @@ routes/navlinks that load in components.
 
 * [React Router Tutorial](https://reacttraining.com/react-router/web/example/basic)
 
-<p class='util--hide'>View <a href='https://learn.co/lessons/react-components-as-routes'>React Components As Routes</a> on Learn.co and start learning to code for free.</p>
-
 [route_docs]: https://reacttraining.com/react-router/web/api/Route
 [soils]: https://en.wikipedia.org/wiki/Soil_type
+
+<p class='util--hide'>View <a href='https://learn.co/lessons/react-components-as-routes'>React Components As Routes</a> on Learn.co and start learning to code for free.</p>
