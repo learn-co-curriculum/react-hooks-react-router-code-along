@@ -250,6 +250,10 @@ While this inline style may be useful for very simple renders, it becomes
 unreasonable when we want to render larger, more complex, components, but this 
 shows that we can be pretty flexible in how we set up our `Route`s.
 
+If you are interested in seeing the 'under the hood' differences between the
+`render` and the `component` prop and when to use each take a moment to
+familiarize yourself with the [__Route__ documentation][route_docs].
+
 Now that we have the tools to enable routing, let's look into how we can enable
 users to trigger our `Route`s without requiring a manual change of the address
 bar.
@@ -408,10 +412,67 @@ export default Login;
 ```
 
 ```js
+// src/Navbar.js
+import React from 'react'
+import { NavLink } from 'react-router-dom';
+
+const link = {
+  width: '100px',
+  padding: '12px',
+  margin: '0 6px 6px',
+  background: 'blue',
+  textDecoration: 'none',
+  color: 'white',
+}
+
+class Navbar extends React.Component {
+  render() {
+    return (
+      <div>
+        <NavLink
+          to="/"
+          /* set exact so it knows to only set activeStyle when route is deeply equal to link */
+          exact
+          /* add styling to Navlink */
+          style={link}
+          /* add prop for activeStyle */
+          activeStyle={{
+            background: 'darkblue'
+          }}
+        >Home</NavLink>
+        <NavLink
+          to="/about"
+          exact
+          style={link}
+          activeStyle={{
+            background: 'darkblue'
+          }}
+        >About</NavLink>
+        <NavLink
+          to="/login"
+          exact
+          style={link}
+          activeStyle={{
+            background: 'darkblue'
+          }}
+        >Login</NavLink>
+      </div>
+    )
+  }
+}
+
+export default Navbar;
+```
+
+```js
 // src/index.js
+import React from 'react';
+import ReactDOM from 'react-dom';
 import Home from './Home'
 import About from './About'
 import Login from './Login'
+import Navbar from './Navbar'
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 ReactDOM.render((
   <Router>
@@ -434,34 +495,3 @@ ReactDOM.render((
 [soils]: https://en.wikipedia.org/wiki/Soil_type
 
 <p class='util--hide'>View <a href='https://learn.co/lessons/react-components-as-routes'>React Components As Routes</a> on Learn.co and start learning to code for free.</p>
-
-
-
-
-Now, let's refactor our __Router__ component in `index.js` to use your class
-components:
-
-```javascript
-ReactDOM.render((
-  <Router>
-    <React.Fragment>
-      <Route path="/" component={Home} />
-      <Route exact path="/about" component={About} />
-      <Route exact path="/login" component={Login} />
-    </React.Fragment>
-  </Router>),
-  document.getElementById('root')
-);
-```
-
-Take note: we changed the `render` prop to `component` within our __Route__
-components. As it turns out, the __Route__ component API has a prop called
-`component`.
-
-What's the difference between using the `render` prop and the `component` prop
-in our __Route__ component? In terms of user experience in our application,
-there is none!
-
-If you are interested in seeing the 'under the hood' differences between the
-`render` and the `component` prop and when to use each take a moment to
-familiarize yourself with the [__Route__ documentation][route_docs].
