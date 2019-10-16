@@ -111,7 +111,7 @@ Step 2: The `Router` (our alias for BrowserRouter) component is the base for
 our application's routing. It is where we declare how __React Router__ will be
 used. Notice that nested inside the `Router` component we use the `Route`
 component. The `Route` component has two props in our example: `path`
-and `render`. The `Route` component is in charge of saying: "when the URL
+and `component`. The `Route` component is in charge of saying: "when the URL
 matches this specified `path`, render this specified `component`".
 
 Let's try it. Copy the above code into `src/index.js` and run `npm start` to
