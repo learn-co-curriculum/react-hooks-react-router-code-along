@@ -77,7 +77,7 @@ npm install react-router-dom
 
 To start implementing routes, we first need to import `BrowserRouter` and `Route` from
 `react-router-dom`. `BrowserRouter` is commonly renamed as `Router`, so we'll follow this
-convention, as well.
+convention, as well. We can create an _alias_ with the syntax `BrowserRouter as Router`. So every time we refer to `Router`, in this file, we are really just refering to `BrowserRouter`.
 
 ```javascript
 // .src/index.js
