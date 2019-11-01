@@ -217,7 +217,13 @@ following the `/`, we still get the `Home` component.
 Imagine we had a header we wanted displayed no matter which route was hit. In
 that case, this behavior is desirable! Otherwise, there are several ways to fix
 this. One way is to change our `Route` component for `Home` to `exact path`
-instead of just `path`. Try it now.
+instead of just `path`. 
+
+```javascript
+<Route exact path="/" component={Home} />
+ ```
+
+Try it now.
 
 ### Recap
 
