@@ -345,12 +345,12 @@ const Login = () =>
 
 ReactDOM.render((
   <Router>
-    <divt>
+    <div>
       <Navbar />
       <Route exact path="/" component={Home} />
       <Route exact path="/about" component={About} />
       <Route exact path="/login" component={Login} />
-    </divt>
+    </div>
   </Router>),
   document.getElementById('root')
 );
