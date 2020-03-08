@@ -246,7 +246,7 @@ We have made great progress so far!
 
 If we look closely at our `Route`s, we see that our 'components' being passed to
 the `component` prop are merely functions defined above that return JSX. If we
-prefered, we could instead use the `render` prop and write inline code directly
+preferred, we could instead use the `render` prop and write inline code directly
 in our `Route`:
 
 ```javascript
@@ -270,10 +270,10 @@ bar.
 What good are routes, if users don't know how to find them or what they are?
 
 The React Router API provides two components that enable us to trigger our
-routing: `Link` and `NavLink`. They both have the same base level functionality
-that will update the browser URL and render the `Route` component. `NavLink`
-acts as a superset of `Link`, adding styling attributes to a rendered element
-when it matches the current URL.
+routing: `Link` and `NavLink`. They both have the same base level functionality:
+they update the browser URL and render the `Route` component. `NavLink` acts 
+as a superset of `Link`, adding styling attributes to a rendered element when 
+it matches the current URL.
 
 Let's work on adding in the `NavLink` component to our application:
 
