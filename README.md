@@ -496,17 +496,20 @@ import Login from './Login'
 import Navbar from './Navbar'
 
 const App = () => (
-  <Switch>
-    <Route exact path="/about">
-      <About />
-    </Route>
-    <Route exact path="/login">
-      <Login />
-    </Route>
-    <Route exact path="/">
-      <Home />
-    </Route>
-  </Switch>
+  <div>
+    <Navbar />
+    <Switch>
+      <Route exact path="/about">
+        <About />
+      </Route>
+      <Route exact path="/login">
+        <Login />
+      </Route>
+      <Route exact path="/">
+        <Home />
+      </Route>
+    </Switch>
+  </div>
 )
 
 export default App
