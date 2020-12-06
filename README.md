@@ -204,8 +204,60 @@ the `/`, we still get the `Home` component.
 
 Imagine we had a header we wanted displayed no matter which route was hit. In
 that case, this behavior is desirable! Otherwise, there are several ways to fix
-this. One way is to change our `Route` component for `Home` to `exact path`
-instead of just `path`. 
+this. One way to give more predictable behavior to our Routes is to use the
+`Switch` component:
+
+
+```js
+// ./src/index.js
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+
+...
+
+ReactDOM.render(
+  <Router>
+    <Switch>
+      <Route path="/">
+        <Home />
+      </Route>
+      <Route path="/about">
+        <About />
+      </Route>
+      <Route path="/login">
+        <Login />
+      </Route>
+    </Switch>
+  </Router>,
+  document.getElementById('root')
+);
+```
+
+Now, instead of rendering **all** routes that match the current URL, it will only render the **first** route that matches. Currently, we'll always be rendering the Home component. We can fix this by moving the route for `/` to the bottom of our Switch component:
+
+```js
+ReactDOM.render(
+  <Router>
+    <Switch>
+      <Route path="/about">
+        <About />
+      </Route>
+      <Route path="/login">
+        <Login />
+      </Route>
+      <Route path="/">
+        <Home />
+      </Route>
+    </Switch>
+  </Router>,
+  document.getElementById('root')
+);
+```
+
+Try it out again! Go to `/about` and you'll **only** see the `About` component being displayed.
+
+There's one other prop we can use on our routes to give more control over whether that route will match the given url: `exact`. First, to demonstrate the issue, try visiting a URL that isn't covered by any of our routes, like `/wat`. We'll still see our `Home` component being displayed, because `/` is a _partial match_ for `/`.
+
+To fix this, try adding `exact` to the Route component rendering our `Home` component:
 
 ```js
 <Route exact path="/">
@@ -213,7 +265,7 @@ instead of just `path`.
 </Route>
 ```
 
-Try it now.
+Now, `Home` will only display when the URL is **exactly** `/`.
 
 > The `exact` prop looks a bit different from our other props &mdash; where's
 > the `=`? This syntax is short for `exact={true}`! You'll see the same syntax
@@ -255,7 +307,7 @@ Let's work on adding in the `NavLink` component to our application:
 import React from 'react';
 import ReactDOM from 'react-dom';
 /* Add NavLink to importer */
-import { BrowserRouter as Router, Route, NavLink } from 'react-router-dom';
+import { BrowserRouter as Router, Route, NavLink, Switch } from 'react-router-dom';
 
 /* Add basic styling for NavLinks */
 const linkStyles = {
@@ -320,16 +372,17 @@ const Login = () => (
 
 ReactDOM.render(
   <Router>
-    <Navbar />
-    <Route exact path="/">
-      <Home />
-    </Route>
-    <Route exact path="/about">
-      <About />
-    </Route>
-    <Route exact path="/login">
-      <Login />
-    </Route>
+    <Switch>
+      <Route exact path="/about">
+        <About />
+      </Route>
+      <Route exact path="/login">
+        <Login />
+      </Route>
+      <Route exact path="/">
+        <Home />
+      </Route>
+    </Switch>
   </Router>,
   document.getElementById('root')
 );
@@ -436,25 +489,24 @@ export default Navbar;
 ```js
 // src/components/App.js
 import React from 'react'
-import { Route } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import Home from './Home'
 import About from './About'
 import Login from './Login'
 import Navbar from './Navbar'
 
 const App = () => (
-  <div>
-    <Navbar />
-    <Route exact path="/">
-      <Home />
-    </Route>
+  <Switch>
     <Route exact path="/about">
       <About />
     </Route>
     <Route exact path="/login">
       <Login />
     </Route>
-  </div>
+    <Route exact path="/">
+      <Home />
+    </Route>
+  </Switch>
 )
 
 export default App
