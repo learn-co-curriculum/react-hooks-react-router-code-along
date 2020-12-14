@@ -1,4 +1,4 @@
-# Introduction to React Router
+# React Router Code-along
 
 ## Objectives
 
@@ -42,30 +42,27 @@ We will be building our first Component routes as a code along.
 
 ### Setting up our Main Route
 
-*Note*: Make sure you clone down this repo, run `npm install && npm start`, and
+_Note_: Make sure you clone down this repo, run `npm install && npm start`, and
 open `http://localhost:3000` in the browser.
 
 If you open up `src/index.js`, you will see that currently we are defining
-a `Home` component, and then rendering that component in the DOM.  
+a `Home` component, and then rendering that component in the DOM.
 
 ```javascript
 // ./src/index.js
 
-import React from 'react';
-import ReactDOM from 'react-dom';
+import React from "react";
+import ReactDOM from "react-dom";
 
-const Home = () => {
+function Home() {
   return (
     <div>
       <h1>Home!</h1>
     </div>
   );
-};
+}
 
-ReactDOM.render(
-  <Home />,
-  document.getElementById('root')
-);
+ReactDOM.render(<Home />, document.getElementById("root"));
 ```
 
 With React Router our core routing will live in this component. We will define
@@ -85,18 +82,18 @@ this file, we are really just referring to `BrowserRouter`.
 ```js
 // .src/index.js
 
-import React from 'react';
-import ReactDOM from 'react-dom';
+import React from "react";
+import ReactDOM from "react-dom";
 // Step 1. Import react-router functions
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route } from "react-router-dom";
 
-const Home = () => {
+function Home() {
   return (
     <div>
       <h1>Home!</h1>
     </div>
   );
-};
+}
 
 // Step 2. Changed to have router coordinate what is displayed
 ReactDOM.render(
@@ -105,7 +102,7 @@ ReactDOM.render(
       <Home />
     </Route>
   </Router>,
-  document.getElementById('root')
+  document.getElementById("root")
 );
 ```
 
@@ -133,27 +130,27 @@ Next, we want to add components for `About` and `Login`:
 
 ```javascript
 // ./src/index.js
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import React from "react";
+import ReactDOM from "react-dom";
+import { BrowserRouter as Router, Route } from "react-router-dom";
 
-const Home = () => {
+function Home() {
   return (
     <div>
       <h1>Home!</h1>
     </div>
   );
-};
+}
 
-const About = () => {
+function About() {
   return (
     <div>
       <h1>This is my about component!</h1>
     </div>
   );
-};
+}
 
-const Login = () => {
+function Login() {
   return (
     <div>
       <form>
@@ -169,7 +166,7 @@ const Login = () => {
       </form>
     </div>
   );
-};
+}
 ```
 
 Now let's add our `/about` and `/login` routes to our router:
@@ -189,7 +186,7 @@ ReactDOM.render(
       <Login />
     </Route>
   </Router>,
-  document.getElementById('root')
+  document.getElementById("root")
 );
 ```
 
@@ -206,7 +203,6 @@ Imagine we had a header we wanted displayed no matter which route was hit. In
 that case, this behavior is desirable! Otherwise, there are several ways to fix
 this. One way to give more predictable behavior to our Routes is to use the
 `Switch` component:
-
 
 ```js
 // ./src/index.js
@@ -249,7 +245,7 @@ ReactDOM.render(
       </Route>
     </Switch>
   </Router>,
-  document.getElementById('root')
+  document.getElementById("root")
 );
 ```
 
@@ -275,7 +271,7 @@ Now, `Home` will only display when the URL is **exactly** `/`.
 ### Recap
 
 - We imported the `react-router-dom` node module into our `index.js` with the
-`BrowserRouter` as `Router` and the `Route` components
+  `BrowserRouter` as `Router` and the `Route` components
 
 - We returned `Router` as the top level component in our React application
 
@@ -304,71 +300,91 @@ matches the current URL.
 Let's work on adding in the `NavLink` component to our application:
 
 ```javascript
-import React from 'react';
-import ReactDOM from 'react-dom';
+import React from "react";
+import ReactDOM from "react-dom";
 /* Add NavLink to importer */
-import { BrowserRouter as Router, Route, NavLink, Switch } from 'react-router-dom';
+import {
+  BrowserRouter as Router,
+  Route,
+  NavLink,
+  Switch,
+} from "react-router-dom";
 
 /* Add basic styling for NavLinks */
 const linkStyles = {
-  width: '100px',
-  padding: '12px',
-  margin: '0 6px 6px',
-  background: 'blue',
-  textDecoration: 'none',
-  color: 'white',
-}
+  width: "100px",
+  padding: "12px",
+  margin: "0 6px 6px",
+  background: "blue",
+  textDecoration: "none",
+  color: "white",
+};
 
 /* add the navbar component */
-const Navbar = () =>
-  <div>
-    <NavLink
-      to="/"
-      /* set exact so it knows to only set activeStyle when route is deeply equal to link */
-      exact
-      /* add styling to Navlink */
-      style={linkStyles}
-      /* add prop for activeStyle */
-      activeStyle={{
-        background: 'darkblue'
-      }}
-    >Home</NavLink>
-    <NavLink
-      to="/about"
-      exact
-      style={linkStyles}
-      activeStyle={{
-        background: 'darkblue'
-      }}
-    >About</NavLink>
-    <NavLink
-      to="/login"
-      exact
-      style={linkStyles}
-      activeStyle={{
-        background: 'darkblue'
-      }}
-    >Login</NavLink>
-  </div>;
-
-const Home = () => <h1>Home!</h1>;
-
-const About = () => <h1>This is my about component!</h1>;
-
-const Login = () => (
-  <form>
-    <h1>Login</h1>
+function NavBar() {
+  return (
     <div>
-      <input type="text" name="username" placeholder="Username" />
-      <label htmlFor="username">Username</label>
+      <NavLink
+        to="/"
+        /* set exact so it knows to only set activeStyle when route is deeply equal to link */
+        exact
+        /* add styling to Navlink */
+        style={linkStyles}
+        /* add prop for activeStyle */
+        activeStyle={{
+          background: "darkblue",
+        }}
+      >
+        Home
+      </NavLink>
+      <NavLink
+        to="/about"
+        exact
+        style={linkStyles}
+        activeStyle={{
+          background: "darkblue",
+        }}
+      >
+        About
+      </NavLink>
+      <NavLink
+        to="/login"
+        exact
+        style={linkStyles}
+        activeStyle={{
+          background: "darkblue",
+        }}
+      >
+        Login
+      </NavLink>
     </div>
-    <div>
-      <input type="password" name="password" placeholder="Password" />
-      <label htmlFor="password">Password</label>
-    </div>
-    <input type="submit" value="Login" />
-  </form>
-);
+  );
+}
+
+function Home() {
+  return <h1>Home!</h1>;
+}
+
+function About() {
+  return <h1>This is my about component!</h1>;
+}
+
+function Login() {
+  return (
+    <form>
+      <h1>Login</h1>
+      <div>
+        <input type="text" name="username" placeholder="Username" />
+        <label htmlFor="username">Username</label>
+      </div>
+      <div>
+        <input type="password" name="password" placeholder="Password" />
+        <label htmlFor="password">Password</label>
+      </div>
+      <input type="submit" value="Login" />
+    </form>
+  );
+}
 
 ReactDOM.render(
   <Router>
@@ -384,7 +400,7 @@ ReactDOM.render(
       </Route>
     </Switch>
   </Router>,
-  document.getElementById('root')
+  document.getElementById("root")
 );
 ```
 
@@ -399,140 +415,156 @@ we defined in `index.js` and placing them in their own files in `src/components`
 
 ```js
 // src/components/Home.js
-import React from 'react';
+import React from "react";
 
-const Home = () => <h1>Home!</h1>;
+function Home() {
+  return <h1>Home!</h1>;
+}
 
 export default Home;
 ```
 
 ```js
 // src/components/About.js
-import React from 'react';
+import React from "react";
 
-const About = () => <h1>This is my about component!</h1>;
+function About() {
+  return <h1>This is my about component!</h1>;
+}
 
 export default About;
 ```
 
 ```js
 // src/components/Login.js
-import React from 'react';
+import React from "react";
 
-const Login = () => (
-  <form>
-    <h1>Login</h1>
-    <div>
-      <input type="text" name="username" placeholder="Username" />
-      <label htmlFor="username">Username</label>
-    </div>
-    <div>
-      <input type="password" name="password" placeholder="Password" />
-      <label htmlFor="password">Password</label>
-    </div>
-    <input type="submit" value="Login" />
-  </form>
-);
+function Login() {
+  return (
+    <form>
+      <h1>Login</h1>
+      <div>
+        <input type="text" name="username" placeholder="Username" />
+        <label htmlFor="username">Username</label>
+      </div>
+      <div>
+        <input type="password" name="password" placeholder="Password" />
+        <label htmlFor="password">Password</label>
+      </div>
+      <input type="submit" value="Login" />
+    </form>
+  );
+}
 
 export default Login;
 ```
 
 ```js
 // src/components/Navbar.js
-import React from 'react'
-import { NavLink } from 'react-router-dom';
+import React from "react";
+import { NavLink } from "react-router-dom";
 
 const linkStyles = {
-  width: '100px',
-  padding: '12px',
-  margin: '0 6px 6px',
-  background: 'blue',
-  textDecoration: 'none',
-  color: 'white',
-}
+  width: "100px",
+  padding: "12px",
+  margin: "0 6px 6px",
+  background: "blue",
+  textDecoration: "none",
+  color: "white",
+};
 
-const NavBar = () => (
-  <div>
-    <NavLink
-      to="/"
-      /* set exact so it knows to only set activeStyle when route is deeply equal to link */
-      exact
-      /* add styling to Navlink */
-      style={linkStyles}
-      /* add prop for activeStyle */
-      activeStyle={{
-        background: 'darkblue'
-      }}
-    >Home</NavLink>
-    <NavLink
-      to="/about"
-      exact
-      style={linkStyles}
-      activeStyle={{
-        background: 'darkblue'
-      }}
-    >About</NavLink>
-    <NavLink
-      to="/login"
-      exact
-      style={linkStyles}
-      activeStyle={{
-        background: 'darkblue'
-      }}
-    >Login</NavLink>
-  </div>
-);
+function NavBar() {
+  return (
+    <div>
+      <NavLink
+        to="/"
+        /* set exact so it knows to only set activeStyle when route is deeply equal to link */
+        exact
+        /* add styling to Navlink */
+        style={linkStyles}
+        /* add prop for activeStyle */
+        activeStyle={{
+          background: "darkblue",
+        }}
+      >
+        Home
+      </NavLink>
+      <NavLink
+        to="/about"
+        exact
+        style={linkStyles}
+        activeStyle={{
+          background: "darkblue",
+        }}
+      >
+        About
+      </NavLink>
+      <NavLink
+        to="/login"
+        exact
+        style={linkStyles}
+        activeStyle={{
+          background: "darkblue",
+        }}
+      >
+        Login
+      </NavLink>
+    </div>
+  );
+}
 
 export default Navbar;
 ```
 
 ```js
 // src/components/App.js
-import React from 'react'
-import { Route, Switch } from 'react-router-dom';
-import Home from './Home'
-import About from './About'
-import Login from './Login'
-import Navbar from './Navbar'
+import React from "react";
+import { Route, Switch } from "react-router-dom";
+import Home from "./Home";
+import About from "./About";
+import Login from "./Login";
+import Navbar from "./Navbar";
 
-const App = () => (
-  <div>
-    <Navbar />
-    <Switch>
-      <Route exact path="/about">
-        <About />
-      </Route>
-      <Route exact path="/login">
-        <Login />
-      </Route>
-      <Route exact path="/">
-        <Home />
-      </Route>
-    </Switch>
-  </div>
-)
+function App() {
+  return (
+    <div>
+      <Navbar />
+      <Switch>
+        <Route exact path="/about">
+          <About />
+        </Route>
+        <Route exact path="/login">
+          <Login />
+        </Route>
+        <Route exact path="/">
+          <Home />
+        </Route>
+      </Switch>
+    </div>
+  );
+}
 
-export default App
+export default App;
 ```
 
 ```js
 // src/index.js
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { BrowserRouter as Router } from 'react-router-dom';
-import App from './components/App'
+import React from "react";
+import ReactDOM from "react-dom";
+import { BrowserRouter as Router } from "react-router-dom";
+import App from "./components/App";
 
 ReactDOM.render(
   <Router>
     <App />
   </Router>,
-  document.getElementById('root')
+  document.getElementById("root")
 );
 ```
 
 ## Resources
 
-* [React Router Tutorial](https://reacttraining.com/react-router/web/example/basic)
+- [React Router Tutorial](https://reacttraining.com/react-router/web/example/basic)
 
 [route_docs]: https://reacttraining.com/react-router/web/api/Route
 [soils]: https://en.wikipedia.org/wiki/Soil_type
