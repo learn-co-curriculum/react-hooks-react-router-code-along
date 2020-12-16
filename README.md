@@ -324,7 +324,7 @@ const linkStyles = {
 };
 
 /* add the navbar component */
-function NavBar() {
+function Navbar() {
   return (
     <div>
       <NavLink
@@ -478,7 +478,7 @@ const linkStyles = {
   color: "white",
 };
 
-function NavBar() {
+function Navbar() {
   return (
     <div>
       <NavLink
