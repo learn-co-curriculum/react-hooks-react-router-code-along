@@ -106,15 +106,15 @@ ReactDOM.render(
 );
 ```
 
-Step 1: In Step 1 above, there are two components that we are importing from
-**React Router**. We use them in turn.
+**Step 1**: In the code above above, there are two components that we are
+importing from **React Router**. We use them in turn.
 
-Step 2: The `Router` (our alias for BrowserRouter) component is the base for our
-application's routing. It is where we declare how **React Router** will be used.
-Notice that nested inside the `Router` component we use the `Route` component.
-The `Route` component has one props in our example: `path`. The `Route`
-component is in charge of saying: "when the URL matches this specified `path`,
-render this child component".
+**Step 2**: The `Router` component (our alias for `BrowserRouter`) is the base
+for our application's routing. It is where we declare how **React Router** will
+be used. Notice that nested inside the `Router` component we use the `Route`
+component. The `Route` component has one props in our example: `path`. The
+`Route` component is in charge of saying: "when the URL matches this specified
+`path`, render this child component".
 
 Let's try it. Copy the above code into `src/index.js` and run `npm start` to
 boot up the application. Once it is running, point your URL to
@@ -228,7 +228,10 @@ ReactDOM.render(
 );
 ```
 
-Now, instead of rendering **all** routes that match the current URL, it will only render the **first** route that matches. Currently, we'll always be rendering the Home component. We can fix this by moving the route for `/` to the bottom of our Switch component:
+Now, instead of rendering **all** routes that match the current URL, it will
+only render the **first** route that matches. Currently, we'll always be
+rendering the `Home` component. We can fix this by moving the route for `/` to
+the bottom of our `Switch` component:
 
 ```js
 ReactDOM.render(
@@ -289,12 +292,12 @@ bar.
 
 ### Links and NavLinks
 
-What good are routes, if users don't know how to find them or what they are?
+What good are routes if users don't know how to find them or what they are?
 
-The React Router API provides two components that enable us to trigger our
-routing: `Link` and `NavLink`. They both have the same base level functionality:
-they update the browser URL and render the `Route` component. `NavLink` acts as
-a superset of `Link`, adding styling attributes to a rendered element when it
+React Router provides two components that enable us to trigger our routing:
+`Link` and `NavLink`. They both have the same base level functionality: they
+update the browser URL and render the `Route` component. `NavLink` acts as a
+superset of `Link`, adding styling attributes to a rendered element when it
 matches the current URL.
 
 Let's work on adding in the `NavLink` component to our application:
@@ -302,7 +305,7 @@ Let's work on adding in the `NavLink` component to our application:
 ```javascript
 import React from "react";
 import ReactDOM from "react-dom";
-/* Add NavLink to importer */
+/* Add NavLink to import */
 import {
   BrowserRouter as Router,
   Route,
@@ -411,7 +414,8 @@ routes/NavLinks that load in components.
 ## Refactoring
 
 In anticipation of a growing codebase, let's refactor by removing the components
-we defined in `index.js` and placing them in their own files in `src/components`.
+we defined in `index.js` and placing them in their own files in
+`src/components`.
 
 ```js
 // src/components/Home.js
