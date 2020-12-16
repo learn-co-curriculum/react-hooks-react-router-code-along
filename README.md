@@ -415,7 +415,8 @@ routes/NavLinks that load in components.
 
 In anticipation of a growing codebase, let's refactor by removing the components
 we defined in `index.js` and placing them in their own files in
-`src/components`.
+`src/components`. You can also see the completed version of this code in the
+solution branch.
 
 ```js
 // src/components/Home.js
