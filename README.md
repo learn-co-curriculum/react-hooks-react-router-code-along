@@ -391,6 +391,7 @@ function Login() {
 
 ReactDOM.render(
   <Router>
+    <NavBar />
     <Switch>
       <Route exact path="/about">
         <About />
