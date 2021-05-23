@@ -235,7 +235,7 @@ the bottom of our `Switch` component:
 
 ```js
 ReactDOM.render(
-  <Router>
+  <BrowserRouter>
     <Switch>
       <Route path="/about">
         <About />
@@ -247,7 +247,7 @@ ReactDOM.render(
         <Home />
       </Route>
     </Switch>
-  </Router>,
+  </BrowserRouter>,
   document.getElementById("root")
 );
 ```
