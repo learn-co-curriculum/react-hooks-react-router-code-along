@@ -329,7 +329,7 @@ const linkStyles = {
   color: "white",
 };
 
-/* add the navbar component */
+/* add the Navbar component */
 function Navbar() {
   return (
     <div>
@@ -397,7 +397,7 @@ function Login() {
 
 ReactDOM.render(
   <BrowserRouter>
-    <NavBar />
+    <Navbar />
     <Switch>
       <Route exact path="/about">
         <About />
