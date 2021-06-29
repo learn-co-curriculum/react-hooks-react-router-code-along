@@ -104,7 +104,7 @@ ReactDOM.render(
 );
 ```
 
-**Step 1**: In the code above above, there are two components that we are
+**Step 1**: In the code above, there are two components that we are
 importing from **React Router**. We use them in turn.
 
 **Step 2**: The `BrowserRouter` component is the base for our application's
