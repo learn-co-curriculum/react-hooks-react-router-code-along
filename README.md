@@ -32,7 +32,7 @@ depending on which URL is displayed.
 React Router is a collection of navigational components and custom hooks that
 compose declaratively with your application. Whether you want to have
 bookmark-able URLs for your web app, or a composable way to navigate in React
-Native, React Router works wherever React is rendering &mdash; so take your
+Native, React Router works wherever React is rendering — so take your
 pick!
 
 To demonstrate some of the key features of React Router, we have an exercise
@@ -272,7 +272,7 @@ component:
 
 Now, `Home` will only display when the URL is **exactly** `/`.
 
-> The `exact` prop looks a bit different from our other props &mdash; where's
+> The `exact` prop looks a bit different from our other props — where's
 > the `=`? This syntax is short for `exact={true}`! You'll see the same syntax
 > used in HTML for boolean attributes: if the attribute is present, it's `true`,
 > if it's absent, it's `false`.
