@@ -52,7 +52,7 @@ more organized.
 If you open up `src/index.js`, you will see that currently we are defining
 a `Home` component, and then rendering that component in the DOM.
 
-```js
+```jsx
 // ./src/index.js
 import React from "react";
 import ReactDOM from "react-dom";
@@ -77,7 +77,7 @@ npm install react-router-dom
 To start implementing routes, we first need to import `BrowserRouter` and
 `Route` from `react-router-dom`:
 
-```js
+```jsx
 // .src/index.js
 
 import React from "react";
@@ -204,7 +204,7 @@ that case, this behavior is desirable! Otherwise, there are several ways to fix
 this. One way to give more predictable behavior to our Routes is to use the
 `Switch` component:
 
-```js
+```jsx
 // ./src/index.js
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
@@ -233,7 +233,7 @@ only render the **first** route that matches. Currently, we'll always be
 rendering the `Home` component. We can fix this by moving the route for `/` to
 the bottom of our `Switch` component:
 
-```js
+```jsx
 ReactDOM.render(
   <BrowserRouter>
     <Switch>
@@ -264,7 +264,7 @@ match_ for `/wat`.
 To fix this, try adding `exact` to the Route component rendering our `Home`
 component:
 
-```js
+```jsx
 <Route exact path="/">
   <Home />
 </Route>
@@ -313,7 +313,7 @@ rendered element **when it matches the current URL**.
 
 Let's work on adding in the `NavLink` component to our application:
 
-```js
+```jsx
 import React from "react";
 import ReactDOM from "react-dom";
 /* Add NavLink to import */
@@ -425,7 +425,7 @@ we defined in `index.js` and placing them in their own files in
 `src/components`. You can also see the completed version of this code in the
 solution branch.
 
-```js
+```jsx
 // src/components/Home.js
 import React from "react";
 
@@ -436,7 +436,7 @@ function Home() {
 export default Home;
 ```
 
-```js
+```jsx
 // src/components/About.js
 import React from "react";
 
@@ -447,7 +447,7 @@ function About() {
 export default About;
 ```
 
-```js
+```jsx
 // src/components/Login.js
 import React from "react";
 
@@ -471,7 +471,7 @@ function Login() {
 export default Login;
 ```
 
-```js
+```jsx
 // src/components/Navbar.js
 import React from "react";
 import { NavLink } from "react-router-dom";
@@ -525,7 +525,7 @@ function Navbar() {
 export default Navbar;
 ```
 
-```js
+```jsx
 // src/components/App.js
 import React from "react";
 import { Route, Switch } from "react-router-dom";
@@ -556,7 +556,7 @@ function App() {
 export default App;
 ```
 
-```js
+```jsx
 // src/index.js
 import React from "react";
 import ReactDOM from "react-dom";
