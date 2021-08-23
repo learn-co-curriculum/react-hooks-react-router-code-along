@@ -70,8 +70,8 @@ ReactDOM.render(<Home />, document.getElementById("root"));
 
 To start using React Router, we need to install `react-router-dom`:
 
-```sh
-npm install react-router-dom
+```console
+$ npm install react-router-dom
 ```
 
 To start implementing routes, we first need to import `BrowserRouter` and
