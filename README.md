@@ -319,7 +319,8 @@ import { BrowserRouter, Route, NavLink, Switch } from "react-router-dom";
 
 /* Add basic styling for NavLinks */
 const linkStyles = {
-  width: "100px",
+  display: "inline-block",
+  width: "50px",
   padding: "12px",
   margin: "0 6px 6px",
   background: "blue",
@@ -476,7 +477,8 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 
 const linkStyles = {
-  width: "100px",
+  display: "inline-block",
+  width: "50px",
   padding: "12px",
   margin: "0 6px 6px",
   background: "blue",
