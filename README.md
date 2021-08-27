@@ -328,8 +328,8 @@ const linkStyles = {
   color: "white",
 };
 
-/* define the Navbar component */
-function Navbar() {
+/* define the NavBar component */
+function NavBar() {
   return (
     <div>
       <NavLink
@@ -397,7 +397,7 @@ function Login() {
 /* add the NavBar component to our render method */
 ReactDOM.render(
   <BrowserRouter>
-    <Navbar /> 
+    <NavBar /> 
     <Switch>
       <Route exact path="/about">
         <About />
@@ -415,7 +415,7 @@ ReactDOM.render(
 ```
 
 Load up the browser again and you should see beautiful blue NavLinks that load
-up the desired component. Note that, because we've rendered the `Navbar`
+up the desired component. Note that, because we've rendered the `NavBar`
 component outside the `Switch` component, it appears on each page, as desired.
 
 For more practice, implement `/signup` and `/messages` routes, NavLinks and
@@ -475,7 +475,7 @@ export default Login;
 ```
 
 ```jsx
-// src/components/Navbar.js
+// src/components/NavBar.js
 import React from "react";
 import { NavLink } from "react-router-dom";
 
@@ -489,7 +489,7 @@ const linkStyles = {
   color: "white",
 };
 
-function Navbar() {
+function NavBar() {
   return (
     <div>
       <NavLink
@@ -526,7 +526,7 @@ function Navbar() {
   );
 }
 
-export default Navbar;
+export default NavBar;
 ```
 
 ```jsx
@@ -536,12 +536,12 @@ import { Route, Switch } from "react-router-dom";
 import Home from "./Home";
 import About from "./About";
 import Login from "./Login";
-import Navbar from "./Navbar";
+import NavBar from "./NavBar";
 
 function App() {
   return (
     <div>
-      <Navbar />
+      <NavBar />
       <Switch>
         <Route exact path="/about">
           <About />
