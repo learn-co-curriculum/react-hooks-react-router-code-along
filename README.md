@@ -90,7 +90,7 @@ function Home() {
   );
 }
 
-// Step 2. Changed to have router coordinate what is displayed
+// Step 2. Change so router is coordinating what is displayed
 ReactDOM.render(
   <BrowserRouter>
     <Route path="/">
@@ -415,8 +415,11 @@ ReactDOM.render(
 ```
 
 Load up the browser again and you should see beautiful blue NavLinks that load
-up the desired component. For more practice, implement `/signup` and `/messages`
-routes, NavLinks and components.
+up the desired component. Note that, because we've rendered the `Navbar`
+component outside the `Switch` component, it appears on each page, as desired.
+
+For more practice, implement `/signup` and `/messages` routes, NavLinks and
+components.
 
 ### Refactoring
 
