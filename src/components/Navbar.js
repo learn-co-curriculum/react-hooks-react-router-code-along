@@ -11,7 +11,7 @@ const linkStyles = {
   color: "white",
 };
 
-function Navbar() {
+function NavBar() {
   return (
     <div>
       <NavLink
@@ -51,4 +51,4 @@ function Navbar() {
   );
 }
 
-export default Navbar;
+export default NavBar;
