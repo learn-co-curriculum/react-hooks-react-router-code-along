@@ -68,8 +68,11 @@ ReactDOM.render(<Home />, document.getElementById("root"));
 To start using React Router, we need to install `react-router-dom`:
 
 ```console
-$ npm install react-router-dom
+$ npm install react-router-dom@5
 ```
+
+> **Note**: make sure to include `@5` at the end of the install command to
+> install React Router version 5 instead of version 6.
 
 To start implementing routes, we first need to import `BrowserRouter` and
 `Route` from `react-router-dom`:
@@ -594,5 +597,5 @@ in your own applications.
 
 - [React Router docs][react router docs]
 
-[react router docs]: https://reactrouter.com/web/guides/quick-start
+[react router docs]: https://v5.reactrouter.com/web/guides/quick-start
 [soils]: https://en.wikipedia.org/wiki/Soil_type
