@@ -1,56 +1,56 @@
-# React Router Code-along
+# React Router Code-Along
 
-## Objectives
+## Learning Goals
 
-1. Describe **React Router's** approach to client-side routing
-2. Explain how React Router allows building a route tree as a component
-3. Describe how routes are matched in React Router
+- Add `react-router-dom` to an existing React application
+- Create multiple client-side routes
 
-## A complicated world needs an address
+## Introduction
 
 So far, we have been building our applications without any navigation, so
 everything in the app has lived at the same URL. Currently, we can make it look
-like we are changing the page, by showing or hiding some components, but none of
-these changes are dependent on a change in the URL.
+like we are changing the page based on state by showing or hiding some
+components, but none of these changes are dependent on a change in the URL.
 
 Now this may seem like a small quibble, but web addresses are the backbone of
-the Internet. The web is just a series of links to other pages, after all. Let's
-imagine that we have a React application hosted at `www.loveforsoils.com` (not a
-real website) dedicated to sharing knowledge about [soil types][soils]. As a
-facet of our React application, we want to provide users with the option to see
-a list of our favorite soils. Currently, instead of sharing a link to a list of
-our favorite soils, we can only provide a link to our "Love for soils" homepage.
-Following which, users are required to interact with our application to see a
-favorite soil list.
+the Internet. The web is just a series of links to other pages, after all.
+
+Let's imagine that we have a React application hosted at `www.loveforsoils.com`
+(not a real website) dedicated to sharing knowledge about [soil types][soils].
+As a facet of our React application, we want to provide users with the option to
+see a list of our favorite soils. Currently, instead of sharing a link to a list
+of our favorite soils, we can only provide a link to our "Love for soils"
+homepage. Following which, users are required to interact with our application
+to see a favorite soil list.
 
 Because our personal opinion on the best soils is so important, we want to
 provide users with the opportunity to go straight to this list of the favorite
 soils view with a URL. Enter **React Router**: a routing library for **React**
-that allows us to link to specific URLs then show or hide various components
-depending on which URL is displayed. As React Router's documentation states:
+that allows us to link to specific URLs and conditionally render components
+depending on which URL is displayed.
 
-> Components are the heart of React's powerful, declarative programming model.
+React Router is a collection of navigational components and custom hooks that
+are implemented using declarative programming and [compose with][composition]
+the components in your application. Whether you want to have bookmark-able URLs
+for your web app, or a composable way to navigate in React Native, React Router
+works wherever React is rendering — so take your pick!
 
-React Router is a collection of navigational components that compose
-declaratively with your application. Whether you want to have bookmark-able URLs
-for your web app or a composable way to navigate in React Native, React Router
-works wherever React is rendering--so take your pick!
+[composition]: https://reactgraphql.academy/react/react-is-all-about-composition-react-hooks-render-props-hocs/
 
-We will be building our first Component routes as a code along.
+To demonstrate some of the key features of React Router, we have an exercise
+to code along with, so let's get going!
 
 ## Code Along
 
 ### Setting up our Main Route
 
-_Note_: Make sure you clone down this repo, run `npm install && npm start`, and
-open `http://localhost:3000` in the browser.
+To get started, clone down this repo and run `npm install`.
 
 If you open up `src/index.js`, you will see that currently we are defining
 a `Home` component, and then rendering that component in the DOM.
 
-```javascript
+```jsx
 // ./src/index.js
-
 import React from "react";
 import ReactDOM from "react-dom";
 
@@ -65,27 +65,25 @@ function Home() {
 ReactDOM.render(<Home />, document.getElementById("root"));
 ```
 
-With React Router our core routing will live in this component. We will define
-our various routes within this file. To start using routes, we need to install
-`react-router-dom`:
+To start using React Router, we need to install `react-router-dom`:
 
-```sh
-npm install react-router-dom
+```console
+$ npm install react-router-dom@5
 ```
 
-To start implementing routes, we first need to import `BrowserRouter` and
-`Route` from `react-router-dom`. `BrowserRouter` is commonly renamed as
-`Router`, so we'll follow this convention, as well. We can create an _alias_
-with the syntax `BrowserRouter as Router`. So every time we refer to `Router` in
-this file, we are really just referring to `BrowserRouter`.
+> **Note**: make sure to include `@5` at the end of the install command to
+> install React Router version 5 instead of version 6.
 
-```js
+To start implementing routes, we first need to import `BrowserRouter` and
+`Route` from `react-router-dom`:
+
+```jsx
 // .src/index.js
 
 import React from "react";
 import ReactDOM from "react-dom";
 // Step 1. Import react-router functions
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter, Route } from "react-router-dom";
 
 function Home() {
   return (
@@ -95,26 +93,27 @@ function Home() {
   );
 }
 
-// Step 2. Changed to have router coordinate what is displayed
+// Step 2. Change so router is coordinating what is displayed
 ReactDOM.render(
-  <Router>
+  <BrowserRouter>
     <Route path="/">
       <Home />
     </Route>
-  </Router>,
+  </BrowserRouter>,
   document.getElementById("root")
 );
 ```
 
-**Step 1**: In the code above above, there are two components that we are
-importing from **React Router**. We use them in turn.
+In the code above, there are two components that we are importing from **React
+Router**. We use them in turn:
 
-**Step 2**: The `Router` component (our alias for `BrowserRouter`) is the base
-for our application's routing. It is where we declare how **React Router** will
-be used. Notice that nested inside the `Router` component we use the `Route`
-component. The `Route` component has one props in our example: `path`. The
-`Route` component is in charge of saying: "when the URL matches this specified
-`path`, render this child component".
+1. The `BrowserRouter` component is the base for our application's routing. It
+   is where we declare how **React Router** will be used. Notice that nested
+   inside the `BrowserRouter` component we use the `Route` component. The
+   `Route` component has one prop in our example: `path`.
+2. The `Route` component is in charge of saying: "when the URL matches this
+   specified `path`, render this child component." This handles the conditional
+   rendering based on the URL that we described earlier.
 
 Let's try it. Copy the above code into `src/index.js` and run `npm start` to
 boot up the application. Once it is running, point your URL to
@@ -123,8 +122,8 @@ will render `Home!`.
 
 ### Adding Additional Routes
 
-In the last two steps, we learned how to set up the basic `Router` component
-and inject our very first `Route` component.
+In the last two steps, we learned how to set up the basic `BrowserRouter`
+component and inject our very first `Route` component.
 
 Next, we want to add components for `About` and `Login`:
 
@@ -132,7 +131,7 @@ Next, we want to add components for `About` and `Login`:
 // ./src/index.js
 import React from "react";
 import ReactDOM from "react-dom";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter, Route } from "react-router-dom";
 
 function Home() {
   return (
@@ -153,16 +152,15 @@ function About() {
 function Login() {
   return (
     <div>
+      <h1>Login</h1>
       <form>
         <div>
           <input type="text" name="username" placeholder="Username" />
-          <label htmlFor="username">Username</label>
         </div>
         <div>
           <input type="password" name="password" placeholder="Password" />
-          <label htmlFor="password">Password</label>
         </div>
-        <input type="submit" value="Login" />
+        <input type="submit" value="Submit" />
       </form>
     </div>
   );
@@ -175,7 +173,7 @@ Now let's add our `/about` and `/login` routes to our router:
 // ./src/index.js
 
 ReactDOM.render(
-  <Router>
+  <BrowserRouter>
     <Route path="/">
       <Home />
     </Route>
@@ -185,33 +183,32 @@ ReactDOM.render(
     <Route path="/login">
       <Login />
     </Route>
-  </Router>,
+  </BrowserRouter>,
   document.getElementById("root")
 );
 ```
 
-Let's go back to the browser and verify that our application is back to
-functioning. We see that our `Home` component is displaying. Try manually
-typing in the URL locations for `/`, `/about`, and `/login`. Do you see the
-other components rendering?
+If you go back to the browser you will see that it looks the same — our `Home`
+component is displaying as before. Now try manually typing in the URL locations
+for `/`, `/about`, and `/login`. Do you see the other components rendering?
 
 You may have noticed the strange behavior of the `Home` component. It is always
 rendering, no matter which route we go to! Even if we type in nonsense following
 the `/`, we still get the `Home` component.
 
-Imagine we had a header we wanted displayed no matter which route was hit. In
-that case, this behavior is desirable! Otherwise, there are several ways to fix
+If we had a header component we wanted to be displayed no matter which route was
+hit, this behavior would be desirable. Otherwise, there are several ways to fix
 this. One way to give more predictable behavior to our Routes is to use the
 `Switch` component:
 
-```js
+```jsx
 // ./src/index.js
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 ...
 
 ReactDOM.render(
-  <Router>
+  <BrowserRouter>
     <Switch>
       <Route path="/">
         <Home />
@@ -223,7 +220,7 @@ ReactDOM.render(
         <Login />
       </Route>
     </Switch>
-  </Router>,
+  </BrowserRouter>,
   document.getElementById('root')
 );
 ```
@@ -233,9 +230,9 @@ only render the **first** route that matches. Currently, we'll always be
 rendering the `Home` component. We can fix this by moving the route for `/` to
 the bottom of our `Switch` component:
 
-```js
+```jsx
 ReactDOM.render(
-  <Router>
+  <BrowserRouter>
     <Switch>
       <Route path="/about">
         <About />
@@ -247,18 +244,24 @@ ReactDOM.render(
         <Home />
       </Route>
     </Switch>
-  </Router>,
+  </BrowserRouter>,
   document.getElementById("root")
 );
 ```
 
-Try it out again! Go to `/about` and you'll **only** see the `About` component being displayed.
+Try it out again! Go to `/about` and you'll **only** see the `About` component
+being displayed.
 
-There's one other prop we can use on our routes to give more control over whether that route will match the given url: `exact`. First, to demonstrate the issue, try visiting a URL that isn't covered by any of our routes, like `/wat`. We'll still see our `Home` component being displayed, because `/` is a _partial match_ for `/`.
+There's one other prop we can use on our routes to give more control over
+whether that route will match the given url: `exact`. First, to demonstrate the
+issue, try visiting a URL that isn't covered by any of our routes, like `/wat`.
+We'll still see our `Home` component being displayed, because `/` is a _partial
+match_ for `/wat`.
 
-To fix this, try adding `exact` to the Route component rendering our `Home` component:
+To fix this, try adding `exact` to the Route component rendering our `Home`
+component:
 
-```js
+```jsx
 <Route exact path="/">
   <Home />
 </Route>
@@ -266,23 +269,24 @@ To fix this, try adding `exact` to the Route component rendering our `Home` comp
 
 Now, `Home` will only display when the URL is **exactly** `/`.
 
-> The `exact` prop looks a bit different from our other props &mdash; where's
+> The `exact` prop looks a bit different from our other props — where's
 > the `=`? This syntax is short for `exact={true}`! You'll see the same syntax
 > used in HTML for boolean attributes: if the attribute is present, it's `true`,
 > if it's absent, it's `false`.
 
 ### Recap
 
-- We imported the `react-router-dom` node module into our `index.js` with the
-  `BrowserRouter` as `Router` and the `Route` components
+- We imported the `BrowserRouter` and the `Route` components from the
+  `react-router-dom` package into our `index.js` file
 
-- We returned `Router` as the top level component in our React application
+- We wrapped `BrowserRouter` around the top level component in our React
+  application
 
 - We defined three possible routes, each of which is doing the following:
   - defining what URLs to match on
   - defining what component should be rendered, should a match return true
-  - setting an attribute of exact, which explicitly states that you will only
-    see the component if you go to the exact path.
+  - for our `/` route, setting a prop of `exact`, which ensures that you will
+    only see the component if you go to the exact path.
 
 We have made great progress so far!
 
@@ -295,27 +299,31 @@ bar.
 What good are routes if users don't know how to find them or what they are?
 
 React Router provides two components that enable us to trigger our routing:
-`Link` and `NavLink`. They both have the same base level functionality: they
-update the browser URL and render the `Route` component. `NavLink` acts as a
-superset of `Link`, adding styling attributes to a rendered element when it
-matches the current URL.
+`Link` and `NavLink`. They both have the same base level functionality:
+
+- They render an `<a>` tag to the DOM
+- When the `<a>` tag is clicked, they change the URL and tell React Router to
+  re-render our routes, displaying the component that matches the new URL
+
+`NavLink` acts as a superset of `Link`, adding **styling attributes** to a
+rendered element **when it matches the current URL**. `NavLink` works well for
+creating a navigation bar, since it allows us to add styling to indicate which
+link is currently selected. `Link` is a good option for creating standard
+hyperlinks. For this example, we will be using `NavLink`; we will see examples
+of using `Link` in later lessons.
 
 Let's work on adding in the `NavLink` component to our application:
 
-```javascript
+```jsx
 import React from "react";
 import ReactDOM from "react-dom";
 /* Add NavLink to import */
-import {
-  BrowserRouter as Router,
-  Route,
-  NavLink,
-  Switch,
-} from "react-router-dom";
+import { BrowserRouter, Route, NavLink, Switch } from "react-router-dom";
 
 /* Add basic styling for NavLinks */
 const linkStyles = {
-  width: "100px",
+  display: "inline-block",
+  width: "50px",
   padding: "12px",
   margin: "0 6px 6px",
   background: "blue",
@@ -323,8 +331,8 @@ const linkStyles = {
   color: "white",
 };
 
-/* add the navbar component */
-function Navbar() {
+/* define the NavBar component */
+function NavBar() {
   return (
     <div>
       <NavLink
@@ -374,24 +382,25 @@ function About() {
 
 function Login() {
   return (
-    <form>
+    <div>
       <h1>Login</h1>
-      <div>
-        <input type="text" name="username" placeholder="Username" />
-        <label htmlFor="username">Username</label>
-      </div>
-      <div>
-        <input type="password" name="password" placeholder="Password" />
-        <label htmlFor="password">Password</label>
-      </div>
-      <input type="submit" value="Login" />
-    </form>
+      <form>
+        <div>
+          <input type="text" name="username" placeholder="Username" />
+        </div>
+        <div>
+          <input type="password" name="password" placeholder="Password" />
+        </div>
+        <input type="submit" value="Submit" />
+      </form>
+    </div>
   );
 }
 
+/* add the NavBar component to our render method */
 ReactDOM.render(
-  <Router>
-    <NavBar />
+  <BrowserRouter>
+    <NavBar /> 
     <Switch>
       <Route exact path="/about">
         <About />
@@ -403,23 +412,26 @@ ReactDOM.render(
         <Home />
       </Route>
     </Switch>
-  </Router>,
+  </BrowserRouter>,
   document.getElementById("root")
 );
 ```
 
 Load up the browser again and you should see beautiful blue NavLinks that load
-up the desired component. For more practice, implement `/signup` and `/messages`
-routes/NavLinks that load in components.
+up the desired component. Note that, because we've rendered the `NavBar`
+component outside the `Switch` component, it appears on each page, as desired.
 
-## Refactoring
+For more practice, implement `/signup` and `/messages` routes, NavLinks and
+components.
+
+### Refactoring
 
 In anticipation of a growing codebase, let's refactor by removing the components
 we defined in `index.js` and placing them in their own files in
 `src/components`. You can also see the completed version of this code in the
 solution branch.
 
-```js
+```jsx
 // src/components/Home.js
 import React from "react";
 
@@ -430,7 +442,7 @@ function Home() {
 export default Home;
 ```
 
-```js
+```jsx
 // src/components/About.js
 import React from "react";
 
@@ -441,37 +453,38 @@ function About() {
 export default About;
 ```
 
-```js
+```jsx
 // src/components/Login.js
 import React from "react";
 
 function Login() {
   return (
-    <form>
+    <div>
       <h1>Login</h1>
-      <div>
-        <input type="text" name="username" placeholder="Username" />
-        <label htmlFor="username">Username</label>
-      </div>
-      <div>
-        <input type="password" name="password" placeholder="Password" />
-        <label htmlFor="password">Password</label>
-      </div>
-      <input type="submit" value="Login" />
-    </form>
+      <form>
+        <div>
+          <input type="text" name="username" placeholder="Username" />
+        </div>
+        <div>
+          <input type="password" name="password" placeholder="Password" />
+        </div>
+        <input type="submit" value="Submit" />
+      </form>
+    </div>
   );
 }
 
 export default Login;
 ```
 
-```js
-// src/components/Navbar.js
+```jsx
+// src/components/NavBar.js
 import React from "react";
 import { NavLink } from "react-router-dom";
 
 const linkStyles = {
-  width: "100px",
+  display: "inline-block",
+  width: "50px",
   padding: "12px",
   margin: "0 6px 6px",
   background: "blue",
@@ -479,16 +492,13 @@ const linkStyles = {
   color: "white",
 };
 
-function Navbar() {
+function NavBar() {
   return (
     <div>
       <NavLink
         to="/"
-        /* set exact so it knows to only set activeStyle when route is deeply equal to link */
         exact
-        /* add styling to Navlink */
         style={linkStyles}
-        /* add prop for activeStyle */
         activeStyle={{
           background: "darkblue",
         }}
@@ -519,22 +529,22 @@ function Navbar() {
   );
 }
 
-export default Navbar;
+export default NavBar;
 ```
 
-```js
+```jsx
 // src/components/App.js
 import React from "react";
 import { Route, Switch } from "react-router-dom";
 import Home from "./Home";
 import About from "./About";
 import Login from "./Login";
-import Navbar from "./Navbar";
+import NavBar from "./NavBar";
 
 function App() {
   return (
     <div>
-      <Navbar />
+      <NavBar />
       <Switch>
         <Route exact path="/about">
           <About />
@@ -553,24 +563,39 @@ function App() {
 export default App;
 ```
 
-```js
+```jsx
 // src/index.js
 import React from "react";
 import ReactDOM from "react-dom";
-import { BrowserRouter as Router } from "react-router-dom";
+import { BrowserRouter } from "react-router-dom";
 import App from "./components/App";
 
 ReactDOM.render(
-  <Router>
+  <BrowserRouter>
     <App />
-  </Router>,
+  </BrowserRouter>,
   document.getElementById("root")
 );
 ```
 
+## Conclusion
+
+You've now seen all the core functionality of React Router required for
+client-side routing! We've met the requirements so that our app can:
+
+- Conditionally render a different component based on the URL (using the `<Route>` and `<Switch>` components)
+- Change the URL using JavaScript, without making a GET request and reloading
+  the HTML document (using the `<Link>` or `<NavLink>` components)
+
+In the coming lessons, we'll explore more of the advanced functionality provided
+by React Router. You are also strongly encouraged to look at the
+[React Router docs][react router docs], and in particular at the examples
+section, to get more ideas on how to use React Router to build common features
+in your own applications.
+
 ## Resources
 
-- [React Router Tutorial](https://reacttraining.com/react-router/web/example/basic)
+- [React Router docs][react router docs]
 
-[route_docs]: https://reacttraining.com/react-router/web/api/Route
+[react router docs]: https://v5.reactrouter.com/web/guides/quick-start
 [soils]: https://en.wikipedia.org/wiki/Soil_type
