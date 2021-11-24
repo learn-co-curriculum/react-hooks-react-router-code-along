@@ -35,10 +35,10 @@ the components in your application. Whether you want to have bookmark-able URLs
 for your web app, or a composable way to navigate in React Native, React Router
 works wherever React is rendering — so take your pick!
 
-[composition]: https://reactgraphql.academy/react/react-is-all-about-composition-react-hooks-render-props-hocs/
+[composition]: https://reactjs.org/docs/composition-vs-inheritance.html
 
-To demonstrate some of the key features of React Router, we have an exercise
-to code along with, so let's get going!
+To demonstrate some of the key features of React Router, we have an exercise to
+code along with, so let's get going!
 
 ## Code Along
 
@@ -46,8 +46,8 @@ to code along with, so let's get going!
 
 To get started, clone down this repo and run `npm install`.
 
-If you open up `src/index.js`, you will see that currently we are defining
-a `Home` component, and then rendering that component in the DOM.
+If you open up `src/index.js`, you will see that currently we are defining a
+`Home` component, and then rendering that component in the DOM.
 
 ```jsx
 // ./src/index.js
@@ -269,10 +269,10 @@ component:
 
 Now, `Home` will only display when the URL is **exactly** `/`.
 
-> The `exact` prop looks a bit different from our other props — where's
-> the `=`? This syntax is short for `exact={true}`! You'll see the same syntax
-> used in HTML for boolean attributes: if the attribute is present, it's `true`,
-> if it's absent, it's `false`.
+> The `exact` prop looks a bit different from our other props — where's the `=`?
+> This syntax is short for `exact={true}`! You'll see the same syntax used in
+> HTML for boolean attributes: if the attribute is present, it's `true`, if it's
+> absent, it's `false`.
 
 ### Recap
 
@@ -400,7 +400,7 @@ function Login() {
 /* add the NavBar component to our render method */
 ReactDOM.render(
   <BrowserRouter>
-    <NavBar /> 
+    <NavBar />
     <Switch>
       <Route exact path="/about">
         <About />
@@ -583,15 +583,16 @@ ReactDOM.render(
 You've now seen all the core functionality of React Router required for
 client-side routing! We've met the requirements so that our app can:
 
-- Conditionally render a different component based on the URL (using the `<Route>` and `<Switch>` components)
+- Conditionally render a different component based on the URL (using the
+  `<Route>` and `<Switch>` components)
 - Change the URL using JavaScript, without making a GET request and reloading
   the HTML document (using the `<Link>` or `<NavLink>` components)
 
 In the coming lessons, we'll explore more of the advanced functionality provided
-by React Router. You are also strongly encouraged to look at the
-[React Router docs][react router docs], and in particular at the examples
-section, to get more ideas on how to use React Router to build common features
-in your own applications.
+by React Router. You are also strongly encouraged to look at the [React Router
+docs][react router docs], and in particular at the examples section, to get more
+ideas on how to use React Router to build common features in your own
+applications.
 
 ## Resources
 
