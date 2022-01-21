@@ -9,4 +9,8 @@ function Home() {
   );
 }
 
-ReactDOM.render(<Home />, document.getElementById("root"));
+function App() {
+  return <Home />;
+}
+
+ReactDOM.render(<App />, document.getElementById("root"));

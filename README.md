@@ -25,9 +25,9 @@ to see a favorite soil list.
 
 Because our personal opinion on the best soils is so important, we want to
 provide users with the opportunity to go straight to this list of the favorite
-soils view with a URL. Enter **React Router**: a routing library for **React**
-that allows us to link to specific URLs and conditionally render components
-depending on which URL is displayed.
+soils view with a URL at `www.loveforsoils.com/favorites`. Enter **React
+Router**: a routing library for **React** that allows us to link to specific
+URLs and conditionally render components depending on which URL is displayed.
 
 React Router is a collection of navigational components and custom hooks that
 are implemented using declarative programming and [compose with][composition]
@@ -46,8 +46,8 @@ code along with, so let's get going!
 
 To get started, clone down this repo and run `npm install`.
 
-If you open up `src/index.js`, you will see that currently we are defining a
-`Home` component, and then rendering that component in the DOM.
+If you open up `src/index.js`, you will see that currently we are defining
+`Home` and `App` components, and then rendering the `App` component in the DOM.
 
 ```jsx
 // ./src/index.js
@@ -62,7 +62,11 @@ function Home() {
   );
 }
 
-ReactDOM.render(<Home />, document.getElementById("root"));
+function App() {
+  return <Home />;
+}
+
+ReactDOM.render(<App />, document.getElementById("root"));
 ```
 
 To start using React Router, we need to install `react-router-dom`:
@@ -93,12 +97,19 @@ function Home() {
   );
 }
 
-// Step 2. Change so router is coordinating what is displayed
-ReactDOM.render(
-  <BrowserRouter>
+// Step 2. Use <Route> components to define client-side routes in our app
+function App() {
+  return (
     <Route path="/">
       <Home />
     </Route>
+  );
+}
+
+// Step 3. Use <BrowserRouter> component to wrap the entire application and provide React Router context features
+ReactDOM.render(
+  <BrowserRouter>
+    <App />
   </BrowserRouter>,
   document.getElementById("root")
 );
@@ -108,12 +119,14 @@ In the code above, there are two components that we are importing from **React
 Router**. We use them in turn:
 
 1. The `BrowserRouter` component is the base for our application's routing. It
-   is where we declare how **React Router** will be used. Notice that nested
-   inside the `BrowserRouter` component we use the `Route` component. The
-   `Route` component has one prop in our example: `path`.
+   is where we declare how **React Router** will be used. Notice that the
+   `BrowserRouter` component is wrapped around our entire application. This lets
+   us use the `Route` component and other React Router components anywhere in
+   our app.
 2. The `Route` component is in charge of saying: "when the URL matches this
    specified `path`, render this child component." This handles the conditional
-   rendering based on the URL that we described earlier.
+   rendering based on the URL that we described earlier. The `Route` component
+   has one prop in our example: `path`.
 
 Let's try it. Copy the above code into `src/index.js` and run `npm start` to
 boot up the application. Once it is running, point your URL to
@@ -127,7 +140,7 @@ component and inject our very first `Route` component.
 
 Next, we want to add components for `About` and `Login`:
 
-```javascript
+```jsx
 // ./src/index.js
 import React from "react";
 import ReactDOM from "react-dom";
@@ -167,25 +180,25 @@ function Login() {
 }
 ```
 
-Now let's add our `/about` and `/login` routes to our router:
+Now let's add our `/about` and `/login` routes to our routing logic:
 
-```javascript
+```jsx
 // ./src/index.js
-
-ReactDOM.render(
-  <BrowserRouter>
-    <Route path="/">
-      <Home />
-    </Route>
-    <Route path="/about">
-      <About />
-    </Route>
-    <Route path="/login">
-      <Login />
-    </Route>
-  </BrowserRouter>,
-  document.getElementById("root")
-);
+function App() {
+  return (
+    <div>
+      <Route path="/">
+        <Home />
+      </Route>
+      <Route path="/about">
+        <About />
+      </Route>
+      <Route path="/login">
+        <Login />
+      </Route>
+    </div>
+  );
+}
 ```
 
 If you go back to the browser you will see that it looks the same — our `Home`
@@ -203,12 +216,12 @@ this. One way to give more predictable behavior to our Routes is to use the
 
 ```jsx
 // ./src/index.js
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { BrowserRouter, Route, Switch } from "react-router-dom";
 
-...
+// ...
 
-ReactDOM.render(
-  <BrowserRouter>
+function App() {
+  return (
     <Switch>
       <Route path="/">
         <Home />
@@ -220,19 +233,18 @@ ReactDOM.render(
         <Login />
       </Route>
     </Switch>
-  </BrowserRouter>,
-  document.getElementById('root')
-);
+  );
+}
 ```
 
 Now, instead of rendering **all** routes that match the current URL, it will
-only render the **first** route that matches. Currently, we'll always be
-rendering the `Home` component. We can fix this by moving the route for `/` to
-the bottom of our `Switch` component:
+only render the **first** route that matches any part of the URL. Currently,
+we'll always be rendering the `Home` component. We can fix this by moving the
+route for `/` to the bottom of our `Switch` component:
 
 ```jsx
-ReactDOM.render(
-  <BrowserRouter>
+function App() {
+  return (
     <Switch>
       <Route path="/about">
         <About />
@@ -244,9 +256,8 @@ ReactDOM.render(
         <Home />
       </Route>
     </Switch>
-  </BrowserRouter>,
-  document.getElementById("root")
-);
+  );
+}
 ```
 
 Try it out again! Go to `/about` and you'll **only** see the `About` component
@@ -278,10 +289,8 @@ Now, `Home` will only display when the URL is **exactly** `/`.
 
 - We imported the `BrowserRouter` and the `Route` components from the
   `react-router-dom` package into our `index.js` file
-
 - We wrapped `BrowserRouter` around the top level component in our React
   application
-
 - We defined three possible routes, each of which is doing the following:
   - defining what URLs to match on
   - defining what component should be rendered, should a match return true
@@ -397,7 +406,26 @@ function Login() {
   );
 }
 
-/* add the NavBar component to our render method */
+/* add the NavBar component to our App component */
+function App() {
+  return (
+    <div>
+      <NavBar />
+      <Switch>
+        <Route path="/about">
+          <About />
+        </Route>
+        <Route path="/login">
+          <Login />
+        </Route>
+        <Route path="/">
+          <Home />
+        </Route>
+      </Switch>
+    </div>
+  );
+}
+
 ReactDOM.render(
   <BrowserRouter>
     <NavBar />
