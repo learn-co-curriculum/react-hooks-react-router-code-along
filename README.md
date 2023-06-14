@@ -56,9 +56,9 @@ import ReactDOM from "react-dom";
 
 function Home() {
   return (
-    <div>
+    <section>
       <h1>Home!</h1>
-    </div>
+    </section>
   );
 }
 
@@ -91,9 +91,9 @@ import { BrowserRouter, Route } from "react-router-dom";
 
 function Home() {
   return (
-    <div>
+    <section>
       <h1>Home!</h1>
-    </div>
+    </section>
   );
 }
 
@@ -148,34 +148,36 @@ import { BrowserRouter, Route } from "react-router-dom";
 
 function Home() {
   return (
-    <div>
+    <section>
       <h1>Home!</h1>
-    </div>
+    </section>
   );
 }
 
 function About() {
   return (
-    <div>
+    <section>
       <h1>This is my about component!</h1>
-    </div>
+    </section>
   );
 }
 
 function Login() {
   return (
-    <div>
+    <section>
       <h1>Login</h1>
       <form>
-        <div>
+        <section>
+          <label for="username">Username:</label>
           <input type="text" name="username" placeholder="Username" />
-        </div>
-        <div>
+        </section>
+        <section>
+          <label for="password">Password:</label>
           <input type="password" name="password" placeholder="Password" />
-        </div>
+        </section>
         <input type="submit" value="Submit" />
       </form>
-    </div>
+    </section>
   );
 }
 ```
@@ -186,7 +188,7 @@ Now let's add our `/about` and `/login` routes to our routing logic:
 // ./src/index.js
 function App() {
   return (
-    <div>
+    <section>
       <Route path="/">
         <Home />
       </Route>
@@ -196,7 +198,7 @@ function App() {
       <Route path="/login">
         <Login />
       </Route>
-    </div>
+    </section>
   );
 }
 ```
@@ -343,7 +345,7 @@ const linkStyles = {
 /* define the NavBar component */
 function NavBar() {
   return (
-    <div>
+    <section>
       <NavLink
         to="/"
         /* set exact so it knows to only set activeStyle when route is deeply equal to link */
@@ -377,7 +379,7 @@ function NavBar() {
       >
         Login
       </NavLink>
-    </div>
+    </section>
   );
 }
 
@@ -391,25 +393,27 @@ function About() {
 
 function Login() {
   return (
-    <div>
+    <section>
       <h1>Login</h1>
       <form>
-        <div>
+        <section>
+          <label for="username">Username:</label>
           <input type="text" name="username" placeholder="Username" />
-        </div>
-        <div>
+        </section>
+        <section>
+          <label for="password">Password:</label>
           <input type="password" name="password" placeholder="Password" />
-        </div>
+        </section>
         <input type="submit" value="Submit" />
       </form>
-    </div>
+    </section>
   );
 }
 
 /* add the NavBar component to our App component */
 function App() {
   return (
-    <div>
+    <section>
       <NavBar />
       <Switch>
         <Route path="/about">
@@ -422,24 +426,13 @@ function App() {
           <Home />
         </Route>
       </Switch>
-    </div>
+    </section>
   );
 }
 
 ReactDOM.render(
   <BrowserRouter>
-    <NavBar />
-    <Switch>
-      <Route exact path="/about">
-        <About />
-      </Route>
-      <Route exact path="/login">
-        <Login />
-      </Route>
-      <Route exact path="/">
-        <Home />
-      </Route>
-    </Switch>
+    <App />
   </BrowserRouter>,
   document.getElementById("root")
 );
@@ -487,18 +480,18 @@ import React from "react";
 
 function Login() {
   return (
-    <div>
+    <section>
       <h1>Login</h1>
       <form>
-        <div>
+        <section>
           <input type="text" name="username" placeholder="Username" />
-        </div>
-        <div>
+        </section>
+        <section>
           <input type="password" name="password" placeholder="Password" />
-        </div>
+        </section>
         <input type="submit" value="Submit" />
       </form>
-    </div>
+    </section>
   );
 }
 
@@ -522,7 +515,7 @@ const linkStyles = {
 
 function NavBar() {
   return (
-    <div>
+    <section>
       <NavLink
         to="/"
         exact
@@ -553,7 +546,7 @@ function NavBar() {
       >
         Login
       </NavLink>
-    </div>
+    </section>
   );
 }
 
@@ -571,7 +564,7 @@ import NavBar from "./NavBar";
 
 function App() {
   return (
-    <div>
+    <section>
       <NavBar />
       <Switch>
         <Route exact path="/about">
@@ -584,7 +577,7 @@ function App() {
           <Home />
         </Route>
       </Switch>
-    </div>
+    </section>
   );
 }
 
