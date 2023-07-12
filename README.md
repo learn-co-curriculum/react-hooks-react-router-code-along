@@ -626,12 +626,12 @@ appropriate `errorElement`.
 
 By this point, everything should be functional (if it's not, try carefully
 reviewing any errors you're receiving and double checking your code against the
-example code). But, we could make some _organizational_ improvement. 
+example code). But, we could make some _organizational_ improvement.
 
 Take a look at our `index.js` file. It's getting pretty long and messy! Instead
 of including all of this routing logic within our index.js file, let's
 extrapolate some of it out into a separate file, `routes.js`. This file has
-already been created for you, but you can create it yourself in future projects. 
+already been created for you, but you can create it yourself in future projects.
 
 Let's move our array of route objects into this `routes.js` file, and save it in
 a variable called `routes`. We can then make our `routes` variable the default
