@@ -295,10 +295,9 @@ enable easy navigation between different pages in your application!
 efficient way to include a NavBar throughout your app in future lessons!)
 
 Load up the browser again and you should see beautiful blue NavLinks that load
-up the desired component.
+up the desired components.
 
-For more practice, implement `/signup` and `/messages` routes, NavLinks and
-components.
+### Dynamic Routes and URL Params
 
 ### Error Handling
 
