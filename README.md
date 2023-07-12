@@ -622,6 +622,78 @@ appropriate `errorElement`.
 >the React Error Overlay over your browser page, even with the errorElement
 >included. You can see the errorElement by closing the Error Overlay.
 
+### Separation of Concerns
+
+By this point, everything should be functional (if it's not, try carefully
+reviewing any errors you're receiving and double checking your code against the
+example code). But, we could make some _organizational_ improvement. 
+
+Take a look at our `index.js` file. It's getting pretty long and messy! Instead
+of including all of this routing logic within our index.js file, let's
+extrapolate some of it out into a separate file, `routes.js`. This file has
+already been created for you, but you can create it yourself in future projects. 
+
+Let's move our array of route objects into this `routes.js` file, and save it in
+a variable called `routes`. We can then make our `routes` variable the default
+export for the file. Don't forget to bring along all of this component import
+statements as well!
+
+```jsx
+// routes.js
+import Home from "./pages/Home";
+import About from "./pages/About";
+import Login from "./pages/Login";
+import UserProfile from "./pages/UserProfile";
+import ErrorPage from "./pages/ErrorPage";
+
+const routes = [
+  {
+    path: "/",
+    element: <Home />,
+    errorElement: <ErrorPage />
+  }, 
+  {
+    path: "/about",
+    element: <About />,
+    errorElement: <ErrorPage />
+  },
+  {
+    path: "/login",
+    element: <Login />,
+    errorElement: <ErrorPage />
+  },
+  {
+    path: "/profile/:id",
+    element: <UserProfile />,
+    errorElement: <ErrorPage />
+  }
+];
+
+export default routes;
+```
+
+Now we just need to make sure we import our `routes` variable back into our
+`index.js` file:
+
+```jsx
+// index.js
+import React from "react";
+import ReactDOM from "react-dom";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import routes from "./routes.js";
+
+const router = createBrowserRouter(routes)
+
+const root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(<RouterProvider router={router} />)
+
+```
+
+There! Much cleaner! This will also make it easier to run tests on your routes,
+as your routing configuration has been separated from the rendering logic of
+your app. This is one of many reasons that separation of concerns is so widely
+used and so helpful!
+
 ## Conclusion
 
 You've now seen all the core functionality of React Router required for
