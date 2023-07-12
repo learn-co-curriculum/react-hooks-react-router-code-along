@@ -1,6 +1,6 @@
 
 
-function UserCard({name}) {
+function UserCard({id, name}) {
   return (
     <article>
         <h2>{name}</h2>

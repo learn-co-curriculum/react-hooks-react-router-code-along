@@ -349,8 +349,10 @@ const router = createBrowserRouter([
     path: "/login",
     element: <Login />
   },
-  path: "/profile",
-  element: <UserProfile />
+  {
+    path: "/profile",
+    element: <UserProfile />
+  }
 ])
 
 // ...render statements
@@ -365,7 +367,7 @@ Let's update our `UserCard` component to use a `Link` from `react-router-dom`:
 // UserCard.js
 import {Link} from "react-router-dom"
 
-function UserCard({name}) {
+function UserCard({id, name}) {
   return (
     <article>
         <h2>{name}</h2>
@@ -382,6 +384,160 @@ taken to our User Profile page.
 
 Hang on - we're navigating successfully, but we're not showing any information
 about a particular user. That won't work!
+
+We still want to use our User Profile page to display information about a user.
+But we want the _user information_ we're displaying to change.
+
+This is where **Dynamic Routes** and **URL Parameters** come in - we can
+actually use URL routes to pass data!
+
+Let's go back and update our routes to start using dynamic routing and URL
+parameters:
+
+```jsx
+// index.js
+// ...import statements
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Home />
+  }, 
+  {
+    path: "/about",
+    element: <About />
+  },
+  {
+    path: "/login",
+    element: <Login />
+  },
+  {
+    path: "/profile/:id",
+    element: <UserProfile />
+  }
+])
+
+// ...render statements
+```
+
+Notice that we added `:id` to the end of our `path` for our `UserProfile` route.
+This notation creates a `URL parameter` - a segment of our URL that can change
+and contains data that we'll want to use in our component.
+
+By including a URL parameter (or multiple parameters) in a route, we make that
+route _dynamic_ - this single route can actually have many different URLs! For
+example, the `/profile/1`, `/profile/2`, and `/profile/3` URLs will all lead to
+the same page. That page will just display different information depending on
+which URL is used!
+
+Let's update our `UserCard` component to start making use of our dynamic route:
+
+```jsx
+// UserCard.js
+import {Link} from "react-router-dom"
+
+function UserCard({id, name}) {
+  return (
+    <article>
+        <h2>{name}</h2>
+        <p>
+          <Link to={`/profile/${id}`}>View profile</Link>
+        </p>
+    </article>
+  )
+}
+
+export default UserCard
+```
+
+We've used string interpolation to update the `to` prop of our `Link` component
+from `react-router-dom` to include the `id` of a user being rendered by a
+particular `UserCard` component. Now, when we click on one of these links, it
+will take us to the URL `/profile/<some-user-id>`, which will correspond with
+the `/profile/:id` route we set up in our router.
+
+Try it out! You should still see the `UserProfile` component being rendered as
+it was before, but the URl should show the `id` of whichever user you clicked
+on.
+
+Great! But our `UserProfile` component still isn't displaying specific user
+information.
+
+That's where the last piece of the puzzle comes into play - the `useParams`
+hook.
+
+Let's start by importing that into the top of our `UserProfile` component:
+`import { useParams } from 'react-router-dom'`.
+
+From there, we can invoke the hook to access the parameters we included in our
+URL route: `const params = useParams()`.
+
+If we `console.log` our new `params` variable, we'll see that it's an object.
+The keys in the object will be the parameters we defined in our route, and the
+values will be whatever we actually entered into our URL.
+
+If we click on `George Orwell's` card for example, our `params` object should
+look like this:
+
+```JavaScript
+{
+  id: "1"
+}
+```
+
+We can now use the data contained in our params object to access the specific
+piece of data we want to display!
+
+```JavaScript
+const user = users.find(user => user.id === parseInt(params.id))
+```
+
+(Note that we're using `parseInt` in this example - all data passed via URL
+params will be a string!)
+
+In applications where you're data will be contained in a `db.json` file or
+database, you'll likely want to run a `fetch` request to grab the specific piece
+of data you want from your database.
+
+Now that we have a way to access the user we want, let's updated our UserProfile
+component to display information about that user!
+
+```jsx
+// UserProfile.js
+import users from "../data.js";
+import { useParams } from "react-router-dom";
+import NavBar from "../components/Navbar";
+
+function UserProfile() {
+  const params = useParams();
+
+  const user = users.find(user => user.id === parseInt(params.id))
+
+  return(
+    <>
+      <header>
+        <NavBar />
+      </header>
+      <main>
+        <h1>{user.name}</h1>
+      </main>
+    </>
+  );
+};
+
+export default UserProfile;
+```
+
+With our component updated, we should now see the correct user displaying when
+we navigate to a specific user's profile page! Nice!
+
+>**Note**: You'll want to make sure you set up dynamic routes to work when
+>somebody shares a URL to a dynamic endpoint,. There are a variety of ways to
+>handle this to make sure your app doesn't break when somebody initially loads
+>your app on a dynamic endpoint, rather than navigating to it internally. One
+>way is to use `fetch` within the component to fetch all requisite data, as
+>mentioned previously, but you might find other ways to handle it. Just remember
+>that your solution should be legible, performant, and easy to maintain!
 
 ### Error Handling
 
@@ -445,6 +601,11 @@ const router = createBrowserRouter([
     path: "/login",
     element: <Login />,
     errorElement: <ErrorPage />
+  },
+  {
+    path: "/profile/:id",
+    element: <UserProfile />,
+    errorElement: <ErrorPage />
   }
 ])
 
@@ -458,8 +619,8 @@ UI component! For that reason, we'll want to make sure each of our routes has an
 appropriate `errorElement`.
 
 >**Note** If your page generates an Error during development, you will still see
->the React Error Overlay over your page, even with the errorElement included.
->You can see the errorElement by closing the Error Overlay.
+>the React Error Overlay over your browser page, even with the errorElement
+>included. You can see the errorElement by closing the Error Overlay.
 
 ## Conclusion
 

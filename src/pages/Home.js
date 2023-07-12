@@ -4,7 +4,7 @@ import UserCard from "../components/UserCard";
 function Home() {
   
   const userList = users.map(user =>{
-    <UserCard key={user.id} name={user.name}/>
+    <UserCard key={user.id} {...user}/>
   })
 
   return (
