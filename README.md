@@ -38,7 +38,8 @@ works wherever React is rendering — so take your pick!
 [composition]: https://reactjs.org/docs/composition-vs-inheritance.html
 
 To demonstrate some of the key features of React Router, we have an exercise to
-code along with, so let's get going!
+code along with. We'll be making a _very_ simple social media app - let's dive
+into it!
 
 ## Code Along
 
@@ -46,9 +47,10 @@ code along with, so let's get going!
 
 To get started, clone down this repo and run `npm install`.
 
-If you open up `src/index.js`, you will see that currently we are currently
-rendering our `Home` component, which will serve as the homepage of our
-application.
+If you open up `src/index.js`, you will see that we are currently rendering our
+`Home` component, which will serve as the homepage of our application. `Home` is
+rendering a list of user cards displaying existing site users. The data for
+users is being imported from our `data.js` file.
 
 ```jsx
 // ./src/index.js
@@ -283,7 +285,7 @@ function NavBar() {
       </NavLink>
     </nav>
   );
-}
+};
 
 export default NavBar;
 ```
@@ -299,10 +301,92 @@ up the desired components.
 
 ### Dynamic Routes and URL Params
 
+Nice! We're making good progress! But in our social media app, we'll probably
+want to see our user profiles. Let's create a new file in `pages` called
+`UserProfile.js`. We'll be importing user data from our `data.js` file directly
+into that component.
+
+Here's a basic setup for that component:
+
+```jsx
+// UserProfile.js
+import users from "../data.js";
+import NavBar from "../components/Navbar";
+
+function UserProfile() {
+  return(
+    <>
+      <header>
+        <NavBar />
+      </header>
+      <main>
+        <h1>User Profile</h1>
+      </main>
+    </>
+  );
+};
+
+export default UserProfile;
+```
+
+We can then add this new component to our router:
+
+```jsx
+// index.js
+// ...other import statements
+import UserProfile from "./pages/UserProfile";
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Home />
+  }, 
+  {
+    path: "/about",
+    element: <About />
+  },
+  {
+    path: "/login",
+    element: <Login />
+  },
+  path: "/profile",
+  element: <UserProfile />
+])
+
+// ...render statements
+```
+
+Ideally, we want to navigate people to this page when they click on one of our
+user cards displaying on our homepage.
+
+Let's update our `UserCard` component to use a `Link` from `react-router-dom`:
+
+```jsx
+// UserCard.js
+import {Link} from "react-router-dom"
+
+function UserCard({name}) {
+  return (
+    <article>
+        <h2>{name}</h2>
+        <Link to="/profile">View profile</Link>
+    </article>
+  )
+}
+
+export default UserCard
+```
+
+Let's test it out! You should be able to click on one of those links and be
+taken to our User Profile page.
+
+Hang on - we're navigating successfully, but we're not showing any information
+about a particular user. That won't work!
+
 ### Error Handling
 
 Ok great, we've got most of the basic functionality for client-side routing
-down! But what if somebody enters a route that doesn't exist. Try entering
+down! But what if somebody enters a route that doesn't exist? Try entering
 `http://localhost:3000/florp` into your browser. Yikes! That's an ugly looking
 error page!
 

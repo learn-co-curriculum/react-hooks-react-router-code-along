@@ -16,3 +16,5 @@ const users = [
         name: "Isabel Allende"
     }
 ]
+
+export default users;
