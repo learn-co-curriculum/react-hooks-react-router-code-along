@@ -434,7 +434,7 @@ Let's update our `UserCard` component to start making use of our dynamic route:
 
 ```jsx
 // UserCard.js
-import {Link} from "react-router-dom"
+import {Link} from "react-router-dom";
 
 function UserCard({id, name}) {
   return (
@@ -444,10 +444,10 @@ function UserCard({id, name}) {
           <Link to={`/profile/${id}`}>View profile</Link>
         </p>
     </article>
-  )
-}
+  );
+};
 
-export default UserCard
+export default UserCard;
 ```
 
 We've used string interpolation to update the `to` prop of our `Link` component
