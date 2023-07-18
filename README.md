@@ -90,15 +90,27 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(<Home />)
 ```
 
-In the code above, there are two pieces of functionality that we're importing
-from **React Router**. We use them in turn:
-
-1. The `createBrowserRouter` is used to create the router for our application.
+`createBrowserRouter` is used to create the router for our application.
    We'll pass it an array of route objects as its argument. Each route object
    will have a routing path and a corresponding element that will be rendered on
    that path.
-2. The `RouterProvider` provides the router created by `createBrowserRouter` to
+
+```jsx
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Home />
+  }
+])
+```
+
+The `RouterProvider` provides the router created by `createBrowserRouter` to
    our application, so it can use React-Router's client-side routing.
+
+```jsx
+const root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(<RouterProvider router={router} />)
+```
 
 Let's try it! Copy the code below into `src/index.js` and run `npm start` to
 boot up the application. Once it is running, point your URL to
@@ -116,7 +128,6 @@ const router = createBrowserRouter([
     element: <Home />
   }
 ])
-
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(<RouterProvider router={router} />)
