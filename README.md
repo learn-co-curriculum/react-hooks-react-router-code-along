@@ -676,7 +676,8 @@ already been created for you, but you can create it yourself in future projects.
 
 Let's move our array of route objects into this `routes.js` file, and save it in
 a variable called `routes`. We can then make our `routes` variable the default
-export for the file. Don't forget import all of the necessary components as well!
+export for the file. Don't forget import all of the necessary components as
+well!
 
 ```jsx
 // routes.js
@@ -732,12 +733,12 @@ root.render(<RouterProvider router={router} />)
 There! Much cleaner! This will also make it easier to run tests on your routes,
 as your routing configuration has been separated from the rendering logic of
 your app. This is one of many reasons that separation of concerns is so widely
-used and so helpful!
+used and so helpful.
 
 ## Conclusion
 
 You've now seen all the core functionality of React Router required for
-client-side routing! We've met the requirements so that our app can:
+client-side routing. We've met the requirements so that our app can:
 
 - Conditionally render a different component based on the URL (using
   `createBrowserRouter` and `RouterProvider`)
@@ -745,10 +746,10 @@ client-side routing! We've met the requirements so that our app can:
   the HTML document (using the `<Link>` or `<NavLink>` components)
 
 In the coming lessons, we'll explore more of the advanced functionality provided
-by React Router. You are also strongly encouraged to look at the [React Router
-docs][react router docs], and in particular at the examples section, to get more
-ideas on how to use React Router to build common features in your own
-applications.
+by React Router. If you have the time, you should definitely look at the [React
+Router docs][react router docs] - especially the examples - to dive deeper into
+React Router's many features and get a better sense of how to use it in an
+application.
 
 ## Resources
 
