@@ -676,8 +676,7 @@ already been created for you, but you can create it yourself in future projects.
 
 Let's move our array of route objects into this `routes.js` file, and save it in
 a variable called `routes`. We can then make our `routes` variable the default
-export for the file. Don't forget to bring along all of this component import
-statements as well!
+export for the file. Don't forget import all of the necessary components as well!
 
 ```jsx
 // routes.js
