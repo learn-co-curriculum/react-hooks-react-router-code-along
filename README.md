@@ -332,7 +332,7 @@ function Home() {
 export default Home;
 ```
 
-You would also add `NavBar` to `About` and `Login`.
+You'll also want to add `NavBar` to your `About` and `Login` components.
 
 (Does this seem inefficient? Not very DRY? Don't worry - we'll look at a more
 efficient way to include a `NavBar` throughout your app in future lessons!)
@@ -420,13 +420,13 @@ function UserCard({id, name}) {
 export default UserCard
 ```
 
-Let's test it out! You should be able to click on one of those links and be
-taken to our User Profile page.
+Let's test it out! Click on one of those links - you should be navigated to our
+`UserProfile` page.
 
 Hang on - we're navigating successfully, but we're not showing any information
 about a particular user. That won't work!
 
-We still want to use our User Profile page to display information about a user.
+We still want to use our `UserProfile` page to display information about a user.
 But we want the _user information_ we're displaying to change.
 
 This is where **Dynamic Routes** and **URL Parameters** come in - we can
@@ -463,7 +463,7 @@ const router = createBrowserRouter([
 
 Notice that we added `:id` to the end of our `path` for our `UserProfile` route.
 This notation creates a `URL parameter` - a segment of our URL that can change
-and contains data that we'll want to use in our component.
+and that contains data that we can use in our components.
 
 By including a URL parameter (or multiple parameters) in a route, we make that
 route _dynamic_ - this single route can actually have many different URLs! For
@@ -536,9 +536,9 @@ const user = users.find(user => user.id === parseInt(params.id))
 (Note that we're using `parseInt` in this example - all data passed via URL
 params will be a string!)
 
-In applications where you're data will be contained in a `db.json` file or
-database, you'll likely want to run a `fetch` request to grab the specific piece
-of data you want from your database.
+In applications where your data will be contained in a `db.json` file or
+database, you'll likely want to run a `fetch` request within a `useEffect` to
+grab the specific piece of data you want from your database.
 
 Now that we have a way to access the user we want, let's updated our UserProfile
 component to display information about that user!
