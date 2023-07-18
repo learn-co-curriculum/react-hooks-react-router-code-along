@@ -607,9 +607,10 @@ function ErrorPage() {
         <h1>Whoops! Something went wrong!</h1>
       </main>
     </>
-  )
+  );
 }
 
+export default ErrorPage;
 ```
 
 Note that we're importing the `useRouteError` hook in addition to our `NavBar`
