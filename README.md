@@ -237,6 +237,17 @@ link is currently selected. `Link` is a good option for creating standard
 hyperlinks. For this example, we will be using `NavLink`; we will see examples
 of using `Link` in later lessons.
 
+Instead of taking an `href` attribute like normal `<a>` tags, `Link` and
+`NavLink` take a `to` prop that points to the endpoint you want a user to
+navigate to:
+
+```jsx
+<NavLink to="/about">About</NavLink>
+```
+
+For example, this `NavLink` would display "About" and would navigate users to
+our `/about` page when clicked.
+
 Let's create a new `NavBar` component in the `components` folder to add these
 `NavLink`s to our application.
 
@@ -293,6 +304,7 @@ You can then place your NavBar component in each of your page components to
 enable easy navigation between different pages in your application!
 
 Ex:
+
 ```jsx
 // Home.js
 import users from "../data";
@@ -394,7 +406,7 @@ Let's update our `UserCard` component to use a `Link` from `react-router-dom`:
 
 ```jsx
 // UserCard.js
-import {Link} from "react-router-dom"
+import { Link } from "react-router-dom"
 
 function UserCard({id, name}) {
   return (
