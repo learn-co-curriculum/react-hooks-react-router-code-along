@@ -292,8 +292,38 @@ export default NavBar;
 You can then place your NavBar component in each of your page components to
 enable easy navigation between different pages in your application!
 
+Ex:
+```jsx
+// Home.js
+import users from "../data";
+import UserCard from "../components/UserCard";
+import NavBar from "../components/NavBar";
+
+function Home() {
+  
+  const userList = users.map(user =>{
+    <UserCard key={user.id} {...user}/>
+  })
+
+  return (
+    <>
+      <header>
+        <NavBar />
+      </header>
+      <main>
+        <h1>Home!</h1>
+      </main>
+    </>
+  );
+};
+
+export default Home;
+```
+
+You would also add `NavBar` to `About` and `Login`.
+
 (Does this seem inefficient? Not very DRY? Don't worry - we'll look at a more
-efficient way to include a NavBar throughout your app in future lessons!)
+efficient way to include a `NavBar` throughout your app in future lessons!)
 
 Load up the browser again and you should see beautiful blue NavLinks that load
 up the desired components.

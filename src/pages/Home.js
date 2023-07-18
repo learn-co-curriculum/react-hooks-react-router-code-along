@@ -9,6 +9,9 @@ function Home() {
 
   return (
     <>
+      <header>
+        {/* place NavBar here */}
+      </header>
       <main>
         <h1>Home!</h1>
       </main>
