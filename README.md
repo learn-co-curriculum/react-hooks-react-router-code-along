@@ -90,10 +90,9 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(<Home />)
 ```
 
-`createBrowserRouter` is used to create the router for our application.
-   We'll pass it an array of route objects as its argument. Each route object
-   will have a routing path and a corresponding element that will be rendered on
-   that path.
+`createBrowserRouter` is used to create the router for our application. We'll
+pass it an array of route objects as its argument. Each route object will have a
+routing path and a corresponding element that will be rendered on that path.
 
 ```jsx
 const router = createBrowserRouter([
@@ -104,8 +103,8 @@ const router = createBrowserRouter([
 ])
 ```
 
-The `RouterProvider` provides the router created by `createBrowserRouter` to
-   our application, so it can use React-Router's client-side routing.
+The `RouterProvider` provides the router created by `createBrowserRouter` to our
+application, so it can use React-Router's client-side routing.
 
 ```jsx
 const root = ReactDOM.createRoot(document.getElementById("root"));
@@ -221,10 +220,11 @@ for `/`, `/about`, and `/login`. You should see these new components rendering!
 
 ### Links and NavLinks
 
-What good are routes if users don't know how to find them or what they are?
+But what good are routes if users don't know how to find them or what they are?
 
-React Router provides two components that enable us to trigger our routing:
-`Link` and `NavLink`. They both have the same base level functionality:
+React Router provides two components that allow users to navigate through our
+page using client-side routing: `Link` and `NavLink`. They both have the same
+base level functionality:
 
 - They render an `<a>` tag to the DOM
 - When the `<a>` tag is clicked, they change the URL and tell React Router to
@@ -246,7 +246,7 @@ NavBar.js:
 import React from "react";
 import ReactDOM from "react-dom";
 /* Add NavLink to import */
-import { NavLink} from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 /* Add basic styling for NavLinks */
 const linkStyles = {
@@ -265,34 +265,20 @@ function NavBar() {
     <nav>
       <NavLink
         to="/"
-        /* set exact so it knows to only set activeStyle when route is deeply equal to link */
-        exact
         /* add styling to Navlink */
         style={linkStyles}
-        /* add prop for activeStyle */
-        activeStyle={{
-          background: "darkblue",
-        }}
       >
         Home
       </NavLink>
       <NavLink
         to="/about"
-        exact
         style={linkStyles}
-        activeStyle={{
-          background: "darkblue",
-        }}
       >
         About
       </NavLink>
       <NavLink
         to="/login"
-        exact
         style={linkStyles}
-        activeStyle={{
-          background: "darkblue",
-        }}
       >
         Login
       </NavLink>
