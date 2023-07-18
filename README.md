@@ -254,8 +254,6 @@ Let's create a new `NavBar` component in the `components` folder to add these
 NavBar.js:
 
 ```jsx
-import React from "react";
-import ReactDOM from "react-dom";
 /* Add NavLink to import */
 import { NavLink } from "react-router-dom";
 
