@@ -7,35 +7,37 @@
 
 ## Introduction
 
-So far, we have been building our applications without any navigation, so
+So far, we have been building our React applications without any navigation -
 everything in the app has lived at the same URL. Currently, we can make it look
-like we are changing the page based on state by showing or hiding some
-components, but none of these changes are dependent on a change in the URL.
+like we are changing the page by showing or hiding different components, but
+none of these changes are dependent on a change in the URL.
 
-Now this may seem like a small quibble, but web addresses are the backbone of
-the Internet. The web is just a series of links to other pages, after all.
+Why is this a problem? Well, web addresses are the backbone of the Internet. The
+web is just a series of links to other pages, after all.
 
 Let's imagine that we have a React application hosted at `www.loveforsoils.com`
 (not a real website) dedicated to sharing knowledge about [soil types][soils].
-As a facet of our React application, we want to provide users with the option to
-see a list of our favorite soils. Currently, instead of sharing a link to a list
-of our favorite soils, we can only provide a link to our "Love for soils"
-homepage. Following which, users are required to interact with our application
-to see a favorite soil list.
+As developers of this website, we want to provide users with the option to see a
+list of our favorite soils. Currently, instead of sharing a link to a list of
+our favorite soils, we can only provide a link to our "Love for soils" homepage.
+Following which, users are required to interact with our application to see a
+favorite soil list.
 
 Because our personal opinion on the best soils is so important, we want to
-provide users with the opportunity to go straight to this list of the favorite
-soils view with a URL at `www.loveforsoils.com/favorites`. Enter **React
-Router**: a routing library for **React** that allows us to link to specific
-URLs and conditionally render components depending on which URL is displayed.
+provide users with the opportunity to go straight to this list of our favorite
+soils by using the URL `www.loveforsoils.com/favorites`. Enter **React Router**:
+a routing library for **React** that allows us to link to specific URLs and
+conditionally render components depending on which URL is displayed.
 
-React Router is a collection of navigational components and custom hooks that
-are implemented using declarative programming and [compose with][composition]
-the components in your application. Whether you want to have bookmark-able URLs
-for your web app, or a composable way to navigate in React Native, React Router
-works wherever React is rendering — so take your pick!
-
-[composition]: https://reactjs.org/docs/composition-vs-inheritance.html
+As mentioned in the previous reading, **React Router** enables _client-side
+routing_ which allows us to render different portions of our webpage using the
+[browser's History
+API](https://reactrouter.com/en/main/start/concepts#history-and-locations)
+instead of making requests to our server for a new webpage. This is essential
+for routing in any React application, as we only have a single HTML file to
+serve - that's the nature of an SPA. Instead, our browser renders a new
+component, and our client-side JavaScript requests any data we want to display
+in that component.
 
 To demonstrate some of the key features of React Router, we have an exercise to
 code along with. We'll be making a _very_ simple social media app - let's dive
