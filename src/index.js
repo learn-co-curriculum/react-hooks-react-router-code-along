@@ -1,23 +1,9 @@
 import React from "react";
-import ReactDOM from "react-dom";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";import Home from "./pages/Home";
-import About from "./pages/About";
-import Login from "./pages/Login";
+import ReactDOM from "react-dom/client";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import routes from "./routes.js";
 
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <Home />
-  }, 
-  {
-    path: "/about",
-    element: <About />
-  },
-  {
-    path: "/login",
-    element: <Login />
-  }
-])
+const router = createBrowserRouter(routes)
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(<RouterProvider router={router} />)

@@ -5,7 +5,7 @@ import NavBar from "../components/NavBar";
 function Home() {
   
   const userList = users.map(user =>{
-    <UserCard key={user.id} {...user}/>
+    return <UserCard key={user.id} {...user}/>
   })
 
   return (
@@ -15,6 +15,7 @@ function Home() {
       </header>
       <main>
         <h1>Home!</h1>
+        {userList}
       </main>
     </>
   );
