@@ -18,10 +18,9 @@ web is just a series of links to other pages, after all.
 Let's imagine that we have a React application hosted at `www.loveforsoils.com`
 (not a real website) dedicated to sharing knowledge about [soil types][soils].
 As developers of this website, we want to provide users with the option to see a
-list of our favorite soils. Currently, instead of sharing a link to a list of
-our favorite soils, we can only provide a link to our "Love for soils" homepage.
-Following which, users are required to interact with our application to see a
-favorite soil list.
+list of our favorite soils. Currently, instead of sharing a link to that list,
+we can only provide a link to our "Love for soils" homepage. Users are then
+required to interact with our application to see the favorite soil list.
 
 Because our personal opinion on the best soils is so important, we want to
 provide users with the opportunity to go straight to this list of our favorite
@@ -33,11 +32,20 @@ As mentioned in the previous reading, **React Router** enables _client-side
 routing_ which allows us to render different portions of our webpage using the
 [browser's History
 API](https://reactrouter.com/en/main/start/concepts#history-and-locations)
-instead of making requests to our server for a new webpage. This is essential
-for routing in any React application, as we only have a single HTML file to
-serve - that's the nature of an SPA. Instead, our browser renders a new
-component, and our client-side JavaScript requests any data we want to display
-in that component.
+instead of making requests to our server for a new webpage. Instead, our browser
+renders a new component, and our client-side JavaScript requests any data we
+want to display in that component. This is essential for routing in any React
+application, as we only have a single HTML file to serve - that's the nature of
+an SPA.
+
+>**Note** Some web development frameworks that use and expand upon React, like
+>`Next.js`, handling routing and rendering a little differently, and start to
+>depart from React's traditional client-side SPA implementation. `Remix`, which
+>is the React based framework that maintains React Router, still uses React
+>Router to handle its routing, but the underlying rendering and re-rendering of
+>the application is handled a little differently. When we build a React project
+>outside of these additional frameworks, React Router will perform client-side
+>routing in the way we described above.
 
 To demonstrate some of the key features of React Router, we have an exercise to
 code along with. We'll be making a _very_ simple social media app - let's dive
@@ -79,7 +87,6 @@ To start implementing routes, we first need to import `createBrowserRouter` and
 
 ```jsx
 // .src/index.js
-
 import React from "react";
 import ReactDOM from "react-dom";
 // Step 1. Import react-router functions
@@ -147,6 +154,9 @@ About.js:
 function About() {
   return (
     <>
+      <header>
+        {/* Save space for NavBar */}
+      </header>
       <main>
         <h1>This is my about component!</h1>
       </main>
@@ -163,6 +173,9 @@ Login.js:
 function Login() {
   return (
     <>
+      <header>
+        {/* Save space for NavBar */}
+      </header>
       <main>
         <h1>Login</h1>
         <form>
@@ -189,7 +202,7 @@ routes within `createBrowserRouter`:
 // ./src/index.js
 import React from "react";
 import ReactDOM from "react-dom";
-import { BrowserRouter, Route } from "react-router-dom";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Home from "./pages/Home";
 import About from "./pages/About";
 import Login from "./pages/Login";
@@ -211,7 +224,6 @@ const router = createBrowserRouter([
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(<RouterProvider router={router} />)
-
 ```
 
 If you go back to the browser you will see that it looks the same — our `Home`
@@ -220,7 +232,7 @@ for `/`, `/about`, and `/login`. You should see these new components rendering!
 
 ### Links and NavLinks
 
-But what good are routes if users don't know how to find them or what they are?
+But what good are routes if users don't know how to navigate to them?
 
 React Router provides two components that allow users to navigate through our
 page using client-side routing: `Link` and `NavLink`. They both have the same
@@ -229,17 +241,16 @@ base level functionality:
 - They render an `<a>` tag to the DOM
 - When the `<a>` tag is clicked, they change the URL and tell React Router to
   re-render our routes, displaying the component that matches the new URL
-
-`NavLink` acts as a superset of `Link`, adding **styling attributes** to a
-rendered element **when it matches the current URL**. `NavLink` works well for
-creating a navigation bar, since it allows us to add styling to indicate which
-link is currently selected. `Link` is a good option for creating standard
-hyperlinks. For this example, we will be using `NavLink`; we will see examples
-of using `Link` in later lessons.
-
-Instead of taking an `href` attribute like normal `<a>` tags, `Link` and
+- Instead of taking an `href` attribute like normal `<a>` tags, `Link` and
 `NavLink` take a `to` prop that points to the endpoint you want a user to
-navigate to:
+navigate to
+
+`NavLink` acts as a superset of `Link`, adding a default **active** class **when
+it matches the current URL**. `NavLink` works well for creating a navigation
+bar, since it allows us to add styling to indicate which link is currently
+selected. `Link` is a good option for creating standard hyperlinks. For this
+example, we will be using `NavLink`; we will see examples of using `Link` later
+on.
 
 ```jsx
 <NavLink to="/about">About</NavLink>
@@ -256,17 +267,7 @@ NavBar.js:
 ```jsx
 /* Add NavLink to import */
 import { NavLink } from "react-router-dom";
-
-/* Add basic styling for NavLinks */
-const linkStyles = {
-  display: "inline-block",
-  width: "50px",
-  padding: "12px",
-  margin: "0 6px 6px",
-  background: "blue",
-  textDecoration: "none",
-  color: "white",
-};
+import "./NavBar.css"
 
 /* define the NavBar component */
 function NavBar() {
@@ -275,19 +276,19 @@ function NavBar() {
       <NavLink
         to="/"
         /* add styling to Navlink */
-        style={linkStyles}
+        className="nav-link"
       >
         Home
       </NavLink>
       <NavLink
         to="/about"
-        style={linkStyles}
+        className="nav-link"
       >
         About
       </NavLink>
       <NavLink
         to="/login"
-        style={linkStyles}
+        className="nav-link"
       >
         Login
       </NavLink>
@@ -296,6 +297,28 @@ function NavBar() {
 };
 
 export default NavBar;
+```
+
+Let's also create a `NavBar.css` file adjacent to our `NavBar` file to add in
+some styling:
+
+```css
+.nav-link{
+    display: inline-block;
+    box-sizing: border-box;
+    width: 60px;
+    padding: 5px;
+    margin: 0 6px 6px;
+    background: blue;
+    text-decoration: none;
+    text-align: center;
+    font-size: min(10vw, 15px) ;
+    color: white;
+}
+  
+.active {
+    color: red;
+}
 ```
 
 You can then place your NavBar component in each of your page components to
