@@ -73,6 +73,7 @@ root.render(<Home />)
 ```
 
 ```jsx
+// Home.js
 import users from "../data";
 import UserCard from "../components/UserCard";
 
