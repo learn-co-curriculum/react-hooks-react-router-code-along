@@ -60,16 +60,42 @@ To get started, clone down this repo and run `npm install`.
 If you open up `src/index.js`, you will see that we are currently rendering our
 `Home` component, which will serve as the homepage of our application. `Home` is
 rendering a list of user cards displaying existing site users. The data for
-users is being imported from our `data.js` file.
+users is being imported from our `data.js` file into `Home`.
 
 ```jsx
-// ./src/index.js
+// index.js
 import React from "react";
 import ReactDOM from "react-dom/client";
 import Home from "./pages/Home"
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(<Home />)
+```
+
+```jsx
+import users from "../data";
+import UserCard from "../components/UserCard";
+
+function Home() {
+  
+  const userList = users.map(user =>{
+    return <UserCard key={user.id} {...user}/>
+  })
+
+  return (
+    <>
+      <header>
+        {/* NavBar will go here! */ }
+      </header>
+      <main>
+        <h1>Home!</h1>
+        {userList}
+      </main>
+    </>
+  );
+};
+
+export default Home;
 ```
 
 To start using React Router, we need to install `react-router-dom`:
@@ -373,7 +399,7 @@ Here's a basic setup for that component:
 ```jsx
 // UserProfile.js
 import users from "../data.js";
-import NavBar from "../components/Navbar";
+import NavBar from "../components/NavBar";
 
 function UserProfile() {
   return(
@@ -526,7 +552,8 @@ Great! But our `UserProfile` component still isn't displaying specific user
 information.
 
 That's where the last piece of the puzzle comes into play - the `useParams`
-hook.
+hook. `useParams` allows us to access the data we've stored in our URL
+parameters and use it within our components.
 
 Let's start by importing that into the top of our `UserProfile` component:
 `import { useParams } from 'react-router-dom'`.
@@ -568,7 +595,7 @@ component to display information about that user!
 // UserProfile.js
 import users from "../data.js";
 import { useParams } from "react-router-dom";
-import NavBar from "../components/Navbar";
+import NavBar from "../components/NavBar";
 
 function UserProfile() {
   const params = useParams();
@@ -594,7 +621,7 @@ With our component updated, we should now see the correct user displaying when
 we navigate to a specific user's profile page! Nice!
 
 >**Note**: You'll want to make sure you set up dynamic routes to work when
->somebody shares a URL to a dynamic endpoint,. There are a variety of ways to
+>somebody shares a URL to a dynamic endpoint. There are a variety of ways to
 >handle this to make sure your app doesn't break when somebody initially loads
 >your app on a dynamic endpoint, rather than navigating to it internally. One
 >way is to use `fetch` within the component to fetch all requisite data, as
@@ -614,7 +641,7 @@ Create this new component within our `pages` folder, then add the following
 code:
 
 ```jsx
-import Navbar from "../components/Navbar"
+import NavBar from "../components/NavBar"
 import { useRouteError } from "react-router-dom";
 
 function ErrorPage() {
@@ -741,7 +768,7 @@ Now we just need to make sure we import our `routes` variable back into our
 ```jsx
 // index.js
 import React from "react";
-import ReactDOM from "react-dom";
+import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import routes from "./routes.js";
 
