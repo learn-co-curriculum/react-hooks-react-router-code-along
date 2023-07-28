@@ -115,7 +115,7 @@ To start implementing routes, we first need to import `createBrowserRouter` and
 ```jsx
 // index.js
 import React from "react";
-import ReactDOM from "react-dom";
+import ReactDOM from "react-dom/client";
 // Step 1. Import react-router functions
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Home from "./pages/Home";
@@ -126,7 +126,7 @@ root.render(<Home />);
 
 `createBrowserRouter` is used to create the router for our application. We'll
 pass it an array of route objects as its argument. Each route object will have a
-routing path and a corresponding element that will be rendered on that path.
+routing path and a corresponding element to be rendered on that path.
 
 ```jsx
 const router = createBrowserRouter([
@@ -147,7 +147,7 @@ root.render(<RouterProvider router={router} />);
 
 Let's try it! Copy the code below into `src/index.js` and run `npm start` to
 boot up the application. Once it is running, point your URL to
-`http://localhost:3000/`. It should render `Home!`.
+`http://localhost:3000/`. We should still see the home page, but now it's being rendered using React Router!
 
 ```jsx
 import React from "react";
@@ -171,13 +171,13 @@ root.render(<RouterProvider router={router} />);
 In the last two steps, we learned how to set up our router using
 `createBrowserRouter` and `RouterProvider` and add our very first route.
 
-Next, we want to set up routing for an `About` and `Login` page.
+Next, we want to set up routing for `About` and `Login` pages.
 
 First, we'll make two new components within our `pages` directory.
 
-About.js:
 
 ```jsx
+// About.js
 function About() {
   return (
     <>
@@ -194,9 +194,9 @@ function About() {
 export default About;
 ```
 
-Login.js:
 
 ```jsx
+// Login.js
 function Login() {
   return (
     <>
@@ -228,7 +228,7 @@ routes within `createBrowserRouter`:
 ```jsx
 // ./src/index.js
 import React from "react";
-import ReactDOM from "react-dom";
+import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Home from "./pages/Home";
 import About from "./pages/About";
@@ -255,7 +255,7 @@ root.render(<RouterProvider router={router} />);
 
 If you go back to the browser you will see that it looks the same — our `Home`
 component is displaying as before. Now try manually typing in the URL locations
-for `/`, `/about`, and `/login`. You should see these new components rendering!
+for `/about` and `/login`. You should see these new components rendering!
 
 ### Links and NavLinks
 
@@ -265,12 +265,11 @@ React Router provides two components that allow users to navigate through our
 page using client-side routing: `Link` and `NavLink`. They both have the same
 base level functionality:
 
-- They render an `<a>` tag to the DOM
+- They render an `<a>` tag to the DOM.
 - When the `<a>` tag is clicked, they change the URL and tell React Router to
-  re-render our routes, displaying the component that matches the new URL
+  re-render our routes, displaying the component that matches the new URL.
 - Instead of taking an `href` attribute like normal `<a>` tags, `Link` and
-`NavLink` take a `to` prop that points to the endpoint you want a user to
-navigate to
+`NavLink` take a `to` prop that points to the endpoint the link should take the user to.
 
 `NavLink` acts as a superset of `Link`, adding a default **active** class **when
 it matches the current URL**. `NavLink` works well for creating a navigation
@@ -284,7 +283,7 @@ on.
 ```
 
 For example, this `NavLink` would display "About" and would navigate users to
-our `/about` page when clicked.
+our `/about` page when clicked:
 
 Let's create a new `NavBar` component in the `components` folder to add these
 `NavLink`s to our application.
@@ -509,9 +508,9 @@ const router = createBrowserRouter([
 // ...render statements
 ```
 
-Notice that we added `:id` to the end of our `path` for our `UserProfile` route.
+Notice that we added `/:id` to the end of our `path` for our `UserProfile` route.
 This notation creates a `URL parameter` — a segment of our URL that can change
-and that contains data that we can use in our components.
+and that contains data we can use in our components.
 
 By including a URL parameter (or multiple parameters) in a route, we make that
 route _dynamic_ — this single route can actually have many different URLs! For
@@ -540,8 +539,8 @@ export default UserCard;
 ```
 
 We've used string interpolation to update the `to` prop of our `Link` component
-from `react-router-dom` to include the `id` of a user being rendered by a
-particular `UserCard` component. Now, when we click on one of these links, it
+to include the `id` of the user corresponding to the link that was clicked.
+Now, when we click on one of these links, it
 will take us to the URL `/profile/<some-user-id>`, which will correspond with
 the `/profile/:id` route we set up in our router.
 
@@ -582,11 +581,10 @@ piece of data we want to display!
 const user = users.find(user => user.id === parseInt(params.id));
 ```
 
-(Note that we're using `parseInt` in this example - all data passed via URL
-params will be a string!)
+We need to use `parseInt` here because all data passed via URL params will be formatted as strings.
 
-In applications where your data will be contained in a `db.json` file or
-database, you'll likely want to run a `fetch` request within a `useEffect` to
+> Note: In this example, we're finding the user we need in a list we imported from the `data.js` file, but normally that will not be the case. If your data is contained in a `db.json` file or
+> database instead, you'll likely run a `fetch` request to
 grab the specific piece of data you want from your database.
 
 Now that we have a way to access the user we want, let's update our `UserProfile`
@@ -667,7 +665,7 @@ export default ErrorPage;
 Note that we're importing the `useRouteError` hook in addition to our `NavBar`
 component. The `useRouteError` hook allows us to interact with the error itself,
 including the error status and its message. You can read more about it
-[here](https://reactrouter.com/en/main/hooks/use-route-error).
+[in the `useRouteError` documentation](https://reactrouter.com/en/main/hooks/use-route-error).
 
 Now that we have that, we can add this `ErrorPage` to each of our routes using the
 `errorElement` field within our route objects:
@@ -709,24 +707,24 @@ app toward the provided Error component should any error occur within your main
 UI component! For that reason, we'll want to make sure each of our routes has an
 appropriate `errorElement`.
 
->**Note** If your page generates an Error during development, you will still see
+>**Note**: Applications that are created using `create-react-app` have a built-in React Error Overlay used in development mode. If your page generates an error during development, you will still see
 >the React Error Overlay over your browser page, even with the errorElement
 >included. You can see the errorElement by closing the Error Overlay.
 
 ### Separation of Concerns
 
-By this point, everything should be functional (if it's not, try carefully
+By this point, everything should be functional. (If it's not, try carefully
 reviewing any errors you're receiving and double checking your code against the
-example code). But, we could make some _organizational_ improvement.
+example code.) But, we could make an _organizational_ improvement.
 
 Take a look at our `index.js` file. It's getting pretty long and messy! Instead
 of including all of this routing logic within our `index.js` file, let's
-extrapolate some of it out into a separate file, `routes.js`. This file has
+extract some of it out into a separate file, `routes.js`. This file has
 already been created for you, but you can create it yourself in future projects.
 
 Let's move our array of route objects into this `routes.js` file, and save it in
 a variable called `routes`. We can then make our `routes` variable the default
-export for the file. Don't forget import all of the necessary components as
+export for the file. Don't forget to import all of the necessary components as
 well!
 
 ```jsx
@@ -764,7 +762,7 @@ export default routes;
 ```
 
 Now we just need to make sure we import our `routes` variable back into our
-`index.js` file:
+`index.js` file and pass it into `createBrowserRouter`:
 
 ```jsx
 // index.js
