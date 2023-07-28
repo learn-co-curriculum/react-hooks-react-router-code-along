@@ -278,12 +278,12 @@ selected. `Link` is a good option for creating standard hyperlinks. For this
 example, we will be using `NavLink`; we will see examples of using `Link` later
 on.
 
+For example, this `NavLink` would display "About" and would navigate users to
+our `/about` page when clicked:
+
 ```jsx
 <NavLink to="/about">About</NavLink>
 ```
-
-For example, this `NavLink` would display "About" and would navigate users to
-our `/about` page when clicked:
 
 Let's create a new `NavBar` component in the `components` folder to add these
 `NavLink`s to our application.
