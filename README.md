@@ -28,7 +28,7 @@ soils by using the URL `www.loveforsoils.com/favorites`. Enter **React Router**:
 a routing library for **React** that allows us to link to specific URLs and
 conditionally render components depending on which URL is displayed.
 
-As mentioned in the previous reading, **React Router** enables _client-side
+As mentioned in the previous lesson, **React Router** enables _client-side
 routing_ which allows us to render different portions of our webpage using the
 [browser's History
 API](https://reactrouter.com/en/main/start/concepts#history-and-locations)
