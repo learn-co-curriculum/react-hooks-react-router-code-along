@@ -816,5 +816,5 @@ application.
 
 - [React Router docs][react router docs]
 
-[react router docs]: https://v5.reactrouter.com/web/guides/quick-start
+[react router docs]: https://reactrouter.com/en/main
 [soils]: https://en.wikipedia.org/wiki/Soil_type
