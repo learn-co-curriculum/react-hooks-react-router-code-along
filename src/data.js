@@ -15,6 +15,6 @@ const users = [
         id: 4,
         name: "Isabel Allende"
     }
-]
+];
 
 export default users;

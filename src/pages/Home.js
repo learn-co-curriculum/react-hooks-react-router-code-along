@@ -5,7 +5,7 @@ function Home() {
   
   const userList = users.map(user =>{
     return <UserCard key={user.id} {...user}/>
-  })
+  });
 
   return (
     <>
