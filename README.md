@@ -629,14 +629,6 @@ export default UserProfile;
 With our component updated, we should now see the correct user displaying when
 we navigate to a specific user's profile page! Nice!
 
->**Note**: You'll want to make sure you set up dynamic routes to work when
->somebody shares a URL to a dynamic endpoint. There are a variety of ways to
->handle this to make sure your app doesn't break when somebody initially loads
->your app on a dynamic endpoint, rather than navigating to it internally. One
->way is to use `fetch` within the component to fetch all requisite data, as
->mentioned previously, but you might find other ways to handle it. Just remember
->that your solution should be legible, performant, and easy to maintain!
-
 ### Error Handling
 
 Ok great, we've got most of the basic functionality for client-side routing
