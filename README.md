@@ -555,24 +555,32 @@ That's where the last piece of the puzzle comes into play: the `useParams` hook.
 `useParams` allows us to access the data we've stored in our URL parameters and
 use it within our components.
 
-Let's start by importing that into the top of our `UserProfile` component:
-`import { useParams } from 'react-router-dom'`.
+Let's start by importing the hook in our UserProfile.js file. We can then invoke
+the hook inside the component to access the parameters we included in our URL
+route and save those parameters to a variable. Let's also add a console.log so
+we can take a look at our new params variable:
 
-From there, we can invoke the hook to access the parameters we included in our
-URL route: `const params = useParams()`.
+```jsx
+// UserProfile.js
+// ...other import statements
+import { useParams } from "react-router-dom";
 
-If we `console.log` our new `params` variable, we'll see that it's an object.
-The keys in the object will be the parameters we defined in our route, and the
-values will be whatever we actually entered into our URL.
+function UserProfile() {
+  const params = useParams();
+  console.log(params);
+// ...remaining code
+```
 
-If we click on `George Orwell's` card for example, our `params` object should
-look like this:
+Go ahead and update UserProfile.js as shown above, then click the link for
+George Orwell and open the Dev Tools. You should see an object logged to the
+console that looks like this:
 
 ```JavaScript
-{
-  id: "1"
-}
+{ id: '1' }
 ```
+
+Note that the key is the parameter we defined in our route, and the value is
+what appears in the URL.
 
 We can now use the data contained in our params object to access the specific
 piece of data we want to display!
