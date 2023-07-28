@@ -32,7 +32,7 @@ As mentioned in the previous reading, **React Router** enables _client-side
 routing_ which allows us to render different portions of our webpage using the
 [browser's History
 API](https://reactrouter.com/en/main/start/concepts#history-and-locations)
-instead of making requests to our server for a new webpage. Instead, our browser
+instead of making requests to our server for a new webpage. With client-side routing, our browser
 renders a new component, and our client-side JavaScript requests any data we
 want to display in that component. This is essential for routing in any React
 application, as we only have a single HTML file to serve — that's the nature of
