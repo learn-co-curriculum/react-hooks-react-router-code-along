@@ -23,7 +23,7 @@ we can only provide a link to our "Love for soils" homepage. Users are then
 required to interact with our application to see the favorite soil list.
 
 Because our personal opinion on the best soils is so important, we want to
-provide users with the opportunity to go straight to this list of our favorite
+allow users to go straight to this list of our favorite
 soils by using the URL `www.loveforsoils.com/favorites`. Enter **React Router**:
 a routing library for **React** that allows us to link to specific URLs and
 conditionally render components depending on which URL is displayed.
