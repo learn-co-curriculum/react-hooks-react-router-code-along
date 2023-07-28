@@ -7,7 +7,7 @@
 
 ## Introduction
 
-So far, we have been building our React applications without any navigation -
+So far, we have been building our React applications without any navigation —
 everything in the app has lived at the same URL. Currently, we can make it look
 like we are changing the page by showing or hiding different components, but
 none of these changes are dependent on a change in the URL.
@@ -35,7 +35,7 @@ API](https://reactrouter.com/en/main/start/concepts#history-and-locations)
 instead of making requests to our server for a new webpage. Instead, our browser
 renders a new component, and our client-side JavaScript requests any data we
 want to display in that component. This is essential for routing in any React
-application, as we only have a single HTML file to serve - that's the nature of
+application, as we only have a single HTML file to serve — that's the nature of
 an SPA.
 
 >**Note** Some web development frameworks that use and expand upon React, like
@@ -48,7 +48,7 @@ an SPA.
 >routing in the way we described above.
 
 To demonstrate some of the key features of React Router, we have an exercise to
-code along with. We'll be making a _very_ simple social media app - let's dive
+code along with. We'll be making a _very_ simple social media app — let's dive
 into it!
 
 ## Code Along
@@ -66,10 +66,10 @@ users is being imported from our `data.js` file into `Home`.
 // index.js
 import React from "react";
 import ReactDOM from "react-dom/client";
-import Home from "./pages/Home"
+import Home from "./pages/Home";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(<Home />)
+root.render(<Home />);
 ```
 
 ```jsx
@@ -106,22 +106,22 @@ $ npm install react-router-dom@6
 ```
 
 > **Note**: make sure to include `@6` at the end of the install command. This
-> walkthrough is designed for version 6 - other versions may have different
+> walkthrough is designed for version 6 — other versions may have different
 > syntax.
 
 To start implementing routes, we first need to import `createBrowserRouter` and
 `RouterProvider` from `react-router-dom`:
 
 ```jsx
-// .src/index.js
+// index.js
 import React from "react";
 import ReactDOM from "react-dom";
 // Step 1. Import react-router functions
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import Home from "./pages/Home"
+import Home from "./pages/Home";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(<Home />)
+root.render(<Home />);
 ```
 
 `createBrowserRouter` is used to create the router for our application. We'll
@@ -134,7 +134,7 @@ const router = createBrowserRouter([
     path: "/",
     element: <Home />
   }
-])
+]);
 ```
 
 The `RouterProvider` provides the router created by `createBrowserRouter` to our
@@ -142,7 +142,7 @@ application, so it can use React-Router's client-side routing.
 
 ```jsx
 const root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(<RouterProvider router={router} />)
+root.render(<RouterProvider router={router} />);
 ```
 
 Let's try it! Copy the code below into `src/index.js` and run `npm start` to
@@ -153,17 +153,17 @@ boot up the application. Once it is running, point your URL to
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import Home from "./pages/Home"
+import Home from "./pages/Home";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Home />
   }
-])
+]);
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(<RouterProvider router={router} />)
+root.render(<RouterProvider router={router} />);
 ```
 
 ### Adding Additional Routes
@@ -250,7 +250,7 @@ const router = createBrowserRouter([
 ])
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(<RouterProvider router={router} />)
+root.render(<RouterProvider router={router} />);
 ```
 
 If you go back to the browser you will see that it looks the same — our `Home`
@@ -294,7 +294,7 @@ NavBar.js:
 ```jsx
 /* Add NavLink to import */
 import { NavLink } from "react-router-dom";
-import "./NavBar.css"
+import "./NavBar.css";
 
 /* define the NavBar component */
 function NavBar() {
@@ -363,7 +363,7 @@ function Home() {
   
   const userList = users.map(user =>{
     <UserCard key={user.id} {...user}/>
-  })
+  });
 
   return (
     <>
@@ -382,10 +382,10 @@ export default Home;
 
 You'll also want to add `NavBar` to your `About` and `Login` components.
 
-(Does this seem inefficient? Not very DRY? Don't worry - we'll look at a more
+(Does this seem inefficient? Not very DRY? Don't worry — we'll look at a more
 efficient way to include a `NavBar` throughout your app in future lessons!)
 
-Load up the browser again and you should see beautiful blue NavLinks that load
+Load up the browser again and you should see beautiful blue `NavLink`s that load
 up the desired components.
 
 ### Dynamic Routes and URL Params
@@ -442,7 +442,7 @@ const router = createBrowserRouter([
     path: "/profile",
     element: <UserProfile />
   }
-])
+]);
 
 // ...render statements
 ```
@@ -454,7 +454,7 @@ Let's update our `UserCard` component to use a `Link` from `react-router-dom`:
 
 ```jsx
 // UserCard.js
-import { Link } from "react-router-dom"
+import { Link } from "react-router-dom";
 
 function UserCard({id, name}) {
   return (
@@ -462,22 +462,22 @@ function UserCard({id, name}) {
         <h2>{name}</h2>
         <Link to="/profile">View profile</Link>
     </article>
-  )
+  );
 }
 
-export default UserCard
+export default UserCard;
 ```
 
-Let's test it out! Click on one of those links - you should be navigated to our
+Let's test it out! Click on one of those links — you should be navigated to our
 `UserProfile` page.
 
-Hang on - we're navigating successfully, but we're not showing any information
+Hang on — we're navigating successfully, but we're not showing any information
 about a particular user. That won't work!
 
 We still want to use our `UserProfile` page to display information about a user.
 But we want the _user information_ we're displaying to change.
 
-This is where **Dynamic Routes** and **URL Parameters** come in - we can
+This is where **Dynamic Routes** and **URL Parameters** come in — we can
 actually use URL routes to pass data!
 
 Let's go back and update our routes to start using dynamic routing and URL
@@ -504,17 +504,17 @@ const router = createBrowserRouter([
     path: "/profile/:id",
     element: <UserProfile />
   }
-])
+]);
 
 // ...render statements
 ```
 
 Notice that we added `:id` to the end of our `path` for our `UserProfile` route.
-This notation creates a `URL parameter` - a segment of our URL that can change
+This notation creates a `URL parameter` — a segment of our URL that can change
 and that contains data that we can use in our components.
 
 By including a URL parameter (or multiple parameters) in a route, we make that
-route _dynamic_ - this single route can actually have many different URLs! For
+route _dynamic_ — this single route can actually have many different URLs! For
 example, the `/profile/1`, `/profile/2`, and `/profile/3` URLs will all lead to
 the same page. That page will just display different information depending on
 which URL is used!
@@ -546,13 +546,13 @@ will take us to the URL `/profile/<some-user-id>`, which will correspond with
 the `/profile/:id` route we set up in our router.
 
 Try it out! You should still see the `UserProfile` component being rendered as
-it was before, but the URl should show the `id` of whichever user you clicked
+it was before, but the URL should show the `id` of whichever user you clicked
 on.
 
 Great! But our `UserProfile` component still isn't displaying specific user
 information.
 
-That's where the last piece of the puzzle comes into play - the `useParams`
+That's where the last piece of the puzzle comes into play: the `useParams`
 hook. `useParams` allows us to access the data we've stored in our URL
 parameters and use it within our components.
 
@@ -579,7 +579,7 @@ We can now use the data contained in our params object to access the specific
 piece of data we want to display!
 
 ```JavaScript
-const user = users.find(user => user.id === parseInt(params.id))
+const user = users.find(user => user.id === parseInt(params.id));
 ```
 
 (Note that we're using `parseInt` in this example - all data passed via URL
@@ -589,7 +589,7 @@ In applications where your data will be contained in a `db.json` file or
 database, you'll likely want to run a `fetch` request within a `useEffect` to
 grab the specific piece of data you want from your database.
 
-Now that we have a way to access the user we want, let's updated our UserProfile
+Now that we have a way to access the user we want, let's update our `UserProfile`
 component to display information about that user!
 
 ```jsx
@@ -601,7 +601,7 @@ import NavBar from "../components/NavBar";
 function UserProfile() {
   const params = useParams();
 
-  const user = users.find(user => user.id === parseInt(params.id))
+  const user = users.find(user => user.id === parseInt(params.id));
 
   return(
     <>
@@ -636,13 +636,13 @@ down! But what if somebody enters a route that doesn't exist? Try entering
 `http://localhost:3000/florp` into your browser. Yikes! That's an ugly looking
 error page!
 
-Let's create one more page in our application - ErrorPage.js.
+Let's create one more page in our application: ErrorPage.js.
 
 Create this new component within our `pages` folder, then add the following
 code:
 
 ```jsx
-import NavBar from "../components/NavBar"
+import NavBar from "../components/NavBar";
 import { useRouteError } from "react-router-dom";
 
 function ErrorPage() {
@@ -666,16 +666,16 @@ export default ErrorPage;
 
 Note that we're importing the `useRouteError` hook in addition to our `NavBar`
 component. The `useRouteError` hook allows us to interact with the error itself,
-including the error status and it's message. You can read more about it
+including the error status and its message. You can read more about it
 [here](https://reactrouter.com/en/main/hooks/use-route-error).
 
-Now that we have that, we can add this ErrorPage to each of our routes using the
+Now that we have that, we can add this `ErrorPage` to each of our routes using the
 `errorElement` field within our route objects:
 
 ```jsx
 // index.js
 // ... other import statements
-import ErrorPage from "./pages/ErrorPage"
+import ErrorPage from "./pages/ErrorPage";
 
 const router = createBrowserRouter([
   {
@@ -698,13 +698,13 @@ const router = createBrowserRouter([
     element: <UserProfile />,
     errorElement: <ErrorPage />
   }
-])
+]);
 
 // ...render statements
 
 ```
 
-The `errorElement` can handle more than just bad urls - it will redirect your
+The `errorElement` can handle more than just bad URLs — it will redirect your
 app toward the provided Error component should any error occur within your main
 UI component! For that reason, we'll want to make sure each of our routes has an
 appropriate `errorElement`.
@@ -720,7 +720,7 @@ reviewing any errors you're receiving and double checking your code against the
 example code). But, we could make some _organizational_ improvement.
 
 Take a look at our `index.js` file. It's getting pretty long and messy! Instead
-of including all of this routing logic within our index.js file, let's
+of including all of this routing logic within our `index.js` file, let's
 extrapolate some of it out into a separate file, `routes.js`. This file has
 already been created for you, but you can create it yourself in future projects.
 
@@ -773,10 +773,10 @@ import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import routes from "./routes.js";
 
-const router = createBrowserRouter(routes)
+const router = createBrowserRouter(routes);
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(<RouterProvider router={router} />)
+root.render(<RouterProvider router={router} />);
 
 ```
 
@@ -791,13 +791,13 @@ You've now seen all the core functionality of React Router required for
 client-side routing. We've met the requirements so that our app can:
 
 - Conditionally render a different component based on the URL (using
-  `createBrowserRouter` and `RouterProvider`)
+  `createBrowserRouter` and `RouterProvider`).
 - Change the URL using JavaScript, without making a GET request and reloading
-  the HTML document (using the `<Link>` or `<NavLink>` components)
+  the HTML document (using the `<Link>` or `<NavLink>` components).
 
 In the coming lessons, we'll explore more of the advanced functionality provided
 by React Router. If you have the time, you should definitely look at the [React
-Router docs][react router docs] - especially the examples - to dive deeper into
+Router docs][react router docs] — especially the examples — to dive deeper into
 React Router's many features and get a better sense of how to use it in an
 application.
 
