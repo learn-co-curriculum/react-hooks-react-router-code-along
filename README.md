@@ -361,7 +361,7 @@ import NavBar from "../components/NavBar";
 function Home() {
   
   const userList = users.map(user =>{
-    <UserCard key={user.id} {...user}/>
+    <UserCard key={user.id} user={user}/>
   });
 
   return (
@@ -455,10 +455,10 @@ Let's update our `UserCard` component to use a `Link` from `react-router-dom`:
 // UserCard.js
 import { Link } from "react-router-dom";
 
-function UserCard({id, name}) {
+function UserCard({user}) {
   return (
     <article>
-        <h2>{name}</h2>
+        <h2>{user.name}</h2>
         <Link to="/profile">View profile</Link>
     </article>
   );
@@ -524,12 +524,12 @@ Let's update our `UserCard` component to start making use of our dynamic route:
 // UserCard.js
 import {Link} from "react-router-dom";
 
-function UserCard({id, name}) {
+function UserCard({user}) {
   return (
     <article>
-        <h2>{name}</h2>
+        <h2>{user.name}</h2>
         <p>
-          <Link to={`/profile/${id}`}>View profile</Link>
+          <Link to={`/profile/${user.id}`}>View profile</Link>
         </p>
     </article>
   );
