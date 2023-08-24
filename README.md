@@ -81,7 +81,7 @@ function Home() {
   
   const userList = users.map(user =>{
     return <UserCard key={user.id} user={user}/>
-  })
+  });
 
   return (
     <>
@@ -266,7 +266,7 @@ base level functionality:
 
 - They render an `<a>` tag to the DOM.
 - When the `<a>` tag is clicked, they change the URL and tell React Router to
-  re-render our routes, displaying the component that matches the new URL.
+  re-render the page, displaying the component that matches the new URL.
 - Instead of taking an `href` attribute like normal `<a>` tags, `Link` and
 `NavLink` take a `to` prop that points to the endpoint the link should take the
 user to.
@@ -291,7 +291,6 @@ Let's create a new `NavBar` component in the `components` folder to add these
 NavBar.js:
 
 ```jsx
-/* Add NavLink to import */
 import { NavLink } from "react-router-dom";
 import "./NavBar.css";
 
@@ -666,7 +665,7 @@ export default ErrorPage;
 
 Note that we're importing the `useRouteError` hook in addition to our `NavBar`
 component. The `useRouteError` hook allows us to interact with the error itself,
-including the error status and its message. You can read more about it [in the
+including the error status and its message. You can read more about it in the
 `useRouteError`
 documentation](https://reactrouter.com/en/main/hooks/use-route-error).
 
