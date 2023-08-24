@@ -38,15 +38,6 @@ requests any data we want to display in that component. This is essential for
 routing in any React application, as we only have a single HTML file to serve —
 that's the nature of an SPA.
 
->**Note** Some web development frameworks that use and expand upon React, like
->`Next.js`, handling routing and rendering a little differently, and start to
->depart from React's traditional client-side SPA implementation. `Remix`, which
->is the React based framework that maintains React Router, still uses React
->Router to handle its routing, but the underlying rendering and re-rendering of
->the application is handled a little differently. When we build a React project
->outside of these additional frameworks, React Router will perform client-side
->routing in the way we described above.
-
 To demonstrate some of the key features of React Router, we have an exercise to
 code along with. We'll be making a _very_ simple social media app — let's dive
 into it!
