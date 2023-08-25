@@ -46,7 +46,8 @@ into it!
 
 ### Setting up our Main Route
 
-To get started, clone down this repo and run `npm install`.
+To get started, clone down this repo and run `npm install`. Then run `npm start`
+to open the application in your browser.
 
 If you open up `src/index.js`, you will see that we are currently rendering our
 `Home` component, which will serve as the homepage of our application. `Home` is
