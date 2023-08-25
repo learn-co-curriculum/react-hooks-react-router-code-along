@@ -657,7 +657,7 @@ export default ErrorPage;
 Note that we're importing the `useRouteError` hook in addition to our `NavBar`
 component. The `useRouteError` hook allows us to interact with the error itself,
 including the error status and its message. You can read more about it in the
-`useRouteError`
+[`useRouteError`
 documentation](https://reactrouter.com/en/main/hooks/use-route-error).
 
 Now that we have that, we can add this `ErrorPage` to each of our routes using
