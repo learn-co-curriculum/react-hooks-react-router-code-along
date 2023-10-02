@@ -198,12 +198,16 @@ function Login() {
         <h1>Login</h1>
         <form>
           <div>
-            <input type="text" name="username" placeholder="Username" />
+            <label for="username">Username: </label>
+            <input id="username" type="text" name="username" placeholder="Username" />
           </div>
+          <br/>
           <div>
-            <input type="password" name="password" placeholder="Password" />
+            <label for="password">Password: </label>
+            <input id="password" type="password" name="password" placeholder="Password" />
           </div>
-          <input type="submit" value="Submit" />
+          <br/>
+          <button type="submit">Submit</button>
         </form>
       </main>
     </>
