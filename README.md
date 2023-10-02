@@ -137,7 +137,7 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(<RouterProvider router={router} />);
 ```
 
-Let's try it! Copy the code below into `src/index.js` and run `npm start` to
+Let's try it! Copy the code below into `src/index.js` and run `npm start` again if you've closed down your application at any point.
 boot up the application. Once it is running, point your URL to
 `http://localhost:3000/`. We should still see the home page, but now it's being
 rendered using React Router!
