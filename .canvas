@@ -1,7 +1,6 @@
 ---
 :lessons:
-- :id: 68053
-  :course_id: 3264
-  :canvas_url: https://learning.flatironschool.com/courses/3264/assignments/68053
-  :type: assignment
-    
+- :id: 250576
+  :course_id: 6667
+  :canvas_url: https://learning.flatironschool.com/courses/6667/pages/react-router-code-along
+  :type: page
