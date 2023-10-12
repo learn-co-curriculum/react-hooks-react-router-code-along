@@ -46,8 +46,9 @@ into it!
 
 ### Setting up our Main Route
 
-To get started, clone down this repo and run `npm install`. Then run `npm start`
-to open the application in your browser.
+To get started, clone down this repo and run `npm install`. Then run `npm run
+server` to start your `json-server` and `npm start` to open the application in
+your browser.
 
 If you open up `src/index.js`, you will see that we are currently rendering our
 `Home` component, which will serve as the homepage of our application. `Home` is
@@ -67,9 +68,18 @@ root.render(<Home />);
 ```jsx
 // Home.js
 import users from "../data";
+import { useState, useEffect } from "react"
 import UserCard from "../components/UserCard";
 
 function Home() {
+  const [users, setUsers] = useState([])
+
+  useEffect(() =>{
+    fetch("http://localhost:4000/users")
+      .then(r => r.json())
+      .then(data => setUsers(data))
+      .catch(error => console.error(error))
+  }, [])
   
   const userList = users.map(user =>{
     return <UserCard key={user.id} user={user}/>
@@ -78,7 +88,7 @@ function Home() {
   return (
     <>
       <header>
-        {/* NavBar will go here! */ }
+        {/* place NavBar here */}
       </header>
       <main>
         <h1>Home!</h1>
@@ -138,9 +148,10 @@ root.render(<RouterProvider router={router} />);
 ```
 
 Let's try it! Copy the code below into `src/index.js` and run `npm start` again
-if you've closed down your application at any point. Once it is running, point
-your URL to `http://localhost:3000/`. We should still see the home page, but now
-it's being rendered using React Router!
+if you've closed down your application at any point (don't forget to run `npm
+run server` if you closed down your `json-server` too). Once it is running,
+point your URL to `http://localhost:3000/`. We should still see the home page,
+but now it's being rendered using React Router!
 
 ```jsx
 import React from "react";
@@ -349,14 +360,22 @@ Ex:
 
 ```jsx
 // Home.js
-import users from "../data";
+import { useState, useEffect } from "react"
 import UserCard from "../components/UserCard";
 import NavBar from "../components/NavBar";
 
 function Home() {
+  const [users, setUsers] = useState([])
+
+  useEffect(() =>{
+    fetch("http://localhost:4000/users")
+      .then(r => r.json())
+      .then(data => setUsers(data))
+      .catch(error => console.error(error))
+  }, [])
   
   const userList = users.map(user =>{
-    <UserCard key={user.id} user={user}/>
+    return <UserCard key={user.id} user={user}/>
   });
 
   return (
@@ -366,6 +385,7 @@ function Home() {
       </header>
       <main>
         <h1>Home!</h1>
+        {userList}
       </main>
     </>
   );
@@ -393,7 +413,6 @@ Here's a basic setup for that component:
 
 ```jsx
 // UserProfile.js
-import users from "../data.js";
 import NavBar from "../components/NavBar";
 
 function UserProfile() {
@@ -550,14 +569,16 @@ That's where the last piece of the puzzle comes into play: the `useParams` hook.
 `useParams` allows us to access the data we've stored in our URL parameters and
 use it within our components.
 
-Let's start by importing the hook in our UserProfile.js file. We can then invoke
-the hook inside the component to access the parameters we included in our URL
-route and save those parameters to a variable. Let's also add a console.log so
-we can take a look at our new params variable:
+Let's start by importing the hook in our UserProfile.js file. Go ahead and
+import `useEffect` and `useState` from `react` as well - we'll be using both in
+a moment. We can then invoke the hook inside the component to access the
+parameters we included in our URL route and save those parameters to a variable.
+Let's also add a console.log so we can take a look at our new params variable:
 
 ```jsx
 // UserProfile.js
 // ...other import statements
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
 function UserProfile() {
@@ -578,33 +599,54 @@ Note that the key is the parameter we defined in our route, and the value is
 what appears in the URL.
 
 We can now use the data contained in our params object to access the specific
-piece of data we want to display!
+piece of data we want to display! We can interpolate the `id` or our specific
+user into a `fetch` request URL and `fetch` that user's specific information
+from our backend:
 
 ```JavaScript
-const user = users.find(user => user.id === parseInt(params.id));
+const [user, setUser] = useState({});
+const params = useParams();
+
+useEffect(() =>{
+  fetch(`http://localhost:4000/users/${params.id}`)
+  .then(r => r.json())
+  .then(data => setUser(data))
+  .catch(error => console.error(error))
+}, []);
+
 ```
 
-We need to use `parseInt` here because all data passed via URL params will be
-formatted as strings.
+We'll also want to add some conditional rendering to make sure our app doesn't
+error out while it's waiting for our user to be fetched:
 
-> Note: In this example, we're finding the user we need in a list we imported
-> from the `data.js` file, but normally that will not be the case. If your data
-is contained in a `db.json` file or database instead, you'll likely run a
-`fetch` request to grab the specific piece of data you want from your database.
+```jsx
+if(!user.name){
+  return <h1>Loading...</h1>;
+};
+```
 
-Now that we have a way to access the user we want, let's update our
-`UserProfile` component to display information about that user!
+Here's what our full UserProfile component looks like now:
 
 ```jsx
 // UserProfile.js
-import users from "../data.js";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import NavBar from "../components/NavBar";
 
 function UserProfile() {
+  const [user, setUser] = useState({});
   const params = useParams();
 
-  const user = users.find(user => user.id === parseInt(params.id));
+  useEffect(() =>{
+    fetch(`http://localhost:4000/users/${params.id}`)
+    .then(r => r.json())
+    .then(data => setUser(data))
+    .catch(error => console.error(error));
+  }, []);
+
+  if(!user.name){
+    return <h1>Loading...</h1>;
+  };
 
   return(
     <>
