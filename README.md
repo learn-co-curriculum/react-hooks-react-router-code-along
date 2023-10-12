@@ -2,12 +2,12 @@
 
 ## Learning Goals
 
-- Add `react-router-dom` to an existing React application
-- Create multiple client-side routes
+- Add `react-router-dom` to an existing React application.
+- Create multiple client-side routes.
 
 ## Introduction
 
-So far, we have been building our React applications without any navigation -
+So far, we have been building our React applications without any navigation —
 everything in the app has lived at the same URL. Currently, we can make it look
 like we are changing the page by showing or hiding different components, but
 none of these changes are dependent on a change in the URL.
@@ -22,40 +22,33 @@ list of our favorite soils. Currently, instead of sharing a link to that list,
 we can only provide a link to our "Love for soils" homepage. Users are then
 required to interact with our application to see the favorite soil list.
 
-Because our personal opinion on the best soils is so important, we want to
-provide users with the opportunity to go straight to this list of our favorite
-soils by using the URL `www.loveforsoils.com/favorites`. Enter **React Router**:
-a routing library for **React** that allows us to link to specific URLs and
-conditionally render components depending on which URL is displayed.
+Because our personal opinion on the best soils is so important, we want to allow
+users to go straight to this list of our favorite soils by using the URL
+`www.loveforsoils.com/favorites`. Enter **React Router**: a routing library for
+**React** that allows us to link to specific URLs and conditionally render
+components depending on which URL is displayed.
 
-As mentioned in the previous reading, **React Router** enables _client-side
+As mentioned in the previous lesson, **React Router** enables _client-side
 routing_ which allows us to render different portions of our webpage using the
 [browser's History
 API](https://reactrouter.com/en/main/start/concepts#history-and-locations)
-instead of making requests to our server for a new webpage. Instead, our browser
-renders a new component, and our client-side JavaScript requests any data we
-want to display in that component. This is essential for routing in any React
-application, as we only have a single HTML file to serve - that's the nature of
-an SPA.
-
->**Note** Some web development frameworks that use and expand upon React, like
->`Next.js`, handling routing and rendering a little differently, and start to
->depart from React's traditional client-side SPA implementation. `Remix`, which
->is the React based framework that maintains React Router, still uses React
->Router to handle its routing, but the underlying rendering and re-rendering of
->the application is handled a little differently. When we build a React project
->outside of these additional frameworks, React Router will perform client-side
->routing in the way we described above.
+instead of making requests to our server for a new webpage. With client-side
+routing, our browser renders a new component, and our client-side JavaScript
+requests any data we want to display in that component. This is essential for
+routing in any React application, as we only have a single HTML file to serve —
+that's the nature of an SPA.
 
 To demonstrate some of the key features of React Router, we have an exercise to
-code along with. We'll be making a _very_ simple social media app - let's dive
+code along with. We'll be making a _very_ simple social media app — let's dive
 into it!
 
 ## Code Along
 
 ### Setting up our Main Route
 
-To get started, clone down this repo and run `npm install`.
+To get started, clone down this repo and run `npm install`. Then run `npm run
+server` to start your `json-server` and `npm start` to open the application in
+your browser.
 
 If you open up `src/index.js`, you will see that we are currently rendering our
 `Home` component, which will serve as the homepage of our application. `Home` is
@@ -66,26 +59,36 @@ users is being imported from our `data.js` file into `Home`.
 // index.js
 import React from "react";
 import ReactDOM from "react-dom/client";
-import Home from "./pages/Home"
+import Home from "./pages/Home";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(<Home />)
+root.render(<Home />);
 ```
 
 ```jsx
+// Home.js
 import users from "../data";
+import { useState, useEffect } from "react"
 import UserCard from "../components/UserCard";
 
 function Home() {
+  const [users, setUsers] = useState([])
+
+  useEffect(() =>{
+    fetch("http://localhost:4000/users")
+      .then(r => r.json())
+      .then(data => setUsers(data))
+      .catch(error => console.error(error))
+  }, [])
   
   const userList = users.map(user =>{
     return <UserCard key={user.id} user={user}/>
-  })
+  });
 
   return (
     <>
       <header>
-        {/* NavBar will go here! */ }
+        {/* place NavBar here */}
       </header>
       <main>
         <h1>Home!</h1>
@@ -105,27 +108,27 @@ $ npm install react-router-dom@6
 ```
 
 > **Note**: make sure to include `@6` at the end of the install command. This
-> walkthrough is designed for version 6 - other versions may have different
+> walkthrough is designed for version 6 — other versions may have different
 > syntax.
 
 To start implementing routes, we first need to import `createBrowserRouter` and
 `RouterProvider` from `react-router-dom`:
 
 ```jsx
-// .src/index.js
+// index.js
 import React from "react";
-import ReactDOM from "react-dom";
+import ReactDOM from "react-dom/client";
 // Step 1. Import react-router functions
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import Home from "./pages/Home"
+import Home from "./pages/Home";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(<Home />)
+root.render(<Home />);
 ```
 
 `createBrowserRouter` is used to create the router for our application. We'll
 pass it an array of route objects as its argument. Each route object will have a
-routing path and a corresponding element that will be rendered on that path.
+routing path and a corresponding element to be rendered on that path.
 
 ```jsx
 const router = createBrowserRouter([
@@ -133,7 +136,7 @@ const router = createBrowserRouter([
     path: "/",
     element: <Home />
   }
-])
+]);
 ```
 
 The `RouterProvider` provides the router created by `createBrowserRouter` to our
@@ -141,28 +144,30 @@ application, so it can use React-Router's client-side routing.
 
 ```jsx
 const root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(<RouterProvider router={router} />)
+root.render(<RouterProvider router={router} />);
 ```
 
-Let's try it! Copy the code below into `src/index.js` and run `npm start` to
-boot up the application. Once it is running, point your URL to
-`http://localhost:3000/`. It should render `Home!`.
+Let's try it! Copy the code below into `src/index.js` and run `npm start` again
+if you've closed down your application at any point (don't forget to run `npm
+run server` if you closed down your `json-server` too). Once it is running,
+point your URL to `http://localhost:3000/`. We should still see the home page,
+but now it's being rendered using React Router!
 
 ```jsx
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import Home from "./pages/Home"
+import Home from "./pages/Home";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Home />
   }
-])
+]);
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(<RouterProvider router={router} />)
+root.render(<RouterProvider router={router} />);
 ```
 
 ### Adding Additional Routes
@@ -170,13 +175,12 @@ root.render(<RouterProvider router={router} />)
 In the last two steps, we learned how to set up our router using
 `createBrowserRouter` and `RouterProvider` and add our very first route.
 
-Next, we want to set up routing for an `About` and `Login` page.
+Next, we want to set up routing for `About` and `Login` pages.
 
 First, we'll make two new components within our `pages` directory.
 
-About.js:
-
 ```jsx
+// About.js
 function About() {
   return (
     <>
@@ -193,9 +197,8 @@ function About() {
 export default About;
 ```
 
-Login.js:
-
 ```jsx
+// Login.js
 function Login() {
   return (
     <>
@@ -206,12 +209,16 @@ function Login() {
         <h1>Login</h1>
         <form>
           <div>
-            <input type="text" name="username" placeholder="Username" />
+            <label for="username">Username: </label>
+            <input id="username" type="text" name="username" placeholder="Username" />
           </div>
+          <br/>
           <div>
-            <input type="password" name="password" placeholder="Password" />
+            <label for="password">Password: </label>
+            <input id="password" type="password" name="password" placeholder="Password" />
           </div>
-          <input type="submit" value="Submit" />
+          <br/>
+          <button type="submit">Submit</button>
         </form>
       </main>
     </>
@@ -227,7 +234,7 @@ routes within `createBrowserRouter`:
 ```jsx
 // ./src/index.js
 import React from "react";
-import ReactDOM from "react-dom";
+import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Home from "./pages/Home";
 import About from "./pages/About";
@@ -249,12 +256,12 @@ const router = createBrowserRouter([
 ])
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(<RouterProvider router={router} />)
+root.render(<RouterProvider router={router} />);
 ```
 
 If you go back to the browser you will see that it looks the same — our `Home`
 component is displaying as before. Now try manually typing in the URL locations
-for `/`, `/about`, and `/login`. You should see these new components rendering!
+for `/about` and `/login`. You should see these new components rendering!
 
 ### Links and NavLinks
 
@@ -264,12 +271,12 @@ React Router provides two components that allow users to navigate through our
 page using client-side routing: `Link` and `NavLink`. They both have the same
 base level functionality:
 
-- They render an `<a>` tag to the DOM
+- They render an `<a>` tag to the DOM.
 - When the `<a>` tag is clicked, they change the URL and tell React Router to
-  re-render our routes, displaying the component that matches the new URL
+  re-render the page, displaying the component that matches the new URL.
 - Instead of taking an `href` attribute like normal `<a>` tags, `Link` and
-`NavLink` take a `to` prop that points to the endpoint you want a user to
-navigate to
+`NavLink` take a `to` prop that points to the endpoint the link should take the
+user to.
 
 `NavLink` acts as a superset of `Link`, adding a default **active** class **when
 it matches the current URL**. `NavLink` works well for creating a navigation
@@ -278,12 +285,12 @@ selected. `Link` is a good option for creating standard hyperlinks. For this
 example, we will be using `NavLink`; we will see examples of using `Link` later
 on.
 
+For example, this `NavLink` would display "About" and would navigate users to
+our `/about` page when clicked:
+
 ```jsx
 <NavLink to="/about">About</NavLink>
 ```
-
-For example, this `NavLink` would display "About" and would navigate users to
-our `/about` page when clicked.
 
 Let's create a new `NavBar` component in the `components` folder to add these
 `NavLink`s to our application.
@@ -291,9 +298,8 @@ Let's create a new `NavBar` component in the `components` folder to add these
 NavBar.js:
 
 ```jsx
-/* Add NavLink to import */
 import { NavLink } from "react-router-dom";
-import "./NavBar.css"
+import "./NavBar.css";
 
 /* define the NavBar component */
 function NavBar() {
@@ -354,15 +360,23 @@ Ex:
 
 ```jsx
 // Home.js
-import users from "../data";
+import { useState, useEffect } from "react"
 import UserCard from "../components/UserCard";
 import NavBar from "../components/NavBar";
 
 function Home() {
+  const [users, setUsers] = useState([])
+
+  useEffect(() =>{
+    fetch("http://localhost:4000/users")
+      .then(r => r.json())
+      .then(data => setUsers(data))
+      .catch(error => console.error(error))
+  }, [])
   
   const userList = users.map(user =>{
     return <UserCard key={user.id} user={user}/>
-  })
+  });
 
   return (
     <>
@@ -371,6 +385,7 @@ function Home() {
       </header>
       <main>
         <h1>Home!</h1>
+        {userList}
       </main>
     </>
   );
@@ -381,10 +396,10 @@ export default Home;
 
 You'll also want to add `NavBar` to your `About` and `Login` components.
 
-(Does this seem inefficient? Not very DRY? Don't worry - we'll look at a more
+(Does this seem inefficient? Not very DRY? Don't worry — we'll look at a more
 efficient way to include a `NavBar` throughout your app in future lessons!)
 
-Load up the browser again and you should see beautiful blue NavLinks that load
+Load up the browser again and you should see beautiful blue `NavLink`s that load
 up the desired components.
 
 ### Dynamic Routes and URL Params
@@ -398,7 +413,6 @@ Here's a basic setup for that component:
 
 ```jsx
 // UserProfile.js
-import users from "../data.js";
 import NavBar from "../components/NavBar";
 
 function UserProfile() {
@@ -441,7 +455,7 @@ const router = createBrowserRouter([
     path: "/profile",
     element: <UserProfile />
   }
-])
+]);
 
 // ...render statements
 ```
@@ -453,7 +467,7 @@ Let's update our `UserCard` component to use a `Link` from `react-router-dom`:
 
 ```jsx
 // UserCard.js
-import { Link } from "react-router-dom"
+import { Link } from "react-router-dom";
 
 function UserCard({user}) {
   return (
@@ -461,22 +475,22 @@ function UserCard({user}) {
         <h2>{user.name}</h2>
         <Link to="/profile">View profile</Link>
     </article>
-  )
+  );
 }
 
-export default UserCard
+export default UserCard;
 ```
 
-Let's test it out! Click on one of those links - you should be navigated to our
+Let's test it out! Click on one of those links — you should be navigated to our
 `UserProfile` page.
 
-Hang on - we're navigating successfully, but we're not showing any information
+Hang on — we're navigating successfully, but we're not showing any information
 about a particular user. That won't work!
 
 We still want to use our `UserProfile` page to display information about a user.
 But we want the _user information_ we're displaying to change.
 
-This is where **Dynamic Routes** and **URL Parameters** come in - we can
+This is where **Dynamic Routes** and **URL Parameters** come in — we can
 actually use URL routes to pass data!
 
 Let's go back and update our routes to start using dynamic routing and URL
@@ -503,17 +517,17 @@ const router = createBrowserRouter([
     path: "/profile/:id",
     element: <UserProfile />
   }
-])
+]);
 
 // ...render statements
 ```
 
-Notice that we added `:id` to the end of our `path` for our `UserProfile` route.
-This notation creates a `URL parameter` - a segment of our URL that can change
-and that contains data that we can use in our components.
+Notice that we added `/:id` to the end of our `path` for our `UserProfile`
+route. This notation creates a `URL parameter` — a segment of our URL that can
+change and that contains data we can use in our components.
 
 By including a URL parameter (or multiple parameters) in a route, we make that
-route _dynamic_ - this single route can actually have many different URLs! For
+route _dynamic_ — this single route can actually have many different URLs! For
 example, the `/profile/1`, `/profile/2`, and `/profile/3` URLs will all lead to
 the same page. That page will just display different information depending on
 which URL is used!
@@ -539,68 +553,100 @@ export default UserCard;
 ```
 
 We've used string interpolation to update the `to` prop of our `Link` component
-from `react-router-dom` to include the `id` of a user being rendered by a
-particular `UserCard` component. Now, when we click on one of these links, it
-will take us to the URL `/profile/<some-user-id>`, which will correspond with
-the `/profile/:id` route we set up in our router.
+to include the `id` of the user corresponding to the link that was clicked. Now,
+when we click on one of these links, it will take us to the URL
+`/profile/<some-user-id>`, which will correspond with the `/profile/:id` route
+we set up in our router.
 
 Try it out! You should still see the `UserProfile` component being rendered as
-it was before, but the URl should show the `id` of whichever user you clicked
+it was before, but the URL should show the `id` of whichever user you clicked
 on.
 
 Great! But our `UserProfile` component still isn't displaying specific user
 information.
 
-That's where the last piece of the puzzle comes into play - the `useParams`
-hook. `useParams` allows us to access the data we've stored in our URL
-parameters and use it within our components.
+That's where the last piece of the puzzle comes into play: the `useParams` hook.
+`useParams` allows us to access the data we've stored in our URL parameters and
+use it within our components.
 
-Let's start by importing that into the top of our `UserProfile` component:
-`import { useParams } from 'react-router-dom'`.
-
-From there, we can invoke the hook to access the parameters we included in our
-URL route: `const params = useParams()`.
-
-If we `console.log` our new `params` variable, we'll see that it's an object.
-The keys in the object will be the parameters we defined in our route, and the
-values will be whatever we actually entered into our URL.
-
-If we click on `George Orwell's` card for example, our `params` object should
-look like this:
-
-```JavaScript
-{
-  id: "1"
-}
-```
-
-We can now use the data contained in our params object to access the specific
-piece of data we want to display!
-
-```JavaScript
-const user = users.find(user => user.id === parseInt(params.id))
-```
-
-(Note that we're using `parseInt` in this example - all data passed via URL
-params will be a string!)
-
-In applications where your data will be contained in a `db.json` file or
-database, you'll likely want to run a `fetch` request within a `useEffect` to
-grab the specific piece of data you want from your database.
-
-Now that we have a way to access the user we want, let's updated our UserProfile
-component to display information about that user!
+Let's start by importing the hook in our UserProfile.js file. Go ahead and
+import `useEffect` and `useState` from `react` as well - we'll be using both in
+a moment. We can then invoke the hook inside the component to access the
+parameters we included in our URL route and save those parameters to a variable.
+Let's also add a console.log so we can take a look at our new params variable:
 
 ```jsx
 // UserProfile.js
-import users from "../data.js";
+// ...other import statements
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+
+function UserProfile() {
+  const params = useParams();
+  console.log(params);
+// ...remaining code
+```
+
+Go ahead and update UserProfile.js as shown above, then click the link for
+George Orwell and open the Dev Tools. You should see an object logged to the
+console that looks like this:
+
+```JavaScript
+{ id: '1' }
+```
+
+Note that the key is the parameter we defined in our route, and the value is
+what appears in the URL.
+
+We can now use the data contained in our params object to access the specific
+piece of data we want to display! We can interpolate the `id` or our specific
+user into a `fetch` request URL and `fetch` that user's specific information
+from our backend:
+
+```JavaScript
+const [user, setUser] = useState({});
+const params = useParams();
+
+useEffect(() =>{
+  fetch(`http://localhost:4000/users/${params.id}`)
+  .then(r => r.json())
+  .then(data => setUser(data))
+  .catch(error => console.error(error))
+}, []);
+
+```
+
+We'll also want to add some conditional rendering to make sure our app doesn't
+error out while it's waiting for our user to be fetched:
+
+```jsx
+if(!user.name){
+  return <h1>Loading...</h1>;
+};
+```
+
+Here's what our full UserProfile component looks like now:
+
+```jsx
+// UserProfile.js
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import NavBar from "../components/NavBar";
 
 function UserProfile() {
+  const [user, setUser] = useState({});
   const params = useParams();
 
-  const user = users.find(user => user.id === parseInt(params.id))
+  useEffect(() =>{
+    fetch(`http://localhost:4000/users/${params.id}`)
+    .then(r => r.json())
+    .then(data => setUser(data))
+    .catch(error => console.error(error));
+  }, []);
+
+  if(!user.name){
+    return <h1>Loading...</h1>;
+  };
 
   return(
     <>
@@ -620,14 +666,6 @@ export default UserProfile;
 With our component updated, we should now see the correct user displaying when
 we navigate to a specific user's profile page! Nice!
 
->**Note**: You'll want to make sure you set up dynamic routes to work when
->somebody shares a URL to a dynamic endpoint. There are a variety of ways to
->handle this to make sure your app doesn't break when somebody initially loads
->your app on a dynamic endpoint, rather than navigating to it internally. One
->way is to use `fetch` within the component to fetch all requisite data, as
->mentioned previously, but you might find other ways to handle it. Just remember
->that your solution should be legible, performant, and easy to maintain!
-
 ### Error Handling
 
 Ok great, we've got most of the basic functionality for client-side routing
@@ -635,13 +673,13 @@ down! But what if somebody enters a route that doesn't exist? Try entering
 `http://localhost:3000/florp` into your browser. Yikes! That's an ugly looking
 error page!
 
-Let's create one more page in our application - ErrorPage.js.
+Let's create one more page in our application: ErrorPage.js.
 
 Create this new component within our `pages` folder, then add the following
 code:
 
 ```jsx
-import NavBar from "../components/NavBar"
+import NavBar from "../components/NavBar";
 import { useRouteError } from "react-router-dom";
 
 function ErrorPage() {
@@ -665,16 +703,17 @@ export default ErrorPage;
 
 Note that we're importing the `useRouteError` hook in addition to our `NavBar`
 component. The `useRouteError` hook allows us to interact with the error itself,
-including the error status and it's message. You can read more about it
-[here](https://reactrouter.com/en/main/hooks/use-route-error).
+including the error status and its message. You can read more about it in the
+[`useRouteError`
+documentation](https://reactrouter.com/en/main/hooks/use-route-error).
 
-Now that we have that, we can add this ErrorPage to each of our routes using the
-`errorElement` field within our route objects:
+Now that we have that, we can add this `ErrorPage` to each of our routes using
+the `errorElement` field within our route objects:
 
 ```jsx
 // index.js
 // ... other import statements
-import ErrorPage from "./pages/ErrorPage"
+import ErrorPage from "./pages/ErrorPage";
 
 const router = createBrowserRouter([
   {
@@ -697,35 +736,37 @@ const router = createBrowserRouter([
     element: <UserProfile />,
     errorElement: <ErrorPage />
   }
-])
+]);
 
 // ...render statements
 
 ```
 
-The `errorElement` can handle more than just bad urls - it will redirect your
+The `errorElement` can handle more than just bad URLs — it will redirect your
 app toward the provided Error component should any error occur within your main
 UI component! For that reason, we'll want to make sure each of our routes has an
 appropriate `errorElement`.
 
->**Note** If your page generates an Error during development, you will still see
->the React Error Overlay over your browser page, even with the errorElement
->included. You can see the errorElement by closing the Error Overlay.
+>**Note**: Applications that are created using `create-react-app` have a
+>built-in React Error Overlay used in development mode. If your page generates
+>an error during development, you will still see the React Error Overlay over
+>your browser page, even with the errorElement included. You can see the
+>errorElement by closing the Error Overlay.
 
 ### Separation of Concerns
 
-By this point, everything should be functional (if it's not, try carefully
+By this point, everything should be functional. (If it's not, try carefully
 reviewing any errors you're receiving and double checking your code against the
-example code). But, we could make some _organizational_ improvement.
+example code.) But, we could make an _organizational_ improvement.
 
 Take a look at our `index.js` file. It's getting pretty long and messy! Instead
-of including all of this routing logic within our index.js file, let's
-extrapolate some of it out into a separate file, `routes.js`. This file has
-already been created for you, but you can create it yourself in future projects.
+of including all of this routing logic within our `index.js` file, let's extract
+some of it out into a separate file, `routes.js`. This file has already been
+created for you, but you can create it yourself in future projects.
 
 Let's move our array of route objects into this `routes.js` file, and save it in
 a variable called `routes`. We can then make our `routes` variable the default
-export for the file. Don't forget import all of the necessary components as
+export for the file. Don't forget to import all of the necessary components as
 well!
 
 ```jsx
@@ -763,7 +804,7 @@ export default routes;
 ```
 
 Now we just need to make sure we import our `routes` variable back into our
-`index.js` file:
+`index.js` file and pass it into `createBrowserRouter`:
 
 ```jsx
 // index.js
@@ -772,10 +813,10 @@ import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import routes from "./routes.js";
 
-const router = createBrowserRouter(routes)
+const router = createBrowserRouter(routes);
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(<RouterProvider router={router} />)
+root.render(<RouterProvider router={router} />);
 
 ```
 
@@ -790,13 +831,13 @@ You've now seen all the core functionality of React Router required for
 client-side routing. We've met the requirements so that our app can:
 
 - Conditionally render a different component based on the URL (using
-  `createBrowserRouter` and `RouterProvider`)
+  `createBrowserRouter` and `RouterProvider`).
 - Change the URL using JavaScript, without making a GET request and reloading
-  the HTML document (using the `<Link>` or `<NavLink>` components)
+  the HTML document (using the `<Link>` or `<NavLink>` components).
 
 In the coming lessons, we'll explore more of the advanced functionality provided
 by React Router. If you have the time, you should definitely look at the [React
-Router docs][react router docs] - especially the examples - to dive deeper into
+Router docs][react router docs] — especially the examples — to dive deeper into
 React Router's many features and get a better sense of how to use it in an
 application.
 
@@ -804,5 +845,5 @@ application.
 
 - [React Router docs][react router docs]
 
-[react router docs]: https://v5.reactrouter.com/web/guides/quick-start
+[react router docs]: https://reactrouter.com/en/main
 [soils]: https://en.wikipedia.org/wiki/Soil_type
