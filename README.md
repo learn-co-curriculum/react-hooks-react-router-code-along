@@ -606,13 +606,14 @@ from our backend:
 ```JavaScript
 const [user, setUser] = useState({});
 const params = useParams();
+const userId = params.id;
 
 useEffect(() =>{
-  fetch(`http://localhost:4000/users/${params.id}`)
+  fetch(`http://localhost:4000/users/${userId}`)
   .then(r => r.json())
   .then(data => setUser(data))
   .catch(error => console.error(error))
-}, []);
+}, [userId]);
 
 ```
 
@@ -636,13 +637,14 @@ import NavBar from "../components/NavBar";
 function UserProfile() {
   const [user, setUser] = useState({});
   const params = useParams();
+  const userId = params.id;
 
   useEffect(() =>{
-    fetch(`http://localhost:4000/users/${params.id}`)
+    fetch(`http://localhost:4000/users/${userId}`)
     .then(r => r.json())
     .then(data => setUser(data))
     .catch(error => console.error(error));
-  }, []);
+  }, [userId]);
 
   if(!user.name){
     return <h1>Loading...</h1>;
