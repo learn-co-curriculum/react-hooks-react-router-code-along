@@ -52,8 +52,7 @@ your browser.
 
 If you open up `src/index.js`, you will see that we are currently rendering our
 `Home` component, which will serve as the homepage of our application. `Home` is
-rendering a list of user cards displaying existing site users. The data for
-users is being imported from our `data.js` file into `Home`.
+rendering a list of user cards displaying existing site users.
 
 ```jsx
 // index.js
@@ -405,8 +404,7 @@ up the desired components.
 
 Nice! We're making good progress! But in our social media app, we'll probably
 want to see our user profiles. Let's create a new file in `pages` called
-`UserProfile.js`. We'll be importing user data from our `data.js` file directly
-into that component.
+`UserProfile.js`.
 
 Here's a basic setup for that component:
 
@@ -614,6 +612,12 @@ useEffect(() =>{
   .catch(error => console.error(error))
 }, [userId]);
 
+```
+
+We can now update the JSX to display our specific users name:
+
+```jsx
+<h1>{user.name}</h1>
 ```
 
 We'll also want to add some conditional rendering to make sure our app doesn't
