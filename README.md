@@ -67,7 +67,6 @@ root.render(<Home />);
 
 ```jsx
 // Home.js
-import users from "../data";
 import { useState, useEffect } from "react"
 import UserCard from "../components/UserCard";
 
@@ -599,7 +598,7 @@ Note that the key is the parameter we defined in our route, and the value is
 what appears in the URL.
 
 We can now use the data contained in our params object to access the specific
-piece of data we want to display! We can interpolate the `id` or our specific
+piece of data we want to display! We can interpolate the `id` of the
 user into a `fetch` request URL and `fetch` that user's specific information
 from our backend:
 
